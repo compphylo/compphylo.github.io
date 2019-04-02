@@ -26,7 +26,7 @@ Composite likelihood methods for model comparison using the ABLE package authore
 
 * What kind of data it uses:
 * Documentation:
-* GitHub: 
+* Software: 
  
 ### MESS
 MESS is a novel comparative phylogeographic model grounded in community 
@@ -40,8 +40,8 @@ meta-barcoding approaches will be implemented in the software package MESS
 designed by I. Overcast.
 
 * What kind of data it uses:
-* Documentation:
-* GitHub:
+* Documentation: [MESS documentation](https://pymess.readthedocs.io/en/latest/)
+* Software: [MESS GitHub](https://github.com/messDiv/MESS)
 
 ### Multi-DICE
 multi-taxa demographic inferences using hierarchical models in the R packages 
@@ -49,7 +49,7 @@ multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally
 
 * What kind of data it uses:
 * Documentation:
-* GitHub:
+* Software:
 
 ### PipeMaster
 multi-taxa demographic inferences using hierarchical models in the R packages 
@@ -57,9 +57,8 @@ multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally
 
 * What kind of data it uses:
 * Documentation:
-* GitHub:
+* Software:
 
-Advantages and limitations of each method and the fit to participant's datasets, 
 
 ## What is phylogeography/comparative phylogeography?
 
