@@ -39,7 +39,10 @@ methods which capitalize on the widespread use of DNA barcoding and
 meta-barcoding approaches will be implemented in the software package MESS 
 designed by I. Overcast.
 
-* What kind of data it uses:
+* What kind of data it uses: MESS requires population-level sampling (5-10
+individuals per species) at the scale of the whole community. Currently
+only single locus data is supported, so community metabarcoding projects
+would be quite appropriate.
 * Documentation: [MESS documentation](https://pymess.readthedocs.io/en/latest/)
 * Software: [MESS GitHub](https://github.com/messDiv/MESS)
 
