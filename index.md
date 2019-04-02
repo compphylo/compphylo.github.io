@@ -29,6 +29,11 @@ Workshop attendees will need to bring a laptop computer.
 
 ## References
 
+Beeravolu, Champak R., Michael J. Hickerson, Laurent A. F. Frantz, and Konrad Lohse. 2018. “ABLE: Blockwise Site Frequency Spectra for Inferring Complex Population Histories and Recombination.” Genome Biology 19 (1): 145.
+Gehara, Marcelo, Adrian A. Garda, Fernanda P. Werneck, Eliana F. Oliveira, Emanuel M. da Fonseca, Felipe Camurugi, Felipe de M. Magalhães, et al. 2017. “Estimating Synchronous Demographic Changes across Populations Using hABC and Its Application for a Herpetological Community from Northeastern Brazil.” Molecular Ecology 26 (18): 4756–71.
+Overcast, Isaac, Brent Emerson, and Michael J. Hickerson. 2018. “An Integrated Model of Population Genetics and Community Ecology.” bioRxiv. https://doi.org/10.1101/496125.
+Xue, A. T., and M. J. Hickerson. 2017. “Multi‐dice: R Package for Comparative Population Genomic Inference under Hierarchical Co‐demographic Models of Independent Single‐population Size Changes.” Molecular Ecology Resources. https://onlinelibrary.wiley.com/doi/abs/10.1111/1755-0998.12686.
+
 ## Acknowledgements
 
 [PoreCamp](https://porecamp.github.io/) - Which inspired the design of this workshop and also of this site.
