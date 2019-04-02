@@ -2,6 +2,7 @@
 ---
 
 @import "{{ site.theme }}";
+$header-bg-color: #159957
 .page-header {
   background-image:url('../../phylogeo_workshop.png');
 }
