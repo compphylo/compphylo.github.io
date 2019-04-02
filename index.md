@@ -1,11 +1,65 @@
 # Model-based inference in Phylogeography from single species to communities
 
-more boilerplate phylogeography stuff here
+CompPhylo workshops are designed to introduce a myriad of tools for making 
+statistical inference about historical processes using genetic/genomic data. 
+After introducing statistical approaches in model-based inferences, participants
+will be introduced to inference frameworks that span taxonomic scales from 
+single-species demographic inference, to multi-species comparative analysis, to
+inference at the scale of the whole community. Participants will also get hands
+on experience using approximate Bayesian computation, supervised machine 
+learning and composite likelihood methods for model comparison.
 
-CompPhylo workshops are designed to introduce a myriad of tools for making statistical
-inference about historical processes using genetic/genomic data.
+Participants will work on sample datasets but are also encouraged to bring their 
+own data. Advantages and limitations of each method and the fit to participant's 
+datasets, field sampling design as well as the selection and use of genetic 
+markers will be actively discussed. In addition, to strengthen connections and 
+exchanges between researchers, participants will have the opportunity to present 
+their own work in the evenings.
 
-After introducing statistical approaches in model-based inferences, participants will apply pipelines for single-species demographic inferences using Approximate Bayesian Computation, Supervised Machine Learning and composite likelihood methods for model comparison using the ABLE package authored by C. Beeravolu Reddy and the PipeMaster r-package authored by M. Gehara. Then, the workshop will cover multi-taxa demographic inferences using hierarchical models in the R packages multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally, novel comparative phylogeographic models grounded in community ecological theory will be introduced. This integrative approach makes use of four data axes (distributions of traits, abundances, genetic diversities/divergences, and phylogenic patterns) to enable testing alternative community assembly models (neutral vs non-neutral) and estimating parameters underlying different assembly processes (e.g. disersal vs in situ speciation). These methods which capitalize on the widespread use of DNA barcoding and meta-barcoding approaches will be implemented in the pipeline gimmeSAD/MESS designed by I. Overcast. Participants will work on sample datasets but are also encouraged to bring their own data. Advantages and limitations of each method and the fit to participant's datasets, field sampling design as well as the selection and use of genetic markers will be actively discussed. In addition, to strengthen connections and exchanges between researchers, participants will have the opportunity to present their work in the evenings.
+## Upcoming events:
+* [CompPhylo2019-Oslo](Oslo2019/index.md)
+
+## Details about methods
+
+### ABLE
+Composite likelihood methods for model comparison using the ABLE package authored by C. Beeravolu Reddy
+
+* What kind of data it uses:
+* Documentation:
+* GitHub: 
+ 
+### MESS
+MESS is a novel comparative phylogeographic model grounded in community 
+ecological theory will be introduced. This integrative approach makes use of 
+four data axes (distributions of traits, abundances, genetic diversities/
+divergences, and phylogenetic patterns) to enable testing alternative community 
+assembly models (neutral vs non-neutral) and estimating parameters underlying 
+different assembly processes (e.g. dispersal vs in situ speciation). These 
+methods which capitalize on the widespread use of DNA barcoding and 
+meta-barcoding approaches will be implemented in the software package MESS 
+designed by I. Overcast.
+
+* What kind of data it uses:
+* Documentation:
+* GitHub:
+
+### Multi-DICE
+multi-taxa demographic inferences using hierarchical models in the R packages 
+multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally, 
+
+* What kind of data it uses:
+* Documentation:
+* GitHub:
+
+### PipeMaster
+multi-taxa demographic inferences using hierarchical models in the R packages 
+multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally, 
+
+* What kind of data it uses:
+* Documentation:
+* GitHub:
+
+Advantages and limitations of each method and the fit to participant's datasets, 
 
 ## What is phylogeography/comparative phylogeography?
 
@@ -22,21 +76,19 @@ and python scripting/commands scripting is useful.
 
 Workshop attendees will need to bring a laptop computer.
 
-## Upcoming events:
-* [CompPhylo2019-Oslo](Oslo2019/index.md)
-
 ## Past events:
 
 ## References
 
-Beeravolu, Champak R., Michael J. Hickerson, Laurent A. F. Frantz, and Konrad Lohse. 2018. “ABLE: Blockwise Site Frequency Spectra for  Inferring Complex Population Histories and Recombination.” Genome Biology 19 (1): 145.
+Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018). ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145.
 
-Gehara, Marcelo, Adrian A. Garda, Fernanda P. Werneck, Eliana F. Oliveira, Emanuel M. da Fonseca, Felipe Camurugi, Felipe de M. Magalhães,  et al. 2017. “Estimating Synchronous Demographic Changes across Populations Using hABC and Its Application for a Herpetological Community from Northeastern Brazil.” Molecular Ecology 26 (18): 4756–71.
+Gehara, M, Garda, AA, Werneck, FP, Oliveira, EF, da Fonseca, EM, Camurugi, F, ... & Silveira-Filho, R (2017). Estimating synchronous demographic changes across populations using hABC and its application for a herpetological community from northeastern Brazil. Molecular ecology, 26(18), 4756-4771.
 
-Overcast, Isaac, Brent Emerson, and Michael J. Hickerson. 2018. “An Integrated Model of Population Genetics and Community Ecology.” bioRxiv. https://doi.org/10.1101/496125.
+Overcast, I, Emerson, BC, Hickerson, MJ. (2019). An integrated model of population genetics and community ecology. Journal of Biogeography, 46: 816-829. [https://doi.org/10.1111/jbi.13541](https://doi.org/10.1111/jbi.13541)
 
-Xue, A. T., and M. J. Hickerson. 2017. “Multi‐dice: R Package for Comparative Population Genomic Inference under Hierarchical Co‐demographic Models of Independent Single‐population Size Changes.” Molecular Ecology Resources. https://onlinelibrary.wiley.com/doi/abs/10.1111/1755-0998.12686.
+Xue, AT, & Hickerson, MJ (2017). multi-dice: r package for comparative population genomic inference under hierarchical co-demographic models of independent single-population size changes. Molecular ecology resources, 17(6), e212-e224.
 
 ## Acknowledgements
 
 [PoreCamp](https://porecamp.github.io/) - Which inspired the design of this workshop and also of this site.
+[RADCamp](https://radcamp.github.io/) - RAD-Seq assembly and analysis workshop resources.
