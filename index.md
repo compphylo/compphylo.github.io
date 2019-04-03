@@ -26,7 +26,8 @@ Composite likelihood methods for model comparison using the ABLE package authore
 
 * What kind of data it uses:
 * Documentation:
-* Software: 
+* Software:
+* Reference: Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018). ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145.
  
 ### MESS
 MESS is a novel comparative phylogeographic model grounded in community 
@@ -70,12 +71,6 @@ multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally
 * Software:
 * Reference: Gehara, M, Garda, AA, Werneck, FP, Oliveira, EF, da Fonseca, EM, Camurugi, F, ... & Silveira-Filho, R (2017). Estimating synchronous demographic changes across populations using hABC and its application for a herpetological community from northeastern Brazil. Molecular ecology, 26(18), 4756-4771.
 
-### ABLE
-
-* What kind of data it uses:
-* Documentation:
-* Software:
-* Reference: Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018). ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145.
 
 
 ## What is phylogeography/comparative phylogeography?
