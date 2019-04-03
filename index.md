@@ -46,7 +46,7 @@ individual, a locally sampled plot targeting everything from a taxonomic group, 
 regional assemblage that emerged via disersal and/or local speciation. Currently only 
 single locus data is supported, so community metabarcoding projects would be quite 
 appropriate. Other data types can be included but are not required (abundances, per taxon 
-trait metrics, and phylogenetic information.   
+trait metrics, and phylogenetic information).   
 * Documentation: [MESS documentation](https://pymess.readthedocs.io/en/latest/)
 * Software: [MESS GitHub](https://github.com/messDiv/MESS)
 * Reference: Overcast, I, Emerson, BC, Hickerson, MJ. (2019). An integrated model of population genetics and community ecology. Journal of Biogeography, 46: 816-829. [https://doi.org/10.1111/jbi.13541](https://doi.org/10.1111/jbi.13541)
