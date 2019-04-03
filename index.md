@@ -39,12 +39,17 @@ methods which capitalize on the widespread use of DNA barcoding and
 meta-barcoding approaches will be implemented in the software package MESS 
 designed by I. Overcast.
 
-* What kind of data it uses: MESS requires population-level sampling (5-10
-individuals per species) at the scale of the whole community. Currently
-only single locus data is supported, so community metabarcoding projects
-would be quite appropriate.
+* What kind of genetic data it uses: MESS requires population-level sampling (5-10
+individuals per species) from a local community or multiple local communities.
+This can be at a variety of scales ranging from a microbial community within a host 
+individual, a locally sampled plot targeting everything from a taxonomic group, to a 
+regional assemblage that emerged via disersal and/or local speciation. Currently only 
+single locus data is supported, so community metabarcoding projects would be quite 
+appropriate. Other data types can be included but are not required (abundances, per taxon 
+trait metrics, and phylogenetic information.   
 * Documentation: [MESS documentation](https://pymess.readthedocs.io/en/latest/)
 * Software: [MESS GitHub](https://github.com/messDiv/MESS)
+* Reference: Overcast, I, Emerson, BC, Hickerson, MJ. (2019). An integrated model of population genetics and community ecology. Journal of Biogeography, 46: 816-829. [https://doi.org/10.1111/jbi.13541](https://doi.org/10.1111/jbi.13541)
 
 ### Multi-DICE
 multi-taxa demographic inferences using hierarchical models in the R packages 
@@ -53,6 +58,8 @@ multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally
 * What kind of data it uses:
 * Documentation:
 * Software:
+* Reference: Xue, AT, & Hickerson, MJ (2017). multi-dice: r package for comparative population genomic inference under hierarchical co-demographic models of independent single-population size changes. Molecular ecology resources, 17(6), e212-e224.
+
 
 ### PipeMaster
 multi-taxa demographic inferences using hierarchical models in the R packages 
@@ -61,6 +68,14 @@ multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally
 * What kind of data it uses:
 * Documentation:
 * Software:
+* Reference: Gehara, M, Garda, AA, Werneck, FP, Oliveira, EF, da Fonseca, EM, Camurugi, F, ... & Silveira-Filho, R (2017). Estimating synchronous demographic changes across populations using hABC and its application for a herpetological community from northeastern Brazil. Molecular ecology, 26(18), 4756-4771.
+
+### ABLE
+
+* What kind of data it uses:
+* Documentation:
+* Software:
+* Reference: Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018). ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145.
 
 
 ## What is phylogeography/comparative phylogeography?
@@ -80,15 +95,7 @@ Workshop attendees will need to bring a laptop computer.
 
 ## Past events:
 
-## References
 
-Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018). ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145.
-
-Gehara, M, Garda, AA, Werneck, FP, Oliveira, EF, da Fonseca, EM, Camurugi, F, ... & Silveira-Filho, R (2017). Estimating synchronous demographic changes across populations using hABC and its application for a herpetological community from northeastern Brazil. Molecular ecology, 26(18), 4756-4771.
-
-Overcast, I, Emerson, BC, Hickerson, MJ. (2019). An integrated model of population genetics and community ecology. Journal of Biogeography, 46: 816-829. [https://doi.org/10.1111/jbi.13541](https://doi.org/10.1111/jbi.13541)
-
-Xue, AT, & Hickerson, MJ (2017). multi-dice: r package for comparative population genomic inference under hierarchical co-demographic models of independent single-population size changes. Molecular ecology resources, 17(6), e212-e224.
 
 ## Acknowledgements
 
