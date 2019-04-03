@@ -63,13 +63,14 @@ multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally
 
 
 ### PipeMaster
-multi-taxa demographic inferences using hierarchical models in the R packages 
-multi-DICE and PipeMaster authored by A. Xue and M. Gehara respectively. Finally, 
+PipeMaster is an R-package to build demographic models and simulate data under the coalescent model. Current implementation can simulate sanger-type and nexgen data for single species or complex of species. It is also possible to simulate single-locus data for hierarchical demographic models of comparative phylogeography and species trees with one horizontal connection (Phylogenetic Networks).
+PipeMaster simulates summary statistics and coalescent trees. It calculates the same summary statistics on an empirical data. The user can use these sumary statistics to perform aproximate Bayesian computation (ABC) or supervized machine learning (SML) for model and parameter inference.
 
-* What kind of data it uses:
-* Documentation:
-* Software:
-* Reference: Gehara, M, Garda, AA, Werneck, FP, Oliveira, EF, da Fonseca, EM, Camurugi, F, ... & Silveira-Filho, R (2017). Estimating synchronous demographic changes across populations using hABC and its application for a herpetological community from northeastern Brazil. Molecular ecology, 26(18), 4756-4771.
+* What kind of data it uses: Sanger, UCE, Radseq, ddRad, Anchored loci for non-hierarchical models. PipeMaster does not use the SFS, but fasta alignments of the entire loci with monomorphic sites. Alignments of invariable loci should also be included in the input. Single-locus data for comparative demography.
+* Documentation:(https://github.com/gehara/PipeMaster)
+* Software: PipeMaster (https://github.com/gehara/PipeMaster)
+* References: Gehara, M, Garda, AA, Werneck, FP, Oliveira, EF, da Fonseca, EM, Camurugi, F, ... & Silveira-Filho, R (2017). Estimating synchronous demographic changes across populations using hABC and its application for a herpetological community from northeastern Brazil. Molecular ecology, 26(18), 4756-4771.
+* Gehara M, Barth A, Oliveira EF de et al. (2017) Model-based analyses reveal insular population diversification and cryptic frog species in the Ischnocnema parva complex in the Atlantic Forest of Brazil. Molecular Phylogenetics and Evolution, 112, 68–78.
 
 
 
