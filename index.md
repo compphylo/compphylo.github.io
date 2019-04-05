@@ -22,12 +22,14 @@ their own work in the evenings.
 ## Details about methods
 
 ### ABLE
-Composite likelihood methods for model comparison using the ABLE package authored by C. Beeravolu Reddy
+`ABLE` is a composite likelihood method for the joint inference of arbitrary population histories and the genome-wide recombination rate. It makes use of the distribution of blockwise SFS (bSFS) patterns which retain information on the variation in genealogies spanning short-range linkage blocks across the genome. `ABLE` does not require phased data as the bSFS does not distinguish the sampled lineage in which a mutation has occurred. Like with the SFS, outgroup information can be also be ignored by folding the bSFS. `ABLE` takes advantage of `openmp` parallelization and is tailored for studying population histories of model as well as non-model species.
 
-* What kind of data it uses:
-* Documentation:
-* Software:
-* Reference: Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018). ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145.
+`ABLE` stands for Approximate Blockwise Likelihood Estimation. It is written in C/C++ and authored by [Champak Beeravolu Reddy](https://www3.unifr.ch/directory/fr/people/286145/0d8d0)
+
+* What kind of data it uses: `ABLE` can use data from multiple whole genome sequences or fragmented assemblies (e.g. UCE's, RADSeq or targeted exomes). In many aspects `ABLE` uses the same type of data as the `PipeMaster` method mentioned further below.
+* Documentation: "[helpABLE](https://github.com/champost/ABLE/blob/master/doc/helpABLE.pdf)"
+* Software: [ABLE](https://github.com/champost/ABLE)
+* Reference: **Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018).** [ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145](https://doi.org/10.1186/s13059-018-1517-y).
  
 ### MESS
 MESS is a novel comparative phylogeographic model grounded in community 
