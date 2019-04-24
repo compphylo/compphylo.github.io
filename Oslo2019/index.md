@@ -15,6 +15,8 @@ biogeographic shifts and demographic responses of single- and multi-taxa as well
 as to contribute to knowledge exchange on methodological challenges and diverse 
 biological systems for this cutting-edge field of research.
 
+[Call for participation and full workshop description](https://www.forbio.uio.no/events/courses/2019/Phylogeography)
+
 ## Organisers
   - [Hugo de Boer](hugo.deboer@nhm.uio.no) (ForBio)
   - [Marie Leys](marie.leys@ibv.uio.no) (University of Oslo)
