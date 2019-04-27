@@ -24,9 +24,10 @@ biological systems for this cutting-edge field of research.
 ## Instructors, and Facilitators
   - Mike Hickerson (City College of New York)
   - Marcelo Gehara (American Museum of Natural History)
-  - Champak Beeravolu Reddy (University of Fribourg)
-  - Alexander Xue (Cold Spring Harbor Laboratory)
   - Isaac Overcast (Graduate Center, City University of New York)
+  - Champak Beeravolu Reddy (University of Fribourg)
+  - Megan Ruffley (University of Idaho)
+  - Alexander Xue (Cold Spring Harbor Laboratory)
 
 ## Registration
 
