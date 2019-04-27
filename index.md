@@ -33,14 +33,14 @@ their own work in the evenings.
  
 ### MESS
 MESS is a novel comparative phylogeographic model grounded in community 
-ecological theory will be introduced. This integrative approach makes use of 
-four data axes (distributions of traits, abundances, genetic diversities/
-divergences, and phylogenetic patterns) to enable testing alternative community 
-assembly models (neutral vs non-neutral) and estimating parameters underlying 
-different assembly processes (e.g. dispersal vs in situ speciation). These 
-methods which capitalize on the widespread use of DNA barcoding and 
-meta-barcoding approaches will be implemented in the software package MESS 
-designed by I. Overcast.
+ecological theory. This integrative approach makes use of four data axes 
+(distributions of traits, abundances, genetic diversities/divergences, and 
+phylogenetic patterns) to enable testing alternative community assembly models 
+(neutral vs non-neutral) and estimating parameters underlying different 
+assembly processes (e.g. dispersal vs in situ speciation). This method 
+capitalizes on the widespread use of DNA barcoding and meta-barcoding 
+approaches and is implemented in the software package MESS co-developed by I. 
+Overcast & M. Ruffley.
 
 * What kind of genetic data it uses: MESS requires population-level sampling (5-10
 individuals per species) from a local community or multiple local communities.
