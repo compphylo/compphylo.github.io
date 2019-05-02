@@ -1,19 +1,19 @@
 # Model-based inference in Phylogeography from single species to communities
 
-CompPhylo workshops are designed to introduce a myriad of tools for making 
-statistical inference about historical processes using genetic/genomic data. 
+CompPhylo workshops are designed to introduce a myriad of tools for making
+statistical inference about historical processes using genetic/genomic data.
 After introducing statistical approaches in model-based inferences, participants
-will be introduced to inference frameworks that span taxonomic scales from 
+will be introduced to inference frameworks that span taxonomic scales from
 single-species demographic inference, to multi-species comparative analysis, to
 inference at the scale of the whole community. Participants will also get hands
-on experience using approximate Bayesian computation, supervised machine 
+on experience using approximate Bayesian computation, supervised machine
 learning and composite likelihood methods for model comparison.
 
-Participants will work on sample datasets but are also encouraged to bring their 
-own data. Advantages and limitations of each method and the fit to participant's 
-datasets, field sampling design as well as the selection and use of genetic 
-markers will be actively discussed. In addition, to strengthen connections and 
-exchanges between researchers, participants will have the opportunity to present 
+Participants will work on sample datasets but are also encouraged to bring their
+own data. Advantages and limitations of each method and the fit to participant's
+datasets, field sampling design as well as the selection and use of genetic
+markers will be actively discussed. In addition, to strengthen connections and
+exchanges between researchers, participants will have the opportunity to present
 their own work in the evenings.
 
 ## Upcoming events:
@@ -30,25 +30,32 @@ their own work in the evenings.
 * Documentation: "[helpABLE](https://github.com/champost/ABLE/blob/master/doc/helpABLE.pdf)"
 * Software: [ABLE](https://github.com/champost/ABLE)
 * Reference: **Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018).** [ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145](https://doi.org/10.1186/s13059-018-1517-y).
- 
+
+### CAMI
+CAMI employs a stochastic algorithm to simulate communities assembled under environmental filtering, competitive exclusion, and neutral species assembly processes -simultaneously considering phylogenetic and phenotypic information from species in local and regional communities. CAMI parameterizes the relative strength of the assembly processes to mimic strong to weak non-neutral assembly. CAMI implements a model-based inference procedure by using two approximate approaches, random forests and approximate Bayesian computation. Additionally, because the strength of non-neutral assembly models is parameterized, the strength parameter can be estimated.
+
+* What kind of data it uses: CAMI uses phylogenetic information from species in a regional community pool and local community pool, along with continuous trait information for each species present in the phylogenies.
+* Software: [CAMI github](https://github.com/ruffleymr/CAMI)
+* References: Ruffley M, Peterson K, Week B, Tank DC, Harmon LJ. (2019) Identifying Models of Trait-Mediated Community Assembly Using Random Forests and Approximate Bayesian Computation. In review. Link Soon.
+
 ### MESS
-MESS is a novel comparative phylogeographic model grounded in community 
-ecological theory. This integrative approach makes use of four data axes 
-(distributions of traits, abundances, genetic diversities/divergences, and 
-phylogenetic patterns) to enable testing alternative community assembly models 
-(neutral vs non-neutral) and estimating parameters underlying different 
-assembly processes (e.g. dispersal vs in situ speciation). This method 
-capitalizes on the widespread use of DNA barcoding and meta-barcoding 
-approaches and is implemented in the software package MESS co-developed by I. 
+MESS is a novel comparative phylogeographic model grounded in community
+ecological theory. This integrative approach makes use of four data axes
+(distributions of traits, abundances, genetic diversities/divergences, and
+phylogenetic patterns) to enable testing alternative community assembly models
+(neutral vs non-neutral) and estimating parameters underlying different
+assembly processes (e.g. dispersal vs in situ speciation). This method
+capitalizes on the widespread use of DNA barcoding and meta-barcoding
+approaches and is implemented in the software package MESS co-developed by I.
 Overcast & M. Ruffley.
 
 * What kind of genetic data it uses: MESS requires population-level sampling (5-10
 individuals per species) from a local community or multiple local communities.
-This can be at a variety of scales ranging from a microbial community within a host 
-individual, a locally sampled plot targeting everything from a taxonomic group, to a 
-regional assemblage that emerged via disersal and/or local speciation. Currently only 
-single locus data is supported, so community metabarcoding projects would be quite 
-appropriate. Other data types can be included but are not required (abundances, per taxon 
+This can be at a variety of scales ranging from a microbial community within a host
+individual, a locally sampled plot targeting everything from a taxonomic group, to a
+regional assemblage that emerged via disersal and/or local speciation. Currently only
+single locus data is supported, so community metabarcoding projects would be quite
+appropriate. Other data types can be included but are not required (abundances, per taxon
 trait metrics, and phylogenetic information).   
 * Documentation: [MESS documentation](https://pymess.readthedocs.io/en/latest/)
 * Software: [MESS GitHub](https://github.com/messDiv/MESS)
@@ -86,8 +93,8 @@ PipeMaster simulates summary statistics and coalescent trees. It calculates the 
 
 ## Who should attend?
 CompPhylo workshops are geared toward practicing field biologists with little
-or no computational experience. General knowledge in evolutionary biology, 
-population genetic and phylogenetic analyses. Basic knowledge in R. bash/Linux 
+or no computational experience. General knowledge in evolutionary biology,
+population genetic and phylogenetic analyses. Basic knowledge in R. bash/Linux
 and python scripting/commands scripting is useful.
 
 Workshop attendees will need to bring a laptop computer.
