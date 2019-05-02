@@ -32,7 +32,9 @@ their own work in the evenings.
 * Reference: **Beeravolu, CR, Hickerson, MJ, Frantz, LA, & Lohse, K (2018).** [ABLE: blockwise site frequency spectra for inferring complex population histories and recombination. Genome biology, 19(1), 145](https://doi.org/10.1186/s13059-018-1517-y).
 
 ### CAMI
-CAMI employs a stochastic algorithm to simulate communities assembled under environmental filtering, competitive exclusion, and neutral species assembly processes -simultaneously considering phylogenetic and phenotypic information from species in local and regional communities. CAMI parameterizes the relative strength of the assembly processes to mimic strong to weak non-neutral assembly. CAMI implements a model-based inference procedure by using two approximate approaches, random forests and approximate Bayesian computation. Additionally, because the strength of non-neutral assembly models is parameterized, the strength parameter can be estimated.
+**CAMI** employs a stochastic algorithm to simulate communities assembled under environmental filtering, competitive exclusion, and neutral species assembly processes -simultaneously considering phylogenetic and phenotypic information from species in local and regional communities. CAMI parameterizes the relative strength of the assembly processes to mimic strong to weak non-neutral assembly. CAMI implements a model-based inference procedure by using two approximate approaches, random forests and approximate Bayesian computation. Additionally, because the strength of non-neutral assembly models is parameterized, the strength parameter can be estimated.
+
+**CAMI** stands for Community Assembly Model Inference and is implemented as an R package.
 
 * What kind of data it uses: CAMI uses phylogenetic information from species in a regional community pool and local community pool, along with continuous trait information for each species present in the phylogenies.
 * Software: [CAMI github](https://github.com/ruffleymr/CAMI)
