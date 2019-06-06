@@ -9,6 +9,10 @@ __?????__. However, you can follow along with one of the other example
 data sets if you like and although your results will vary the procedure will 
 be identical. 
 
+## MESS Part I Outline
+* [Overview of MESS Simulations](#Overview-of-MESS-simulation-and-analysis-workflow)
+* 
+
 Each grey cell in this tutorial indicates a command line interaction. 
 Lines starting with `$ ` indicate a command that should be executed 
 in a terminal connected to the cluster, for example by copying and 
