@@ -10,7 +10,7 @@ data sets if you like and although your results will vary the procedure will
 be identical. 
 
 ## MESS Part I Outline
-* [Overview of MESS Simulations](#Overview-of-MESS-simulation-and-analysis-workflow)
+* [Overview of MESS Simulations](#overview-of-MESS-simulation-and-analysis-workflow)
 * 
 
 Each grey cell in this tutorial indicates a command line interaction. 
