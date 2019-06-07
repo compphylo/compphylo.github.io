@@ -11,7 +11,10 @@ be identical.
 
 ## MESS Part I Outline
 * [Overview of MESS Simulations](#MESS-Overview)
-* 
+* [Installation](#Installation)
+* [TL;DR Run your first simulations](#TLDR-Simulations)
+* [MESS CLI Help](#MESS-Help)
+* [Create and edit a new params file](#Create-Params-File)
 
 Each grey cell in this tutorial indicates a command line interaction. 
 Lines starting with `$ ` indicate a command that should be executed 
@@ -33,7 +36,7 @@ wat
 ```
 
 <a name="MESS-Overview"></a>
-# Overview of MESS simulation and analysis workflow
+## Overview of MESS simulation and analysis workflow
 
 ![png](images/Forward_Time_Neutral_Assembly.png)
 
@@ -44,6 +47,148 @@ The basic steps of this process are as follows:
 * Step 3 - Use ML inference procedure
 * Step 4 - ???
 * Step 5 - Profit!!
+
+<a name="Installation"></a>
+## Installing MESS
+
+<a name="TLDR-Simulations"></a>
+## TL;DR Just show me how to do the simuations! 
+Say you're impatient and want to skip right to the good stuff, well here you go.
+
+```
+## Create a parameters file
+MESS -n new-sims
+## Do 10 simulations using the default settings
+MESS -p params-new-sims.txt -s 10
+```
+
+<a name="MESS-Help"></a>
+## MESS Help
+To better understand how to use MESS, let's take a look at the `help` argument.
+We will use some of the MESS command line arguments in this tutorial (for
+example: -n, -p, -s, -c). The complete list of optional arguments and
+their explanation can be accessed with the `--help` flag:
+
+```
+$ MESS -h
+usage: MESS [-h] [-n new] [-p params] [-s sims] [-c cores] [-r] [-e empirical]
+            [-f] [-q] [-Q] [-d] [-l] [--ipcluster [ipcluster]] [--fancy-plots]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -n new                create new file 'params-{new}.txt' in current
+                        directory
+  -p params             path to params file simulations: params-{name}.txt
+  -s sims               Generate specified number of simulations
+  -c cores              number of CPU cores to use (Default=0=All)
+  -r                    show status of this simulation run
+  -e empirical          Validate and import empirical data.
+  -f                    force overwrite of existing data
+  -q                    do not print to stderror or stdout.
+  -Q                    do not print anything ever.
+  -d                    print lots more info to mess_log.txt.
+  -l                    Write out lots of information in one directory per
+                        simulation.
+  --ipcluster [ipcluster]
+                        connect to ipcluster profile
+  --fancy-plots         Construct fancy plots and animated gifs.
+
+  * Example command-line usage:
+    MESS -n data                       ## create new file called params-data.txt
+    MESS -p params-data.txt            ## run MESS with settings in params file
+    MESS -p params-data.txt -f         ## run MESS, overwrite existing data.
+```
+
+<a name="Create-Params-File"></a>
+## Create a new parameters file
+ipyrad uses a text file to hold all the parameters for a given assembly.
+Start by creating a new parameters file with the `-n` flag. This flag
+requires you to pass in a name for your assembly. In the example we use
+`simdata` but the name can be anything at all. Once you start
+analysing your own data you might call your parameters file something
+more informative, like the name of your organism and some details on the settings.
+
+```bash 
+# go to our working directory
+$ cd ~/work
+
+# Create a new params file named 'simdata'
+$ MESS -n simdata
+```
+
+This will create a file in the current directory called `params-simdata.txt`.
+The params file lists on each line one parameter followed by a \#\# mark, then
+the name of the parameter, and then a short description of its purpose. Lets
+take a look at it.
+
+``` 
+$ cat params-simdata.txt
+------- MESS params file (v.0.0.99)---------------------------------------------
+simdata              ## [0] [simulation_name]: The name of this simulation scenario
+./default_MESS       ## [1] [project_dir]: Where to save files
+0                    ## [2] [generations]: Duration of simulations. Specify int range or 0 for lambda.
+neutral              ## [3] [community_assembly_model]: Model of Community Assembly: neutral, filtering, competition
+point_mutation       ## [4] [speciation_model]: Type of speciation process: none, point_mutation, protracted, random_fission
+2.2e-08              ## [5] [mutation_rate]: Mutation rate scaled per base per generation
+2000                 ## [6] [alpha]: Abundance/Ne scaling factor
+570                  ## [7] [sequence_length]: Length in bases of the sequence to simulate
+------- Metacommunity params: --------------------------------------------------
+100                  ## [0] [S_m]: Number of species in the regional pool
+750000               ## [1] [J_m]: Total # of individuals in the regional pool
+2                    ## [2] [speciation_rate]: Speciation rate of metacommunity
+0.7                  ## [3] [death_proportion]: Proportion of speciation rate to be extinction rate
+2                    ## [4] [trait_rate_meta]: Trait evolution rate parameter for metacommunity
+1                    ## [5] [ecological_strength]: Strength of community assembly process on phenotypic change
+------- LocalCommunity params: island1------------------------------------------
+island1              ## [0] [name]: Local community name
+1000                 ## [1] [J]: Number of individuals in the local community
+0.01                 ## [2] [m]: Migration rate into local community
+0                    ## [3] [speciation_prob]: Probability of speciation per timestep in local community
+```
+
+In general the defaults are sensible, and we won't mess with them for now, 
+but there are a few parameters we *must* change: the path to the raw data, 
+the dataype, the restriction overhang sequence, and the barcodes file.
+
+We will use the `nano` text editor to modify `params-simdata.txt` and change
+these parameters:
+
+```bash
+$ nano params-simdata.txt
+```
+
+Nano is a command line editor, so you'll need to use only the arrow keys
+on the keyboard for navigating around the file. Nano accepts a few special
+keyboard commands for doing things other than modifying text, and it lists
+these on the bottom of the frame.
+
+We need to specify where the raw data files are located, the type of data we are using (.e.g., 'gbs', 'rad', 'ddrad', 'pairddrad), and which enzyme cut site overhangs are expected to be present on the reads. Below are the parameter setings you'll need to change for the simulated single-end RAD example data:
+
+```bash
+/home/jovyan/ro-data/ipsimdata/rad_example_R1_.fastq.gz        ## [2] [raw_fastq_path]: Location ofraw non-demultiplexed fastq files
+/home/jovyan/ro-data/ipsimdata/rad_example_barcodes.txt        ## [3] [barcodes_path]: Location of barcodes file
+rad                            ## [7] [datatype]: Datatype (see docs): rad, gbs, ddrad, etc.
+TGCAG,                         ## [8] [restriction_overhang]: Restriction overhang (cut1,) or (cut1, cut2)
+```
+
+After you change these parameters you may save and exit nano by typing CTRL+o
+(to write **O**utput), and then CTRL+x (to e**X**it the program).
+
+> **Note:** The `CTRL+x` notation indicates that you should hold down the control
+key (which is often styled 'ctrl' on the keyboard) and then push 'x'.
+
+Once we start running the simulations and performing analysis MESS will create
+all the new files and directories it needs are created in the `project_dir`
+directory and use the prefix specified by the `simulation_name` parameter.
+Because we use the default (`./`) for the `project_dir` for this tutorial, all these
+intermediate directories will be of the form: `~/work/simdata_*`,
+or the analagous name that you used for your assembly name.
+
+> **Note:** Again, the `./` notation indicates the current working directory.
+You can always view the current working directory with the `pwd` command
+(**p**rint **w**orking **d**irectory).
+
+#############################
 
 > **Note on files in the project directory:** Assembling RAD-seq type 
 sequence data requires a lot of different steps, and these steps 
@@ -63,156 +208,8 @@ complexity of working in a real production environment, such as with an HPC
 system at your home campus. In this case we provide [extensive documentation about using ipyrad
 on HPC systems elsewhere on the RADCamp site](https://radcamp.github.io/NYC2018/02_ipyrad_partI_CLI.html#working-with-the-cluster).
 
-## ipyrad help
-To better understand how to use ipyrad, let's take a look at the help argument. We will use some of the ipyrad arguments in this tutorial (for example: -n, -p, -s, -c, -r). The complete list of optional arguments and their explanation can be accessed with the `--help` flag:
 
-```
-$ ipyrad --help
-usage: ipyrad [-h] [-v] [-r] [-f] [-q] [-d] [-n new] [-p params]
-              [-b [branch [branch ...]]] [-m [merge [merge ...]]] [-s steps]
-              [-c cores] [-t threading] [--MPI] [--preview]
-              [--ipcluster [ipcluster]] [--download [download [download ...]]]
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -v, --version         show program's version number and exit
-  -r, --results         show results summary for Assembly in params.txt and
-                        exit
-  -f, --force           force overwrite of existing data
-  -q, --quiet           do not print to stderror or stdout.
-  -d, --debug           print lots more info to ipyrad_log.txt.
-  -n new                create new file 'params-{new}.txt' in current
-                        directory
-  -p params             path to params file for Assembly:
-                        params-{assembly_name}.txt
-  -b [branch [branch ...]]
-                        create a new branch of the Assembly as
-                        params-{branch}.txt
-  -m [merge [merge ...]]
-                        merge all assemblies provided into a new assembly
-  -s steps              Set of assembly steps to perform, e.g., -s 123
-                        (Default=None)
-  -c cores              number of CPU cores to use (Default=0=All)
-  -t threading          tune threading of binaries (Default=2)
-  --MPI                 connect to parallel CPUs across multiple nodes
-  --preview             run ipyrad in preview mode. Subset the input file so
-                        it'll runquickly so you can verify everything is
-                        working
-  --ipcluster [ipcluster]
-                        connect to ipcluster profile (default: 'default')
-  --download [download [download ...]]
-                        download fastq files by accession (e.g., SRP or SRR)
-
-  * Example command-line usage: 
-    ipyrad -n data                       ## create new file called params-data.txt 
-    ipyrad -p params-data.txt            ## run ipyrad with settings in params file
-    ipyrad -p params-data.txt -s 123     ## run only steps 1-3 of assembly.
-    ipyrad -p params-data.txt -s 3 -f    ## run step 3, overwrite existing data.
-
-  * HPC parallelization across 32 cores
-    ipyrad -p params-data.txt -s 3 -c 32 --MPI
-
-  * Print results summary 
-    ipyrad -p params-data.txt -r 
-
-  * Branch/Merging Assemblies
-    ipyrad -p params-data.txt -b newdata  
-    ipyrad -m newdata params-1.txt params-2.txt [params-3.txt, ...]
-
-  * Subsample taxa during branching
-    ipyrad -p params-data.txt -b newdata taxaKeepList.txt
-
-  * Download sequence data from SRA into directory 'sra-fastqs/' 
-    ipyrad --download SRP021469 sra-fastqs/ 
-
-  * Documentation: http://ipyrad.readthedocs.io
-```
-
-## Create a new parameters file
-ipyrad uses a text file to hold all the parameters for a given assembly.
-Start by creating a new parameters file with the `-n` flag. This flag
-requires you to pass in a name for your assembly. In the example we use
-`simdata` but the name can be anything at all. Once you start
-analysing your own data you might call your parameters file something
-more informative, like the name of your organism and some details on the settings.
-
-```bash 
-# go to our working directory
-$ cd ~/work
-
-# create a new params file named 'simdata'
-$ ipyrad -n simdata
-```
-
-This will create a file in the current directory called `params-simdata.txt`. The 
-params file lists on each line one parameter followed by a \#\# mark, then the name of the 
-parameter, and then a short description of its purpose. Lets take a look at it.
-
-``` 
-$ cat params-simdata.txt
-------- ipyrad params file (v.0.7.28)-------------------------------------------
-simdata                         ## [0] [assembly_name]: Assembly name. Used to name output directories for assembly steps
-./                             ## [1] [project_dir]: Project dir (made in curdir if not present)
-                               ## [2] [raw_fastq_path]: Location of raw non-demultiplexed fastq files
-                               ## [3] [barcodes_path]: Location of barcodes file
-                               ## [4] [sorted_fastq_path]: Location of demultiplexed/sorted fastq files
-denovo                         ## [5] [assembly_method]: Assembly method (denovo, reference, denovo+reference, denovo-reference)
-                               ## [6] [reference_sequence]: Location of reference sequence file
-rad                            ## [7] [datatype]: Datatype (see docs): rad, gbs, ddrad, etc.
-TGCAG,                         ## [8] [restriction_overhang]: Restriction overhang (cut1,) or (cut1, cut2)
-5                              ## [9] [max_low_qual_bases]: Max low quality base calls (Q<20) in a read
-33                             ## [10] [phred_Qscore_offset]: phred Q score offset (33 is default and very standard)
-6                              ## [11] [mindepth_statistical]: Min depth for statistical base calling
-6                              ## [12] [mindepth_majrule]: Min depth for majority-rule base calling
-10000                          ## [13] [maxdepth]: Max cluster depth within samples
-0.85                           ## [14] [clust_threshold]: Clustering threshold for de novo assembly
-0                              ## [15] [max_barcode_mismatch]: Max number of allowable mismatches in barcodes
-0                              ## [16] [filter_adapters]: Filter for adapters/primers (1 or 2=stricter)
-35                             ## [17] [filter_min_trim_len]: Min length of reads after adapter trim
-2                              ## [18] [max_alleles_consens]: Max alleles per site in consensus sequences
-5, 5                           ## [19] [max_Ns_consens]: Max N's (uncalled bases) in consensus (R1, R2)
-8, 8                           ## [20] [max_Hs_consens]: Max Hs (heterozygotes) in consensus (R1, R2)
-4                              ## [21] [min_samples_locus]: Min # samples per locus for output
-20, 20                         ## [22] [max_SNPs_locus]: Max # SNPs per locus (R1, R2)
-8, 8                           ## [23] [max_Indels_locus]: Max # of indels per locus (R1, R2)
-0.5                            ## [24] [max_shared_Hs_locus]: Max # heterozygous sites per locus (R1, R2)
-0, 0, 0, 0                     ## [25] [trim_reads]: Trim raw read edges (R1>, <R1, R2>, <R2) (see docs)
-0, 0, 0, 0                     ## [26] [trim_loci]: Trim locus edges (see docs) (R1>, <R1, R2>, <R2)
-p, s, v                        ## [27] [output_formats]: Output formats (see docs)
-                               ## [28] [pop_assign_file]: Path to population assignment file
-```
-
-In general the defaults are sensible, and we won't mess with them for now, 
-but there are a few parameters we *must* change: the path to the raw data, 
-the dataype, the restriction overhang sequence, and the barcodes file.
-
-We will use the `nano` text editor to modify `params-simdata.txt` and change
-these parameters:
-
-```bash
-$ nano params-simdata.txt
-```
-![png](02_ipyrad_partI_CLI_files/ipyrad_part1_nano.png)
-
-Nano is a command line editor, so you'll need to use only the arrow keys 
-on the keyboard for navigating around the file. Nano accepts a few special
-keyboard commands for doing things other than modifying text, and it lists 
-these on the bottom of the frame. 
-
-We need to specify where the raw data files are located, the type of data we are using (.e.g., 'gbs', 'rad', 'ddrad', 'pairddrad), and which enzyme cut site overhangs are expected to be present on the reads. Below are the parameter setings you'll need to change for the simulated single-end RAD example data:
-
-```bash
-/home/jovyan/ro-data/ipsimdata/rad_example_R1_.fastq.gz        ## [2] [raw_fastq_path]: Location ofraw non-demultiplexed fastq files
-/home/jovyan/ro-data/ipsimdata/rad_example_barcodes.txt        ## [3] [barcodes_path]: Location of barcodes file
-rad                            ## [7] [datatype]: Datatype (see docs): rad, gbs, ddrad, etc.
-TGCAG,                         ## [8] [restriction_overhang]: Restriction overhang (cut1,) or (cut1, cut2)
-```
-
-After you change these parameters you may save and exit nano by typing CTRL+o 
-(to write **O**utput), and then CTRL+x (to e**X**it the program).
-
-> **Note:** The `CTRL+x` notation indicates that you should hold down the control
-key (which is often styled 'ctrl' on the keyboard) and then push 'x'.
 
 Once we start running the analysis ipyrad will create several new 
 directories to hold the output of each step for this assembly. By 
