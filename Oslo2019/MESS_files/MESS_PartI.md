@@ -57,8 +57,8 @@ The basic steps of this process are as follows:
 * Step 2 - Run mega simulations
 * Step 3 - Use ML to infer community assembly process (neutral/competition/filtering)
 * Setp 4 - Use ML to estimate key community assembly parameters
-* Step 4 - ???
-* Step 5 - Profit!!
+* Step 5 - ???
+* Step 6 - Profit!!
 
 <a name="Installation"></a>
 ## Installing MESS
