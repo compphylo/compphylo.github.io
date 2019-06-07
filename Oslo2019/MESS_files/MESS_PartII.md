@@ -57,5 +57,5 @@ Some stuff here about intro to machine learning.
 ## ML assembly model classification
 
 <a name="MESS-API-Regression"></a>
-## ML parameter estimation]
+## ML parameter estimation
 
