@@ -17,6 +17,7 @@ be identical.
 * [Run MESS simulations in API mode](#Simulate-MESS-API)
 * [ML assembly model classification](#MESS-API-Classification)
 * [ML parameter estimation](#MESS-API-Regression)
+* [Free time to experiment with other example datasets](#Example-Datasets)
 
 Each grey cell in this tutorial indicates a command line interaction. 
 Lines starting with `$ ` indicate a command that should be executed 
@@ -58,4 +59,7 @@ Some stuff here about intro to machine learning.
 
 <a name="MESS-API-Regression"></a>
 ## ML parameter estimation
+
+<a name="Example-Datasets"></a>
+## Free time to experiment with other example datasets
 
