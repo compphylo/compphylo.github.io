@@ -10,6 +10,8 @@ data sets if you like and although your results will vary the procedure will
 be identical. 
 
 ## MESS Part I Outline
+* [Equilibrium theory of island biogeography and neutral theory (individual
+based simulations)](#ETIB-NTIB-Intro)
 * [Overview of MESS Simulations](#MESS-Overview)
 * [Installation](#Installation)
 * [TL;DR Run your first simulations](#TLDR-Simulations)
@@ -40,6 +42,10 @@ $ echo "wat"
 wat
 ```
 
+<a name="ETIB-NTIB-Intro"></a>
+## Equilibrium theory of island biogeography and neutral theory
+Some stuff here about ETIB/NTIB simulations. Basic intro.
+
 <a name="MESS-Overview"></a>
 ## Overview of MESS simulation and analysis workflow
 
@@ -47,17 +53,25 @@ wat
 
 The basic steps of this process are as follows:
 
-* Step 1 - Set parameters
+* Step 1 - Set parameters based on prior knowledge of empirical system
 * Step 2 - Run mega simulations
-* Step 3 - Use ML inference procedure
+* Step 3 - Use ML to infer community assembly process (neutral/competition/filtering)
+* Setp 4 - Use ML to estimate key community assembly parameters
 * Step 4 - ???
 * Step 5 - Profit!!
 
 <a name="Installation"></a>
 ## Installing MESS
+MESS is distributed as a conda package so installation is simple and
+and straightforward.
+
+```
+## This doesn't work yet.
+$ conda install -c mess MESS
+```
 
 <a name="TLDR-Simulations"></a>
-## TL;DR Just show me how to do the simuations! 
+## TL;DR Just show me how to do the simulations! 
 Say you're impatient and want to skip right to the good stuff, well here you go.
 
 ```
@@ -107,12 +121,12 @@ optional arguments:
 
 <a name="Create-Params-File"></a>
 ## Create a new parameters file
-ipyrad uses a text file to hold all the parameters for a given assembly.
-Start by creating a new parameters file with the `-n` flag. This flag
-requires you to pass in a name for your assembly. In the example we use
-`simdata` but the name can be anything at all. Once you start
-analysing your own data you might call your parameters file something
-more informative, like the name of your organism and some details on the settings.
+MESS uses a text file to hold all the parameters for a given community assembly
+scenario. Start by creating a new parameters file with the `-n` flag. This flag
+requires you to pass in a name for your simulations. In the example we use
+`simdata` but the name can be anything at all. Once you start analysing your
+own data you might call your parameters file something more informative, like
+the name of your target community and some details on the settings.
 
 ```bash 
 # go to our working directory

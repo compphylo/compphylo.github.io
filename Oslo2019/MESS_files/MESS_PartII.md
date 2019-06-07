@@ -10,6 +10,7 @@ data sets if you like and although your results will vary the procedure will
 be identical. 
 
 ## MESS Part II Outline
+* [Crash course in machine learing](#ML-Intro)
 * [Introducing Jupyter notebooks](#Jupyter-NB-Intro)
 * [Setting up and connecting to a notebook server on the cluster](#NB-Cluster-Setup)
 * [Create and parameterize a new MESS Region](#Create-MESS-Region)
@@ -35,6 +36,10 @@ $ touch ~/watdo.txt
 $ echo "wat"
 wat
 ```
+
+<a name="ML-Intro"></a>
+## Crash course in machine learing
+Some stuff here about intro to machine learning.
 
 <a name="Jupyter-NB-Intro"></a>
 ## Introducing Jupyter notebooks
