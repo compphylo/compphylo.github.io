@@ -264,6 +264,12 @@ available.
 <a name="Inspect-Simulations"></a>
 ## Inspect the output of the simulation runs
 
+```bash
+## -r fetches informative results from current simulations
+## TODO: Implement this feature!
+$ MESS -p params-simdata.txt -r
+```
+
 <a name="Parameter-Ranges"></a>
 ## Setting prior ranges on parameters
 
@@ -316,26 +322,5 @@ and inspect the new simulated outputs:
 ## MESS CLI machine learning inference procedure
 
 
-#############################
-TRASH BELOW HERE
-#############################
 
-> **Note:** Again, the `./` notation indicates the current working directory.
-You can always view the current working directory with the `pwd` command
-(**p**rint **w**orking **d**irectory).
-
-
-# Input data format
-
-Before we get started let's take a look at what the raw data looks like.
-
-# Step 1: Demultiplexing the raw data
-
-Commonly, sequencing facilities will give you one giant .gz file that contains all the reads from all the samples all mixed up together. Step 1 is all about sorting out which reads belong to which samples, so this is where the barcodes file comes in handy. The barcodes file is a simple text file mapping sample names to barcode sequences. Lets look at the simulated barcodes:
-
-
-```bash
-## -r fetches informative results from currently executed steps  
-$ ipyrad -p params-simdata.txt -r
-```
 
