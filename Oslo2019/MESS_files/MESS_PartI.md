@@ -19,6 +19,7 @@ be identical.
 * [Inspect the output of the simulation runs](#Inspect-Simulations)
 * [Setting prior ranges on parameters](#Prior-Ranges)
 * [Curating empirical data](#Curate-Empirical)
+* [MESS CLI machine learning inference procedure](#CLI-ML-Inference)
 
 Each grey cell in this tutorial indicates a command line interaction. 
 Lines starting with `$ ` indicate a command that should be executed 
@@ -195,7 +196,7 @@ After you change this parameters you may save and exit nano by typing CTRL+o
 > **Note:** The `CTRL+x` notation indicates that you should hold down the control
 key (which is often styled 'ctrl' on the keyboard) and then push 'x'.
 
-Once we start running the simulations and performing analyses MESS all the temp
+Once we start running the simulations and performing MESS analyses all the temp
 files and directories it needs are created in the `project_dir` directory and
 use the prefix specified by the `simulation_name` parameter. Because we use the
 default (`./default_MESS`) for the `project_dir` for this tutorial, all these
@@ -242,7 +243,7 @@ $ MESS -p params-simdata.txt -s 10 -c 4
 ```
 
 > **Note:** You can see here that MESS is intelligently handling all the
-parallelization work for you. You tell it how many cores to use with the `c`
+parallelization work for you. You tell it how many cores to use with the `-c`
 flag and it portions out simulations among all the cores as they become
 available.
 
@@ -297,8 +298,13 @@ and inspect the new simulated outputs:
 <a name="Curate-Empirical"></a>
 ## Curating empirical data
 
-#############################
+<a name="CLI-ML-Inference"></a>
+## MESS CLI machine learning inference procedure
 
+
+#############################
+TRASH BELOW HERE
+#############################
 
 > **Note:** Again, the `./` notation indicates the current working directory.
 You can always view the current working directory with the `pwd` command
