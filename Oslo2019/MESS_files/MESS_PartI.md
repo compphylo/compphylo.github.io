@@ -146,12 +146,13 @@ island1              ## [0] [name]: Local community name
 0                    ## [3] [speciation_prob]: Probability of speciation per timestep in local community
 ```
 
-In general the defaults are sensible, and we won't mess with them for now, 
-but there are a few parameters we *must* change: the path to the raw data, 
-the dataype, the restriction overhang sequence, and the barcodes file.
+In general the defaults are sensible, and we won't ***mess*** with them for now, 
+but lets just change one parameter to get the hang of it. Why don't we change
+the `name` parameter of the local community. "island1" is so generic, so pick
+your favorite island and change the name to this.
 
 We will use the `nano` text editor to modify `params-simdata.txt` and change
-these parameters:
+this parameter:
 
 ```bash
 $ nano params-simdata.txt
@@ -162,64 +163,49 @@ on the keyboard for navigating around the file. Nano accepts a few special
 keyboard commands for doing things other than modifying text, and it lists
 these on the bottom of the frame.
 
-We need to specify where the raw data files are located, the type of data we are using (.e.g., 'gbs', 'rad', 'ddrad', 'pairddrad), and which enzyme cut site overhangs are expected to be present on the reads. Below are the parameter setings you'll need to change for the simulated single-end RAD example data:
-
 ```bash
-/home/jovyan/ro-data/ipsimdata/rad_example_R1_.fastq.gz        ## [2] [raw_fastq_path]: Location ofraw non-demultiplexed fastq files
-/home/jovyan/ro-data/ipsimdata/rad_example_barcodes.txt        ## [3] [barcodes_path]: Location of barcodes file
-rad                            ## [7] [datatype]: Datatype (see docs): rad, gbs, ddrad, etc.
-TGCAG,                         ## [8] [restriction_overhang]: Restriction overhang (cut1,) or (cut1, cut2)
+La_Reunion ## [0] [name]: Local community name
 ```
+> **Note:** For scientific computing, in almost all cases spaces in variable
+names and labels should be considered **harmful**. Notice here how I replace
+the space in "La Reunion" with an underscore ("\_") character, this is common
+practice that you should adopt.
 
-After you change these parameters you may save and exit nano by typing CTRL+o
+After you change this parameters you may save and exit nano by typing CTRL+o
 (to write **O**utput), and then CTRL+x (to e**X**it the program).
 
 > **Note:** The `CTRL+x` notation indicates that you should hold down the control
 key (which is often styled 'ctrl' on the keyboard) and then push 'x'.
 
-Once we start running the simulations and performing analysis MESS will create
-all the new files and directories it needs are created in the `project_dir`
-directory and use the prefix specified by the `simulation_name` parameter.
-Because we use the default (`./`) for the `project_dir` for this tutorial, all these
-intermediate directories will be of the form: `~/work/simdata_*`,
+Once we start running the simulations and performing analyses MESS all the temp
+files and directories it needs are created in the `project_dir` directory and
+use the prefix specified by the `simulation_name` parameter. Because we use the
+default (`./default_MESS`) for the `project_dir` for this tutorial, all these
+intermediate directories will be of the form: `~/work/default_MESS/simdata_*`,
 or the analagous name that you used for your assembly name.
+
+> **Note on files in the project directory:** MESS relies on the integrity
+of the `project_directory` for keeping track of various temporary files
+used by the simulation/analysis process. One result of this is that you can
+have multiple simulations of the same community assembly scenario using
+different parameter settings and you don't have to manage all the files
+yourself! Another result is that **you should not rename or move any of the
+files or directories inside your project directory**, unless you know what
+you're doing or you don't mind if your simulations/analyses break.
+
+
+#############################
+
 
 > **Note:** Again, the `./` notation indicates the current working directory.
 You can always view the current working directory with the `pwd` command
 (**p**rint **w**orking **d**irectory).
-
-#############################
-
-> **Note on files in the project directory:** Assembling RAD-seq type 
-sequence data requires a lot of different steps, and these steps 
-generate a **lot** of intermediary files. ipyrad organizes these files 
-into directories, and it prepends the name of your assembly to each 
-directory with data that belongs to it. One result of this is that 
-you can have multiple assemblies of the same raw data with different 
-parameter settings and you don't have to manage all the files yourself! 
-(See [Branching assemblies](https://ipyrad.readthedocs.io/tutorial_advanced_cli.html) for more info). Another
-result is that **you should not rename or move any of the directories
-inside your project directory**, unless you know what you're doing or
-you don't mind if your assembly breaks.
 
 ## Getting started
 The magic of the Jupyter Hub we're using for this workshop conceals some of the
 complexity of working in a real production environment, such as with an HPC
 system at your home campus. In this case we provide [extensive documentation about using ipyrad
 on HPC systems elsewhere on the RADCamp site](https://radcamp.github.io/NYC2018/02_ipyrad_partI_CLI.html#working-with-the-cluster).
-
-
-
-
-Once we start running the analysis ipyrad will create several new 
-directories to hold the output of each step for this assembly. By 
-default the new directories are created in the `project_dir`
-directory and use the prefix specified by the `assembly_name` parameter.
-Because we use the default (`./`) for the `project_dir` for this tutorial, all these 
-intermediate directories will be of the form: `~/work/simdata_*`, 
-or the analagous name that you used for your assembly name.
-
-> **Note:** Again, the `./` notation indicates the current working directory. You can always view the current working directory with the `pwd` command (**p**rint **w**orking **d**irectory).
 
 # Input data format
 
