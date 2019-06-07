@@ -15,6 +15,10 @@ be identical.
 * [TL;DR Run your first simulations](#TLDR-Simulations)
 * [MESS CLI Help](#MESS-Help)
 * [Create and edit a new params file](#Create-Params-File)
+* [Run simulations using your edited params file](#Simulate)
+* [Inspect the output of the simulation runs](#Inspect-Simulations)
+* [Setting prior ranges on parameters](#Prior-Ranges)
+* [Curating empirical data](#Curate-Empirical)
 
 Each grey cell in this tutorial indicates a command line interaction. 
 Lines starting with `$ ` indicate a command that should be executed 
@@ -64,6 +68,7 @@ MESS -p params-new-sims.txt -s 10
 
 <a name="MESS-Help"></a>
 ## MESS Help
+
 To better understand how to use MESS, let's take a look at the `help` argument.
 We will use some of the MESS command line arguments in this tutorial (for
 example: -n, -p, -s, -c). The complete list of optional arguments and
@@ -146,10 +151,20 @@ island1              ## [0] [name]: Local community name
 0                    ## [3] [speciation_prob]: Probability of speciation per timestep in local community
 ```
 
-In general the defaults are sensible, and we won't ***mess*** with them for now, 
-but lets just change one parameter to get the hang of it. Why don't we change
-the `name` parameter of the local community. "island1" is so generic, so pick
-your favorite island and change the name to this.
+> **Note:** What's the difference between a CLI argument and a MESS params file
+parameter, you may be asking yourself? Well, MESS CLI arguments specify how
+the simulations are performed (e.g. how many to run, how many cores to use,
+whether to print debugging information, etc), whereas MESS params file
+parameters dictate the structure of the simulations to run (e.g. sizes of
+communities, migration rates, specation rates, etc).
+
+The defaults are all values of moderate size that will generate 'normal'
+looking simulations, and we won't ***mess*** with them for now, but lets just
+change a couple parameters to get the hang of it. Why don't we change
+the `name` parameter of the local community, "island1" is so generic!. Pick
+your favorite island and change the name to this. Let's also set `J` (size
+of the local community in individuals) equal to 500 as this will speed up
+the simulations (smaller local communities reach equilibrium faster).
 
 We will use the `nano` text editor to modify `params-simdata.txt` and change
 this parameter:
@@ -161,11 +176,14 @@ $ nano params-simdata.txt
 Nano is a command line editor, so you'll need to use only the arrow keys
 on the keyboard for navigating around the file. Nano accepts a few special
 keyboard commands for doing things other than modifying text, and it lists
-these on the bottom of the frame.
+these on the bottom of the frame. After you are done making the changes
+your file will now have lines that look like this:
 
 ```bash
 La_Reunion ## [0] [name]: Local community name
+500                 ## [1] [J]: Number of individuals in the local community
 ```
+
 > **Note:** For scientific computing, in almost all cases spaces in variable
 names and labels should be considered **harmful**. Notice here how I replace
 the space in "La Reunion" with an underscore ("\_") character, this is common
@@ -194,6 +212,49 @@ files or directories inside your project directory**, unless you know what
 you're doing or you don't mind if your simulations/analyses break.
 
 
+<a name="Simulate"></a>
+## Run simulations using your edited params file
+
+> **Special Note:** In command line mode please be aware to *always* specify
+the number of cores with the `-c` flag. If you do not specify the number of 
+cores MESS assumes you want only one of them, which will result in painfully
+slow simulation runs (serial processing).
+
+```bash
+## -p    the params file we wish to use
+## -s    the number of simulations to perform
+## -c    the number of cores to allocate   <-- Important!
+$ MESS -p params-simdata.txt -s 10 -c 4
+ -------------------------------------------------------------
+  MESS [v.0.0.99]
+  Massive Eco-Evolutionary Synthesis Simulations
+ -------------------------------------------------------------
+  Project directory exists. Additional simulations will be appended.
+
+    <MESS.Region simdata: ['La_Reunion']>
+  establishing parallel connection:
+  host compute node: [4 cores] on goatzilla
+    Generating 10 simulation(s).
+  [####################] 100%  Performing Simulations    | 0:00:46 | 
+  [####################] 100% 
+    Finished 10 simulations
+ Clean up ipcluster <ipyparallel.client.client.Client object at 0x7f15cc3c9090>
+```
+
+> **Note:** You can see here that MESS is intelligently handling all the
+parallelization work for you. You tell it how many cores to use with the `c`
+flag and it portions out simulations among all the cores as they become
+available.
+
+<a name="Inspect-Simulations"></a>
+## Inspect the output of the simulation runs
+
+<a name="Parameter-Ranges"></a>
+## Setting prior ranges on parameters
+
+<a name="Curate-Empirical"></a>
+## Curating empirical data
+
 #############################
 
 
@@ -201,110 +262,15 @@ you're doing or you don't mind if your simulations/analyses break.
 You can always view the current working directory with the `pwd` command
 (**p**rint **w**orking **d**irectory).
 
-## Getting started
-The magic of the Jupyter Hub we're using for this workshop conceals some of the
-complexity of working in a real production environment, such as with an HPC
-system at your home campus. In this case we provide [extensive documentation about using ipyrad
-on HPC systems elsewhere on the RADCamp site](https://radcamp.github.io/NYC2018/02_ipyrad_partI_CLI.html#working-with-the-cluster).
 
 # Input data format
 
 Before we get started let's take a look at what the raw data looks like.
 
-Your input data will be in fastQ format, usually ending in `.fq`,
-`.fastq`, `.fq.gz`, or `.fastq.gz`. The file/s may be compressed with 
-gzip so that they have a .gz ending, but they do not need to be. Lets take
-a look at first three reads of one of the simulated data.
-
-```bash
-$ zcat /home/jovyan/ro-data/ipsimdata/rad_example_R1_.fastq.gz | head -n 12
-```
-
-```
-@lane1_locus0_2G_0_0 1:N:0:
-CTCCAATCCTGCAGTTTAACTGTTCAAGTTGGCAAGATCAAGTCGTCCCTAGCCCCCGCGTCCGTTTTTACCTGGTCGCGGTCCCGACCCAGCTGCCCCC
-+
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-@lane1_locus0_2G_0_1 1:N:0:
-CTCCAATCCTGCAGTTTAACTGTTCAAGTTGGCAAGATCAAGTCGTCCCTAGCCCCCGCGTCCGTTTTTACCTGGTCGCGGTCCCCACCCAGCTGCCCCC
-+
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-@lane1_locus0_2G_0_2 1:N:0:
-CTCCAATCCTGCAGTTTAACTGTTCAAGTTGGCAAGATCAAGTCGTCCCTAGCCCCCGCGTCCGTTTTTACCTGGTCGCGGTCCCGACCCAGCTGCCCCC
-+
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-```
-> **Exercise for the reader:** Can you find and verify the overhang sequence in the simulated data? 
-Hint: It's not right at the beginning of the sequence, which is where you might expect it to be.... 
-It's always a good idea to look at your data to check for the cut site. Your first sign of a 
-messy dataset is lots of *off target reads*, basically stuff that got sequenced that isn't associated
-with a restriction enzyme cutsite.
-
-Each read is composed of four lines. The first is the name of the read (its
-location on the plate). The second line contains the sequence data. The
-third line is unused. And the fourth line is the quality scores for the
-base calls. The [FASTQ wikipedia page](https://en.wikipedia.org/wiki/FASTQ_format) has a good
-figure depicting the logic behind how quality scores are encoded. Here you can see that
-the simulated data are generated with uniformly high quality scores. Quality scores in
-real data are much more all over the place:
-
-```
-@D00656:123:C6P86ANXX:8:2201:3857:34366 1:Y:0:8
-TGCATGTTTATTGTCTATGTAAAAGGAAAAGCCATGCTATCAGAGATTGGCCTGGGGGGGGGGGGCAAATACATGAAAAAGGGAAAGGCAAAATG
-+
-;=11>111>1;EDGB1;=DG1=>1:EGG1>:>11?CE1<>1<1<E1>ED1111:00CC..86DG>....//8CDD/8C/....68..6.:8....
-```
-
 # Step 1: Demultiplexing the raw data
 
 Commonly, sequencing facilities will give you one giant .gz file that contains all the reads from all the samples all mixed up together. Step 1 is all about sorting out which reads belong to which samples, so this is where the barcodes file comes in handy. The barcodes file is a simple text file mapping sample names to barcode sequences. Lets look at the simulated barcodes:
 
-```bash
-$ cat /home/jovyan/ro-data/ipsimdata/rad_example_barcodes.txt
-1A_0    CATCATCAT
-1B_0    CCAGTGATA
-1C_0    TGGCCTAGT
-1D_0    GGGAAAAAC
-2E_0    GTGGATATC
-2F_0    AGAGCCGAG
-2G_0    CTCCAATCC
-2H_0    CTCACTGCA
-3I_0    GGCGCATAC
-3J_0    CCTTATGTC
-3K_0    ACGTGTGTG
-3L_0    TTACTAACA
-```
-
-Here the barcodes are all the same length, but ipyrad can also handle variable length barcodes, and in some cases multiplexed barcodes (3RAD and variants). We can also allow for varying amounts of sequencing error in the barcode in the barcode sequences (parameter 15, `max_barcode_mismatch`).
-
-> **Note on step 1:** Occasionally sequencing facilities will send back data already demultiplexed to samples. This is totally fine, and is handled natively by ipyrad. In this case you would use the `sorted_fastq_path` in the params file to indiciate the sample fastq.gz files. ipyrad will then scan the samples and load in the raw data.
-
-Now lets run step 1! For the simulated data this will take <10 seconds.
-
-> **Special Note:** In command line mode please be aware to *always* specify
-the number of cores with the `-c` flag. If you do not specify the number of 
-cores ipyrad assumes you want **all** of them, which will result in you
-hogging up all the CPU. We only have 40 cores so everybody has to share! 
-
-```bash
-## -p    the params file we wish to use
-## -s    the step to run
-## -c    the number of cores to allocate   <-- Important!
-$ ipyrad -p params-simdata.txt -s 1 -c 4
-
- -------------------------------------------------------------
-  ipyrad [v.0.7.28]
-  Interactive assembly and analysis of RAD-seq data
- -------------------------------------------------------------
-  New Assembly: simdata
-  establishing parallel connection:
-  host compute node: [4 cores] on e305ff77a529
-
-  Step 1: Loading sorted fastq data to Samples
-  Step 1: Demultiplexing fastq data to Samples
-  [####################] 100%  sorting reads         | 0:00:04
-  [####################] 100%  writing/compressing   | 0:00:01
-```
 
 ## In-depth operations of running an ipyrad step
 Any time ipyrad is invoked it performs a few housekeeping operations: 
@@ -322,87 +288,7 @@ want to print stats for.
 ## -r fetches informative results from currently executed steps  
 $ ipyrad -p params-simdata.txt -r
 ```
-```
-Summary stats of Assembly simdata
-------------------------------------------------
-      state  reads_raw
-1A_0      1      19862
-1B_0      1      20043
-1C_0      1      20136
-1D_0      1      19966
-2E_0      1      20017
-2F_0      1      19933
-2G_0      1      20030
-2H_0      1      20199
-3I_0      1      19885
-3J_0      1      19822
-3K_0      1      19965
-3L_0      1      20008
 
-Full stats files
-------------------------------------------------
-step 1: ./simdata_fastqs/s1_demultiplex_stats.txt
-step 2: None
-step 3: None
-step 4: None
-step 5: None
-step 6: None
-step 7: None
-```
-
-If you want to get even **more** info ipyrad tracks all kinds of wacky
-stats and saves them to files inside the directories it creates for
-each step. For instance to see full stats for step 1 (the wackyness
-of the step 1 stats at this point isn't very interesting, but we'll
-see stats for later steps are more verbose):
-
-```bash 
-$  cat simdata_fastqs/s1_demultiplex_stats.txt
-```
-```
-raw_file                               total_reads    cut_found  bar_matched
-rad_example_R1_.fastq                       239866       239866       239866
-
-sample_name                            total_reads
-1A_0                                         19862
-1B_0                                         20043
-1C_0                                         20136
-1D_0                                         19966
-2E_0                                         20017
-2F_0                                         19933
-2G_0                                         20030
-2H_0                                         20199
-3I_0                                         19885
-3J_0                                         19822
-3K_0                                         19965
-3L_0                                         20008
-
-sample_name                               true_bar       obs_bar     N_records
-1A_0                                     CATCATCAT     CATCATCAT         19862
-1B_0                                     CCAGTGATA     CCAGTGATA         20043
-1C_0                                     TGGCCTAGT     TGGCCTAGT         20136
-1D_0                                     GGGAAAAAC     GGGAAAAAC         19966
-2E_0                                     GTGGATATC     GTGGATATC         20017
-2F_0                                     AGAGCCGAG     AGAGCCGAG         19933
-2G_0                                     CTCCAATCC     CTCCAATCC         20030
-2H_0                                     CTCACTGCA     CTCACTGCA         20199
-3I_0                                     GGCGCATAC     GGCGCATAC         19885
-3J_0                                     CCTTATGTC     CCTTATGTC         19822
-3K_0                                     ACGTGTGTG     ACGTGTGTG         19965
-3L_0                                     TTACTAACA     TTACTAACA         20008
-no_match                                         _            _            0
-```
-Another early indicator of trouble is if you have a **ton** of reads that are `no_match`. 
-This means maybe your barcodes file is wrong, or maybe your library prep went poorly. Here,
-with the simulated data we have no unmatched barcodes, because, well, it's simulated.
-
-# Step 2: Filter reads
-
-This step filters reads based on quality scores and maximum number of
-uncalled bases, and can be used to detect Illumina adapters in your 
-reads, which is sometimes a problem under a couple different library 
-prep scenarios. Since it's not atypical to have adapter contamination
-issues and to have a little noise toward the distal end of the reads
 lets imagine this is true of the simulated data, and we'll try to account
 for this by trimming reads to 90bp and using aggressive adapter filtering. 
 
