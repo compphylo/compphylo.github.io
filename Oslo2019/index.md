@@ -52,7 +52,7 @@ In addition, ForBio will cover travel for Norwegian ForBio members.
 Times            | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
 -----            | ------ | ------ | ------ | | ------- | ------ | ------ |
 8:30-9:00       | | Welcome/Intro/Housekeeping/[Cluster config](UiO_Cluster_info.md) | Check-in and refreshments | Check-in and refreshments | Check-in and refreshments | Check-in and refreshments |
-9:00-12:30      | | Mike ([Introduction and Background.](Norway_Workshop_2019_Hickerson.pdf)) Participant Summaries, data and questions.  | [MESS Part I](MESS_files/MESS_PartI.md) (Isaac) | PipeMaster (Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
+9:00-12:30      | | Mike ([Introduction and Background.](Hicker_files/Norway_Workshop_2019_Hickerson.pdf)) Participant Summaries, data and questions.  | [MESS Part I](MESS_files/MESS_PartI.md) (Isaac) | PipeMaster (Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
 12:30-14:00 | | Lunch | Lunch | Lunch | Lunch | Lunch |
 14:00-17:00 | [Optional bash/python/R/scripting/CLI intro](Scripting_CLI_Intro_files/Scripting_CLI_Intro.md) | [CAMI](CAMI_files/CAMI.md) (Megan) | [MESS Part II](MESS_files/MESS_PartII.md) (Isaac) | PipeMaster (Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
 
