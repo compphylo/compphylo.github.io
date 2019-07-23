@@ -29,23 +29,28 @@ biological systems for this cutting-edge field of research.
   - Megan Ruffley (University of Idaho)
   - Alexander Xue (Cold Spring Harbor Laboratory)
 
-## Registration
-
-Register in the submission form with a short CV and indicate the nature and 
-stage of your interest or research project(s). Registration deadline is May 
-1st, 2019. We will select those of you whom are most likely to benefit from 
-this course, should the maximum number of participants be exceeded. Contact 
-Marie Leys for more information about the workshop.
-
-**Registration is closed (May 2019).**
-
-## Fee
-No course fee
-
 ## Travel, food and accommodation
-Shared accommodation is free of charge. Food is included, and the station 
-has cooking facilities and participants will prepare food together in shifts. 
-In addition, ForBio will cover travel for Norwegian ForBio members.
+### Local travel and accommodation
+You are welcome to arrive at the field station on Sunday afternoon. There is 
+both a regular bus 500 and an express bus 500E that goes from Oslo S to 
+Storgata in DrÃ¸bak, a short walk from Tollboden on Storgata 43.An example trip:
+[on google maps](https://goo.gl/maps/aSAWbipaG5y76JDL6). You can also see
+the bus schedule on the [official Ruter site](https://ruter.no/en/journey-planner/?from=%7B%22id%22%3A%22NSR%3AStopPlace%3A59872%22%2C%22name%22%3A%22Oslo+S%22%2C%22county%22%3A%22Oslo%22%2C%22locality%22%3A%22Oslo%22%2C%22coordinates%22%3A%7B%22x%22%3A10.753051%2C%22y%22%3A59.910357%7D%2C%22category%22%3A%5B%22onstreetBus%22%2C%22railStation%22%5D%7D&to=%7B%22id%22%3A%22NSR%3AStopPlace%3A5578%22%2C%22name%22%3A%22Storgata%22%2C%22county%22%3A%22Akershus%22%2C%22locality%22%3A%22Frogn%22%2C%22coordinates%22%3A%7B%22x%22%3A10.630112%2C%22y%22%3A59.660524%7D%2C%22category%22%3A%5B%22onstreetBus%22%5D%7D),
+and find information about [how to buy a ticket](https://ruter.no/en/buying-tickets/sales-outlets/). 
+Buses on local routes run about every 20-30 minutes all day long. **NB:** Some 
+of the express busses stop at Seiersten, which is a 10 minute walk from the 
+station. We are assuming most people will leave on Friday Sept 28 at the end 
+of the day, but let us know if this is not the case.
+
+### Station logistics and meals
+ForBio covers the accommodation of all participants. We are all staying at 
+Tollboden biological station, where the workshop will also take place. This is 
+a simple but well equipped building, with a kitchen, lab space and rooms. 
+Rooms will be shared. Bed linen and towels will be provided. ForBio is also 
+paying for meals of all participants. We will share cooking and tidying up in 
+the kitchen. You have indicated you food preferences in the registration form 
+but if there is anything else we would need to know, please contact me directly. 
+
 
 # Schedule
 
