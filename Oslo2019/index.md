@@ -37,7 +37,7 @@ stage of your interest or research project(s). Registration deadline is May
 this course, should the maximum number of participants be exceeded. Contact 
 Marie Leys for more information about the workshop.
 
-[Register for CompPhylo 2019 Oslo](https://skjema.uio.no/109922)
+**Registration is closed (May 2019).**
 
 ## Fee
 No course fee
@@ -54,7 +54,7 @@ Times            | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
 8:30-9:00       | | Welcome/Intro/Housekeeping/[Cluster config](UiO_Cluster_info.md) | Check-in and refreshments | Check-in and refreshments | Check-in and refreshments | Check-in and refreshments |
 9:00-12:30      | | Mike (Introduction and Background). Participant Summaries, data and questions.  | [MESS Part I](MESS_files/MESS_PartI.md) (Isaac) | PipeMaster (Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
 12:30-14:00 | | Lunch | Lunch | Lunch | Lunch | Lunch |
-14:00-17:00 | [Optional bash/python/R/scripting/CLI intro](Scripting_CLI_Intro_files/Scripting_CLI_Intro.md) | [CAMI](CAMI_files/CAMI.md) (Megan) | [MESS Part II](MESS_files/MESS_PartII.md) (Isaac) | PipeMaster (Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
+14:00-17:00 | [Optional bash/python/R/scripting/CLI intro](Scripting_CLI_Intro/Scripting_CLI_Intro.md) | [CAMI](CAMI_files/CAMI.md) (Megan) | [MESS Part II](MESS_files/MESS_PartII.md) (Isaac) | PipeMaster (Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
 
 ## Additional resources
 
