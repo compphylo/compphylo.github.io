@@ -2,8 +2,7 @@
 Computational resources for the duration of this workshop have been generously 
 provided by the The Norwegian Research Council (Uninett Sigma2, via the Notur 
 project) and the University of Oslo (Depts. of Astrophysics, Chemistry, 
-Biology, CMBN, CEES and others). We have been assigned Notur project 
-__NN9458K: ForBio course: Phylogenomics__. The HPC we will be using is located at:
+Biology, CMBN, CEES and others). The HPC we will be using is located at:
 ```
 abel.uio.no
 ```

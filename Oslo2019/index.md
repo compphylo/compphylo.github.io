@@ -4,6 +4,7 @@ Sponsored by [Forskerskole i biosystematikk (ForBio)](https://www.forbio.uio.no/
 
 August 26-30, 2019  
 [Tollboden, Drobak Marine Station](https://goo.gl/maps/6UamJ4Bnog92)  
+Universitetets Marinbiologisk Feltstasjon
 Biologveien 2  
 1440 Drobak  
 Norway  
