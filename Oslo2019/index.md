@@ -56,7 +56,7 @@ but if there is anything else we would need to know, please contact me directly.
 # Schedule
 
 Times            | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
------            | ------ | ------ | ------ | | ------- | ------ | ------ |
+-----            | ------ | ------ | ------ | ------- | ------ | ------ |
 8:30-9:00       | | Welcome/Intro/Housekeeping/[Cluster config](UiO_Cluster_info.md) | Check-in and refreshments | Check-in and refreshments | Check-in and refreshments | Check-in and refreshments |
 9:00-12:30      | | Mike ([Introduction and Background.](Hicker_files/Norway_Workshop_2019_Hickerson.pdf)) Participant Summaries, data and questions.  | [MESS Part I](MESS_files/MESS_PartI.md) (Isaac) | PipeMaster (Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
 12:30-14:00 | | Lunch | Lunch | Lunch | Lunch | Lunch |
