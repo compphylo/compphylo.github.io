@@ -1,0 +1,391 @@
+---
+title: "Empirical Analysis of Multiple Kipuka communities"
+author: "MRuffley"
+date: "7/11/2019"
+output: html_document
+---
+
+### Empirical Analysis of Community Assmebly using CAMI
+
+In this script we will analyze community phylogenetic and trait data from plant species that occur in different lava flow islands, or kipukas, of Craters of the Moon (CRMO) National Preserve in south central Idaho. The species in the local communtiy only on a specific kipuka, while the regional species include those in the local community as well as plant species that occurr throughout the preserve. We are investigating whether the height of plants species that occur in the shrubb-steppe vegetation at CRMO is impacting which species occur on Kipuka island, via a non-neutral assembly process such as enviromnetal filtering or competitive exclusion.
+
+We will begin by loading the relevent packages and data.
+
+#### Load Data and Packages
+
+```{r message=FALSE, results='hide'}
+## Load necessary packages
+require(CAMI)
+require(randomForest)
+require(abc)
+require(geiger)
+require(ggplot2)
+
+## Load phylogenetic and phenotypic data
+setwd("/Users/Megan/Documents/Github/CAMI/data/EmpiricalData")  
+load(file="Kipuka_RegTree.Rdata")
+load(file="Kipuka_LocalTree.Rdata")  
+load(file="Kipuka_RegTraits.Rdata")
+load(file="Kipuka_LocalTraits.Rdata")
+
+## make sure phylogeny and data correspond, will say "OK" if they do
+name.check(phy=Kip.regional.tree, data = Kip.regional.traits)
+```
+
+Next, we will sort through how many communities are present and how many species occur on each kipuka community.
+
+```{r}
+## Load community data matrix
+setwd("/Users/Megan/Documents/Github/CAMI/data/MultiCommunityAnalysis/Kipukas")  
+Kip.communtiy.matrix <- read.csv(file="KipComm_Matrix_edited.csv", header=T, sep=",", row.names =1)
+
+## make NAs 0
+Kip.communtiy.matrix[is.na(Kip.communtiy.matrix)] <- 0
+sum(colSums(Kip.communtiy.matrix) >= 18)
+
+## We will look 8 of the communities that have 18+ species
+Kip.Coms <- Kip.communtiy.matrix[,colSums(Kip.communtiy.matrix) >= 18]
+
+write.table(Kip.Coms, file="8KipukaComsMatrix.txt", sep="\t")
+
+for (i in 1:ncol(Kip.Coms)) {
+  species.list <- rownames(Kip.communtiy.matrix)[Kip.Coms[,i]==1]
+  local.tree <- drop.tip(Kip.regional.tree, setdiff(Kip.regional.tree$tip.label, species.list))
+  if (i == 1){
+    kip.local.trees <- local.tree }
+  else{  kip.local.trees <- c(kip.local.trees, local.tree)
+}}
+
+## Get 8 corresponding trait datasets
+kip.local.traits <- list()
+
+for (i in 1:ncol(Kip.Coms)) {
+ local.traits <- Kip.regional.traits[ match(kip.local.trees[[i]]$tip.label, names(Kip.regional.traits))]
+ kip.local.traits[[i]] <- local.traits
+}
+```
+
+#### Determine Model of Trait Evolution
+
+Before we simulate communtiy assembly data and perform model selection, we need to know which model of trait evoltion to simualte under. From the power analysis, we know that we could perform model selection between all communtiy assembly models and trait evolution models, but we will not have the power we would have if we only compared community assembly models. Due to this, we will estimate the model of trait evolution beforehand and simulate our community assembly data accordingly.
+
+```{r message = FALSE, results='hide}
+
+BM.mod <- fitContinuous(phy = Kip.regional.tree, dat = log(Kip.regional.traits), model = "BM")
+OU.mod <- fitContinuous(phy = Kip.regional.tree, dat = log(Kip.regional.traits), model = "OU", bounds=list(alpha=c(0.1, 0.9)))
+
+alpha.ou <- seq(0.0,1.0, 0.05)
+
+ou.res <- matrix(NA, length(alpha.ou), 5)
+for (i in 1:length(alpha.ou)){
+  OU.mod <- fitContinuous(phy = Kip.regional.tree, dat = log(Kip.regional.traits), model = "OU", bounds=list(alpha=c(0.01, alpha.ou[i])))
+  ou.res[i,1:5] <- as.numeric(c(paste(OU.mod$opt[1]), paste(OU.mod$opt[2]), paste(OU.mod$opt[4]), paste(OU.mod$opt[7]), paste(OU.mod$opt[8])))
+}
+
+setwd("/Users/Megan/Documents/Ruffleyetal2018EcolLetters/Data/EmpiricalData")   
+write.csv(ou.res, file="TrModResults_Emp.csv", sep=",")
+
+alpha.ou <- seq(0.0,1.0, 0.05)
+alpha.ou[1] <- 0.01
+sigsq.ou <- c(0.3416, 0.536876, 0.766006, 1.002996, 1.244069, 1.486966, 1.7305, 1.974306, 2.218001, 2.461582, 2.705062)
+
+
+```
+
+#### Calculate Summary Statistics
+
+We can use the function **CalcSummaryStats()** from the CAMI R package to calculate the empirical summary statistics.
+
+```{r message=FALSE, results="hide"}
+## Calculate summary statistics for CAMI
+Kip.summary.stats <- matrix(NA, 8, 30)
+for (i in 1:ncol(Kip.Coms)){
+  stats<-  CalcSummaryStats(regional.tree = Kip.regional.tree,
+                                      local.tree = kip.local.trees[[i]],
+                                      regional.traits = log(Kip.regional.traits),
+                                      local.traits = log(kip.local.traits[[i]]))
+  Kip.summary.stats[i,] <- stats
+  colnames(Kip.summary.stats) <- names(stats)
+}
+
+
+
+   Kip.summary.stats[9,]<-  CalcSummaryStats(regional.tree = Kip.regional.tree,
+                                      local.tree = Kip.local.tree,
+                                      regional.traits = log(Kip.regional.traits),
+                                      local.traits = log(Kip.local.traits))
+
+
+## Calculate dispersion stats
+Kip.dispersion.stats <- matrix(NA, 8, 32)
+for (i in 1:ncol(Kip.Coms)){
+  stats<-  CalcPhyDispStats(regional.tree = Kip.regional.tree,
+                                      local.tree = kip.local.trees[[i]],
+                                      regional.traits = log(Kip.regional.traits),
+                                      local.traits = log(kip.local.traits[[i]]))
+  Kip.dispersion.stats[i,] <- stats
+  colnames(Kip.dispersion.stats) <- names(stats)
+}
+
+## Write out dispersion metrics table for Supplemental Material, one for phylogentic and one for phenotypic
+phy.table <- Kip.dispersion.stats[,c(2,3,4,7,10,11,12,15)]
+write.csv(phy.table, file="PhyDispTable8KipukaComs.csv")
+phen.table <- Kip.dispersion.stats[,c(18,19,20,23, 26,27,28,31)]
+write.csv(phen.table, file="PhenDispTable8KipukaComs.csv")
+
+
+  stats<-  CalcPhyDispStats(regional.tree = Kip.regional.tree,
+                                      local.tree = Kip.local.tree,
+                                      regional.traits = log(Kip.regional.traits),
+                                      local.traits = log(Kip.local.traits))
+
+```
+
+#### Simulate Community Assembly data
+
+Now that we know the model of trait evolution to simulate under, and have an idea for the rate of cahracter change, we can simulate under the three communtiy assembly models; neutral, environmental filtering, and competitive exclusion. The simulations should be characterized to be as simular as possible to the empirical data.
+
+```{r message=FALSE, results='hide'}
+sims <- 10000
+N <- Ntip(all.species.tre)
+local <- Ntip(kipuka.all.tre)
+
+N <- Ntip(Kip.regional.tree)
+local <- Ntip(Kip.local.tree)
+
+#simulate data on crick under emp sims screen
+BM.neutral.data <- SimCommunityAssembly(sims, N, local, traitsim = "BM", comsim = "neutral", sig2 = 0.77, tau=c(1,60)) #10000
+BM.filtering.data <- SimCommunityAssembly(sims, N, local, traitsim = "BM", comsim = "filtering", sig2 = 0.77, tau=c(1,60)) #10000
+BM.competition.data <- SimCommunityAssembly(sims, N, local, traitsim = "BM", comsim = "competition", sig2 = 0.77, tau=c(1,60)) #10000
+OU.neutral.data <- SimCommunityAssembly(sims, N, local, traitsim = "OU", comsim = "neutral", sig2 = 0.77, alpha = 0.2, tau=c(1,60)) #10000
+OU.filtering.data <- SimCommunityAssembly(sims, N, local, traitsim = "OU", comsim = "filtering", sig2 = 0.77, alpha = 0.2, tau=c(1,60)) #10000
+OU.competition.data <- SimCommunityAssembly(sims, N, local, traitsim = "OU", comsim = "competition", sig2 = 0.77, alpha = 0.2, tau=c(1,60)) #10000
+
+#save the data
+save(BM.neutral.data, file="BMneutral.dataEmp.Rdata")
+save(BM.filtering.data, file="BMfilt.dataEmp.Rdata")
+save(BM.competition.data, file="BMcomp.dataEmp.Rdata")
+save(OU.neutral.data, file="OUneutral.dataEmp.Rdata")
+save(OU.filtering.data, file="OUfilt.dataEmp.Rdata")
+save(OU.competition.data, file="OUcomp.dataEmp.Rdata")
+
+#load the data
+setwd("/Users/Megan/Documents/Github/CAMI/data/EmpiricalData")
+load( file="BMneutral.dataEmp.Rdata")
+load(file="BMfilt.dataEmp.Rdata")
+load(file="BMcomp.dataEmp.Rdata")
+load(file="OUneutral.dataEmp.Rdata")
+load(file="OUfilt.dataEmp.Rdata")
+load(file="OUcomp.dataEmp.Rdata")
+```
+
+We can now use the simulated data to perform model selection using randomForest and Approximate Bayesian Computation.
+
+#### Random Forest
+
+```{r message=FALSE}
+#combine summary stats and model index into 1 data frame for RF and ABC; ALL MODELS
+sum.stats.all <- rbind(BM.neutral.data$summary.stats[5001:10000,], BM.filtering.data$summary.stats[5001:10000,], BM.competition.data$summary.stats[5001:10000,], OU.neutral.data$summary.stats[5001:10000,], OU.filtering.data$summary.stats[5001:10000,], OU.competition.data$summary.stats[5001:10000,])
+mod.index.all <- rep(c("BMneut", "BMfilt", "BMcomp", "OUneut", "OUfilt", "OUcomp"), each=5000)
+ref.table.all <- na.omit(data.frame(sum.stats.all, mod.index.all))
+
+#determine rf error rates using all data
+rf.emp.all <- randomForest(mod.index.all ~., data=ref.table.all, ntree=1000, importance=T)
+
+#variable importance information
+varImpPlot(rf.emp.ou)
+
+vote.all <- predict(rf.emp.all, Kip.summary.stats, type="prob")
+colSums(vote.all)
+
+##combine summary stats and model index into 1 data frame for RF and ABC; OU MODELS ONLY
+sum.stats.ou <- rbind(OU.neutral.data$summary.stats[1:10000,], OU.filtering.data$summary.stats[1:10000,], OU.competition.data$summary.stats[1:10000,])
+mod.index.ou <- rep(c("neut", "filt", "comp"), each=10000)
+ref.table.ou <- na.omit(data.frame(sum.stats.ou-c(17,18,21,22,29)], mod.index.ou))
+
+#determine rf error rates using OU data
+rf.emp.ou <- randomForest(mod.index.ou ~., data=ref.table.ou, ntree=1000, importance=T)
+
+vote.ou <- predict(rf.emp.ou, Kip.summary.stats-c(17,18,21,22,29)], type="prob")
+colSums(vote.ou)
+
+varImpPlot(rf.emp.ou)
+
+## Write out dispersion metrics table for Supplemental Material, one for phylogentic and one for phenotypic
+write.csv(vote.all, file="RF_allMods_Table8KipukaComs.csv")
+write.csv(vote.ou, file="RF_OUMods_Table8KipukaComs.csv")
+
+getwd()
+vote.ou <- read.csv(file="RF_OUMods_Table8KipukaComs.csv", row.names = 1)
+t(vote.ou)
+
+library(RColorBrewer)
+coul = brewer.pal(5, "Set2") 
+ 
+
+pdf(file = "legend.pdf", width = 5, height = 4)
+barplot(t(vote.ou), col=coul , border="white", xlab="Kipuka Communities" )
+legend("top", legend = c("competition", "filtering", "neutral"), fill = coul, cex=2, bg="white")
+
+
+
+
+
+```
+
+#### ABC
+
+```{r}
+#For ABC we will only use the top 10 summary statistics for model selection, see varImpPlot()
+Kip.summary.stats.abc <- Kip.summary.stats[,c(4, 10, 12, 13, 16, 18, 19, 20)]
+
+#determine error rate from cross validation using all data
+cv.emp.all <- cv4postpr(mod.index.all, sum.stats.all[,c(4, 10, 12, 13, 16, 18, 19, 20)], nval=500, tols=.005, method="rejection")
+
+#determine error rate from cross validation using only OU data
+cv.emp.ou <- cv4postpr(mod.index.ou, sum.stats.ou[,c(4, 10, 12, 13, 16, 18, 19, 20)], nval=500, tols=.005, method="rejection")
+
+#determine posterior model probabilities for empirical data using all data
+ABC.all.summary <- list()
+for (i in 1:9){
+abc.emp.all <- postpr(target = Kip.summary.stats.abc[i,], index = mod.index.all,
+                     sumstat = sum.stats.all[, c(4, 10, 12, 13, 16, 18, 19, 20)],
+                     tol = 0.002, method="rejection")
+ABC.all.summary[[i]] <- summary(abc.emp.all)
+}
+
+ABC.all.table <- matrix(NA, 9, 6)
+for (i in 1:9){      
+  ABC.all.table[i,] <- ABC.all.summary[[i]]$Prob
+  colnames(ABC.all.table) <- names(ABC.all.summary[[i]]$Prob)
+}
+
+
+#determine posterior model probabilities for empirical data using only OU data
+ABC.ou.summary <- list()
+for (i in 1:ncol(Kip.Coms)){
+  abc.emp.ou <- postpr(target = Kip.summary.stats.abc[i,], index = mod.index.ou,
+                     sumstat = sum.stats.ou[, c(4, 10, 12, 13, 16, 18, 19, 20)],
+                     tol = 0.002, method="rejection")
+  ABC.ou.summary[[i]] <- summary(abc.emp.ou)
+}
+
+ABC.ou.table <- matrix(NA, 8, 3)
+for (i in 1:ncol(Kip.Coms)){      
+  ABC.ou.table[i,] <- ABC.ou.summary[[i]]$Prob
+  colnames(ABC.ou.table) <- names(ABC.ou.summary[[i]]$Prob)
+}
+
+write.csv(ABC.all.table, file="ABC_allMods_Table8KipukaComs.csv")
+write.csv(ABC.ou.table, file="ABC_OUMods_Table8KipukaComs.csv")
+
+```
+
+
+#### Parameter Estimation
+
+```{r}
+setwd("/Users/Megan/Documents/Github/CAMI/data/EmpiricalData")
+load(file="OU.filtering.data.emp.100000.Rdata")
+
+Tau.estimates <- list()
+
+for (i in 1:ncol(Kip.Coms)){
+  Kip.Param.Est <- abc(target = Kip.summary.stats.abc[i,], param =OU.filtering.data$params, sumstat = OU.filtering.data$summary.stats[,c(4, 10, 12, 13, 16, 18, 19, 20)], tol = 0.01, method="rejection")
+
+  tau <- as.numeric(paste(Kip.Param.Est$unadj.values[,colnames(Kip.Param.Est$unadj.values) == "tau"]))
+
+  Tau.estimates[[i]] <- tau
+}
+
+save(Tau.estimates, file="TauMedEstimates_8Kipukas.Rdata")
+
+hist( Tau.estimates[[1]])
+hist( Tau.estimates[[2]])
+hist( Tau.estimates[[3]])
+hist( Tau.estimates[[4]])
+hist( Tau.estimates[[5]])
+hist( Tau.estimates[[6]])
+hist( Tau.estimates[[7]])
+hist( Tau.estimates[[8]])
+
+#do the same for tau
+
+pdf('KipukaCom_8_TauPlot.pdf', width=5, height=4)
+i=8
+tau.pp <- data.frame(dt=factor(c(rep("prior", each=nrow(OU.filtering.data$params)), rep("posterior", each= nrow(Kip.Param.Est$unadj.values)))),
+                      tau = c(as.numeric(paste(OU.filtering.data$params[,10])), Tau.estimates[[i]]))
+
+ggplot(tau.pp, aes(x=tau, fill=dt)) +
+  geom_density() +
+  scale_fill_manual(values=c(rgb(.2, .2, .2, .8), rgb(.5, .5, .5, .4))) +
+  theme(legend.position="none") +
+  geom_vline(aes(xintercept=median(Tau.estimates[[i]])), color="black", linetype="dashed", lwd=1.2)
+
+
+##All local community
+Kip.Param.Est <- abc(target = stats[c(4, 10, 12, 13, 16, 18, 19, 20)], param =OU.filtering.data$params, sumstat = OU.filtering.data$summary.stats[,c(4, 10, 12, 13, 16, 18, 19, 20)], tol = 0.01, method="rejection")
+
+pdf('AllLocalCom_KipukaTauEst.pdf', width=5, height=4)
+tau.pp <- data.frame(dt=factor(c(rep("prior", each=nrow(OU.filtering.data$params)), rep("posterior", each= nrow(Kip.Param.Est$unadj.values)))),
+                      tau = c(as.numeric(paste(OU.filtering.data$params[,10])),  as.numeric(paste(Kip.Param.Est$unadj.values[,10]))))
+
+ggplot(tau.pp, aes(x=tau, fill=dt)) +
+  geom_density() +
+  scale_fill_manual(values=c(rgb(.2, .2, .2, .8), rgb(.5, .5, .5, .4))) +
+  theme(legend.position="none") +
+  geom_vline(aes(xintercept=median(as.numeric(paste(Kip.Param.Est$unadj.values[,10])))), color="black", linetype="dashed", lwd=1.2)
+
+
+```
+
+```{r}
+median.taus <- c()
+for (i in 1:8) {
+  median.taus <- c(median.taus, median(Tau.estimates[[i]]))
+}
+
+
+ParamEstDataTable <- cbind(seq(1,8), vote.ou[1:8,2], ABC.ou.table[,2], median.taus)
+rownames(ParamEstDataTable) <- colnames(Kip.Coms)
+colnames(ParamEstDataTable) <-c("kipuka","RF prob", "ABC prob",  "median.tau")
+ParamEstDataTable <- ParamEstDataTable[order(ParamEstDataTable[,4]),]
+
+write.csv(ParamEstDataTable, file="ParamEstTable_RF&ABC_8Kipukas.csv")
+
+
+
+## Makes Figure
+pdf('ModProb_V_TauEst_8Kipukas.pdf', width=6, height=4.5)
+plot(ParamEstDataTable[,3] ~ ParamEstDataTable[,4], pch=22, cex=1.8, ylab="Model Support for Environmental Filtering", xlab="Tau Median Estimate", bty="l", bg="grey80")
+abline(lm(ParamEstDataTable[,3] ~ ParamEstDataTable[,4]), lwd=1.5, lty=5, col="grey40")
+points(ParamEstDataTable[,2] ~ ParamEstDataTable[,4], pch=16, cex=1.5, ylab="Model Support for Environmental Filtering", xlab="Tau Median Estimate")
+abline(lm(ParamEstDataTable[,2] ~ ParamEstDataTable[,4]), lwd=1.5, lty=1, col="black")
+legend("topright", legend = c("ABC", "RF"), pch=c(22, 16), col=c("black", "black"), lty=c(5,1), cex=1.5, pt.bg=c("grey80", "black"), pt.cex=c(1.8, 1.5), lwd=c(1.2,1.5), seg.len=4, bty="n")
+```
+
+Now Let's see where these Kipuka occur on a map.
+
+```{r}
+
+colnames(Kip.communtiy.matrix)
+colnames(Kip.Coms)
+
+setwd("/Users/Megan/Documents/")
+LatLongData <- read.csv(file="8Kipuka_LatLongs.txt", sep="\t", header=T)
+
+library(maps)
+library(mapdata)
+library(mapproj)
+map(database= "state", ylim=c(45,70), xlim=c(-150,-100), col="grey80", fill=TRUE, projection="gilbert", orientation= c(90,0,225))
+data <- read.csv("/Users/Megan/Documents/InlandLocals_ForDan.txt", sep = "\t", header=T)
+
+install.packages("sf")
+library(tmap)
+library(sf)
+
+tm_shape(usa) +
+  tm_fill()
+
+
+```
