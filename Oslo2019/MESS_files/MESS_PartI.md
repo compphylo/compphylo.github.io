@@ -63,11 +63,12 @@ The basic steps of this process are as follows:
 <a name="Installation"></a>
 ## Installing MESS
 MESS is distributed as a conda package so installation is simple and
-and straightforward.
+and straightforward. If you don't already have conda installed,
+[do the conda install first.](https://compphylo.github.io/Oslo2019/UiO_Cluster_info.html#conda-install)
 
 ```
 ## This doesn't work yet.
-$ conda install -c mess MESS
+$ conda install -c conda-forge -c r -c mess mess
 ```
 
 <a name="TLDR-Simulations"></a>
@@ -143,10 +144,10 @@ take a look at it.
 
 ``` 
 $ cat params-simdata.txt
-------- MESS params file (v.0.0.99)---------------------------------------------
+------- MESS params file (v.0.1.0)---------------------------------------------
 simdata              ## [0] [simulation_name]: The name of this simulation scenario
 ./default_MESS       ## [1] [project_dir]: Where to save files
-0                    ## [2] [generations]: Duration of simulations. Specify int range or 0 for lambda.
+0                    ## [2] [generations]: Duration of simulations. Values/ranges Int for generations, or float [0-1] for lambda.
 neutral              ## [3] [community_assembly_model]: Model of Community Assembly: neutral, filtering, competition
 point_mutation       ## [4] [speciation_model]: Type of speciation process: none, point_mutation, protracted, random_fission
 2.2e-08              ## [5] [mutation_rate]: Mutation rate scaled per base per generation
@@ -241,7 +242,7 @@ slow simulation runs (serial processing).
 ## -c    the number of cores to allocate   <-- Important!
 $ MESS -p params-simdata.txt -s 10 -c 4
  -------------------------------------------------------------
-  MESS [v.0.0.99]
+  MESS [v.0.1.0]
   Massive Eco-Evolutionary Synthesis Simulations
  -------------------------------------------------------------
   Project directory exists. Additional simulations will be appended.
@@ -296,7 +297,7 @@ Now run some more simulations:
 ```
 $ MESS -p params-simdata.txt -s 10 -c 4
  -------------------------------------------------------------
-  MESS [v.0.0.99]
+  MESS [v.0.1.0]
   Massive Eco-Evolutionary Synthesis Simulations
  -------------------------------------------------------------
   Project directory exists. Additional simulations will be appended.

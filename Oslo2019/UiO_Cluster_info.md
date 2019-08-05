@@ -159,9 +159,13 @@ Very detailed [job script documentation on the UiO Abel site](https://www.uio.no
 
 Open a new file called `myfirst.job` and add the following text:
 ```
-#SBATCH --account=
-#SBATCH --time=
+#SBATCH --account=nn9458k
+#SBATCH --time=00:10:00
+#SBATCH --mem-per-cpu=1G
 ```
+
+**NB:** The `account`, `time`, and `mem-per-cpy` parameters are compulsory,
+your job will not run if any of them are not specified.
 
 Submit this job to the cluster with `sbatch` (abel uses the SLURM queue management system):
 
