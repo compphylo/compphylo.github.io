@@ -164,7 +164,7 @@ Open a new file called `myfirst.job` and add the following text:
 #SBATCH --mem-per-cpu=1G
 ```
 
-**NB:** The `account`, `time`, and `mem-per-cpy` parameters are compulsory,
+**NB:** The `account`, `time`, and `mem-per-cpu` parameters are compulsory,
 your job will not run if any of them are not specified.
 
 Submit this job to the cluster with `sbatch` (abel uses the SLURM queue management system):
