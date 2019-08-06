@@ -67,8 +67,8 @@ and straightforward. If you don't already have conda installed,
 [do the conda install first.](https://compphylo.github.io/Oslo2019/UiO_Cluster_info.html#conda-install)
 
 ```
-## This doesn't work yet.
-$ conda install -c conda-forge -c r -c mess mess
+## Install MESS using conda
+$ conda install -c conda-forge -c mess mess
 ```
 
 <a name="TLDR-Simulations"></a>

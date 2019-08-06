@@ -47,22 +47,33 @@ create a fast and secure connection.
 
 <a name="ssh-for-windows"></a>
 ### SSH for windows
-Windows computers need to use a 3rd party app for connecting to remote computers. The best app for this in my experience is [puTTY](https://www.putty.org/), a free SSH client. Right click and "Save link as" on the [64-bit binary executable link](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) if you are using a PC.
+Windows computers need to use a 3rd party app for connecting to remote computers. 
+The best app for this in my experience is [puTTY](https://www.putty.org/), a 
+free SSH client. Right click and "Save link as" on the 
+[64-bit binary executable link](https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe) if you are using a PC.
 
-After installing puTTY, open it and you will see a box where you can enter the "Host Name (or IP Address)" of the computer you want to connect to (the 'host'). To connect to the Habanero cluster, enter: `habanero.rcs.columbia.edu`. The default "Connection Type" should be "SSH", and the default "Port" should be "22". It's good to verify these values. Leave everything else as defualt and click "Open".
+After installing puTTY, open it and you will see a box where you can enter the 
+"Host Name (or IP Address)" of the computer you want to connect to (the 'host'). 
+To connect to the Abel cluster, enter: `abel.uio.no`. The default "Connection 
+Type" should be "SSH", and the default "Port" should be "22". It's good to 
+verify these values. Leave everything else as defualt and click "Open".
 
 ![png](01_cluster_basics_files/01_puTTY.png)
 
 <a name="ssh-for-mac"></a>
 ### SSH for mac/linux
-Linux operating systems come preinstalled with an ssh command line client, which we will assume linux users are aware of how to use. Mac computers are built on top of a linux-like operating system so they too ship with an SSH client, which can be accessed through the Terminal app. In a Finder window open Applications->Utilities->Terminal, then you can start an ssh session like this:
+Linux operating systems come preinstalled with an ssh command line client, 
+which we will assume linux users are aware of how to use. Mac computers 
+are built on top of a linux-like operating system so they too ship with an SSH 
+client, which can be accessed through the Terminal app. In a Finder window open 
+Applications->Utilities->Terminal, then you can start an ssh session like this:
 
 ```bash
 # enter your username here
-$ ssh <username>@habanero.rcs.columbia.edu
+$ ssh <username>@abel.uio.no
 
 # this is an example for the username "work2"
-$ ssh work2@habanero.rcs.columbia.edu
+$ ssh work2@abel.uio.no
 ```
 
 > **Note on usage:** In command line commands we'll use the convention of wrapping variable names in angle-brackets. For example, in the command above you should substitute your own username for `<username>`. We will provide usernames and passwords on the day of the workshop. 
@@ -72,25 +83,26 @@ The CLI provides a way to navigate a file system, move files around, and run com
 
 ```bash
 $ pwd
-/home/work1
+/usit/abel/u1/iovercast/work
 ```
 `pwd` stands for **"print working directory"**, which literally means "where am I now in this filesystem?". This is a question you should always be aware of when working in a terminal. Just like when you open a file browser window, when you open a new terminal you are located somewhere; the terminal will usually start you out in your "home" directory. Ok, now we know where we are, lets take a look at what's in this directory:
 
 ```bash
 $ ls
+00_README_Abel   nobackup
 ```
 
 `ls` stands for **"list"** and in our home directory there is **not much, it appears!** In fact right now there is nothing. This is okay, because you just got a brand new account, so you won't expect to have anything there. Throughout the workshop we will be adding files and directories and by the time we're done, not only will you have a bunch of experience with RAD-Seq analysis, but you'll also have a ***ton*** of stuff in your home directory. We can start out by adding the first directory for this workshop:
 
 ```bash
-$ mkdir ipyrad-workshop
+$ mkdir compphylo-workshop
 ```
 
 `mkdir` stands for **"make directory"**, and unlike the other two commands, this command takes one "argument". This argument is the name of the directory you wish to create, so here we direct mkdir to create a new directory called "ipyrad-workshop". Now you can use `ls` again, to look at the contents of your home directory and you should see this new directory now:
 
 ```bash
 $ ls
-ipyrad-workshop
+compphylo-workshop
 ```
 
 Throughout the workshop we will be introducing new commands as the need for them arises. We will pay special attention to highlighting and explaining new commands and giving examples to practice with. 
