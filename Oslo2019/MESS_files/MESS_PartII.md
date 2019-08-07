@@ -40,7 +40,8 @@ wat
 
 <a name="ML-Intro"></a>
 ## Crash course in machine learing
-Some stuff here about intro to machine learning.
+Some stuff here about intro to machine learning and random forests.
+Megan will do 20-25 Minutes of this.
 
 <a name="Jupyter-NB-Intro"></a>
 ## Introducing Jupyter notebooks
