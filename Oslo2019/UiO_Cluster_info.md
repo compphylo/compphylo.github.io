@@ -107,7 +107,7 @@ compphylo-workshop
 
 Throughout the workshop we will be introducing new commands as the need for them arises. We will pay special attention to highlighting and explaining new commands and giving examples to practice with. 
 
-> **Special Note:** Notice that the above directory we are making is not called `ipyrad workshop`. This is **very important**, as spaces in directory names are known to cause havoc on HPC systems. All linux based operating systems do not recognize file or directory names that include spaces because spaces act as default delimiters between arguments to commands. There are ways around this (for example Mac OS has half-baked "spaces in file names" support) but it will be so much for the better to get in the habit now of ***never including spaces in file or directory names***.
+> **Special Note:** Notice that the above directory we are making is not called `compphylo workshop`. This is **very important**, as spaces in directory names are known to cause havoc on HPC systems. All linux based operating systems do not recognize file or directory names that include spaces because spaces act as default delimiters between arguments to commands. There are ways around this (for example Mac OS has half-baked "spaces in file names" support) but it will be so much for the better to get in the habit now of ***never including spaces in file or directory names***.
 
 <a name="conda-install"></a>
 ## Download and Install conda
@@ -165,29 +165,46 @@ to your terminal prompt. Mine looks like this:
 ``` 
 
 <a name="example-job-script"></a>
-## Example Job Submission Script
+## The queueing system and a sxample Job Submission Script
 
-Very detailed [job script documentation on the UiO Abel site](https://www.uio.no/english/services/it/research/hpc/abel/help/user-guide/job-scripts.html)
+Abel utilizes a [SLURM](https://slurm.schedmd.com/documentation.html) workload
+management system for handling job submission, queueing, and resource allocation.
+In this workshop we will only be scratching the surface of how to interact with it,
+and all the powerful things you can do. For more information you can see the very 
+detailed [job script documentation on the UiO Abel site](https://www.uio.no/english/services/it/research/hpc/abel/help/user-guide/job-scripts.html)
+
+The general idea is that we will need to write simple scripts to tell the 
+cluster what we want to run, how we want to run it, and what kinds of resources
+to allocate. We'll practice with a simple script here.
 
 Open a new file called `myfirst.job` and add the following text:
 ```
+#!/bin/bash
 #SBATCH --account=nn9458k
 #SBATCH --time=00:10:00
 #SBATCH --mem-per-cpu=1G
+
+cd /work/users/<username>
+echo "Hello World" > watdo.txt
 ```
 
 **NB:** The `account`, `time`, and `mem-per-cpu` parameters are compulsory,
 your job will not run if any of them are not specified.
 
-Submit this job to the cluster with `sbatch` (abel uses the SLURM queue management system):
+Submit this job to the cluster with `sbatch` and if your job script is well 
+formed you'll receive notification that the job was submitted as well as the
+job id #:
 
 ```
-sbatch myfirst.job
+$ sbatch myfirst.job
+Submitted batch job 27708069
 ```
 
-And now monitor the progress of the job with qstat:
+And now monitor the progress of the job with `squeue:
 
 ```
-squeue
+$ squeue -u iovercast
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          27708069    normal myfirst. iovercas CG       0:02      1 c16-1
 ```
 
