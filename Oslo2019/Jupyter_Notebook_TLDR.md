@@ -17,7 +17,7 @@ List all the running ssh tunnels
 ```
 ps -ef | grep ssh
 ```
-    work1     7389     1  0 May16 ?        00:00:00 ssh -N -f -L 9001:node215:9001 work1@habanero
+    work1     7389     1  0 May16 ?        00:00:00 ssh -N -f -L 9000:localhost:9000 iovercast@abel.uio.no
 
 Kill anything that looks like this `ssh -N -f -L`, using the process id, which is the number in the 2nd column:
 
@@ -30,13 +30,14 @@ List all your running cluster jobs
 ```
 squeue -u work1
 ```
-    JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-    8389553      edu1 jupyter.    work2  R    2:37:12      1 node162
+(base) bash-4.1$ squeue -u iovercast                                                                                                                   
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          27742479    normal   qlogin iovercas  R       5:19      1 c15-3
 
 Kill _everything_ running using `scancel` and the JOBID (first column):
 
 ```
-scancel 8389553
+scancel 27742479
 ```
 ## Restart everything
 

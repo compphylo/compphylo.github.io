@@ -141,12 +141,11 @@ actual port number inside the angle brackets below. All these `SBATCH`
 flags should be familiar from yesterday:
 ```
 #!/bin/sh
-#SBATCH --account=edu
-#SBATCH --reservation=edu_23
-#SBATCH --cores=4
-#SBATCH --time=8:00:00
+#SBATCH --account=nn9458k
+#SBATCH --time=144:00:00
+#SBATCH --cores=1
+#SBATCH --mem-per-cpu=1G
 
-unset XDG_RUNTIME_DIR
 cd $HOME
 jupyter-notebook --ip=$(hostname -i) --port=<your_port_number>
 ```
@@ -157,21 +156,27 @@ $ sbatch jupyter.sh
 ````
     Submitted batch job 8384428
 
+You can monitor the status of the submitted job using `squeue`:
+
+```
+$ squeue -u <your_username>
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          27742560    normal jupyter. iovercas PD       0:00      1 (Priority)
+```
+Here you see after you first submit a job the status (**ST**) will be pending
+(**PD**). Typically if your job is queued it'll be because of 'Priority', 
+other higher priority jobs are ahead of you. Once the job is running the status 
+will change to **R**. Also, the more resources you ask for (cores) the longer
+you will wait. Here we ask for few resources so we can get quick access.
+
 Once the job appears to be running, you must now take note of the 
-compute node your notebook server is running on. This can be done
-using `squeue`. In the example results below you can see the compute
-node is `node162`:
+compute node your notebook server is running on. This info is also provided by
+`squeue`. In the example results below you can see the compute node is `c16-35`:
 ```
 $ squeue -u <your_username>
 ```
-    JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-    8384428      edu1 jupyter.    work2  R       0:14      1 node162
-
-**Backup command:** Yesterday we had some problems with the `squeue` command
-so if you find that this isn't running you can also try the following:
-```
-$ squeue | grep <your_username>
-```
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          27742583    normal jupyter. iovercas  R       1:35      1 c16-35
 
 ### SSH Tunnel Configuration on your local computer
 
@@ -198,7 +203,7 @@ this is what we'll do here, since we have 25 people who all want to
 talk to the cluster, we need to specify 25 different ports. Because 
 each notebook must have a unique port number to run on, we have 
 assigned unique port numbers for each workshop attendee. You can 
-you can find your port number here: [RADCamp NYC workshop port #s](https://github.com/radcamp/radcamp.github.io/blob/master/NYC2018/participants.txt). 
+you can find your port number here: [CompPhylo workshop port #s](https://raw.githubusercontent.com/compphylo/compphylo.github.io/master/Oslo2019/participants.txt).
 
 > **Special Note:** An "SSH Tunnel" and an "SSH client connection" are two different things. The SSH client connection gives you access to the command line on a remote machine. The SSH tunnel will allow your web browser to talk to your jupyter notebook **using** ssh, but on a unique port. For a jupyter notebook to function properly you will normally always need **both** an ssh tunnel (for making the web interface work) and an ssh client connection (for running the jupyter notebook server).
 
