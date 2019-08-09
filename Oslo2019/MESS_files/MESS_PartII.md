@@ -65,9 +65,13 @@ In a new cell in your notebook you can download the Reunion spider data like thi
 ```bash
 !wget https://raw.githubusercontent.com/messDiv/MESS/master/empirical_data/Reunion_spiders/spider.dat
 ```
+**NB:** The `!` prior to the command here indicates that the jupyter notebook
+should interpret this as a bash command executed at the command line. This is a
+handy way of executing bash commands from within the notebook environment, rather
+than returning to a terminal window on the cluster. It's just a nice shortcut.
 
 Now make a new cell and import MESS and pandas (which is a python data analysis
-library).
+library), and read in the data you just downloaded.
 
 ```
 import MESS
@@ -80,10 +84,11 @@ spider_df[:5]
 pandas commands shorter because you can reference it as `pd` rather than `pandas`.
 It's syntactic suger, but pretty standard.
 
-The final line in the above command asks python to display the first 5 rows of
+**NB::** The final line in the above command asks python to display the first 5 rows of
 the `spider_df` dataframe. It should look like this:
 
 ![png](images/Reunion_spider_df.png)
+
 
 
 <a name="Create-MESS-Region"></a>
