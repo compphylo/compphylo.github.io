@@ -45,15 +45,46 @@ Megan will do 20-25 Minutes of this.
 <a name="NB-Cluster-Setup"></a>
 ## Setting up and connecting to a notebook server on the cluster
 Lets get set up and connected to our notebook server on the cluster again. If 
-you get stuck might review the [jupyter notebook troubleshooting page]("../Jupyter_Notebook_TLDR.html").
+you get stuck you might review the [jupyter notebook troubleshooting page]("../Jupyter_Notebook_TLDR.html").
+
+In the juypter browser window navigate to `~/work/MESS` and choose "New->Notebook->Python 3"
 
 <a name="Import-example-data"></a>
 ## Download and examine example data
-We will be using as an example dataset COI sequences (~500bp) and densely sampled
-abundances for the spider community on La Reunion. This data is from Emerson
+We will be using as an example dataset of community-scale COI sequences 
+(~500bp) and densely sampled abundances for the spider community on the island 
+of La Reunion, an overseas department of France, which is  the largest of the 
+Mascarene islands, located in the Indian Ocean approximately 1000 km from 
+Madagascar. The data we will be using was collected and published by Emerson 
 et al (2017). For this exercise, we will just grab and use the formatted data 
-from the MESS github repository. For further instruction on properly formatting
-and converting raw data into MESS-ready format see the [MESS raw data handling page]("MESS_process_raw_data.html").
+from the MESS github repository. For further instruction on properly 
+formatting and converting raw data into MESS-ready format see the [MESS raw data handling page]("MESS_process_raw_data.html").
+
+In a new cell in your notebook you can download the Reunion spider data like this:
+
+```bash
+!wget https://raw.githubusercontent.com/messDiv/MESS/master/empirical_data/Reunion_spiders/spider.dat
+```
+
+Now make a new cell and import MESS and pandas (which is a python data analysis
+library).
+
+```
+import MESS
+import pandas as pd
+spider_df = pd.read_csv("spider.dat", index_col=0)
+spider_df[:5]
+```
+
+**NB:** Importing pandas as `pd` is pretty cannonical. It makes typing out
+pandas commands shorter because you can reference it as `pd` rather than `pandas`.
+It's syntactic suger, but pretty standard.
+
+The final line in the above command asks python to display the first 5 rows of
+the `spider_df` dataframe. It should look like this:
+
+![png](images/Reunion_spider_df.png)
+
 
 <a name="Create-MESS-Region"></a>
 ## Create and parameterize a new MESS Region
