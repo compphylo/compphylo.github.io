@@ -143,10 +143,10 @@ will be stored. By default the new directory will be placed in your home
 directory and will be called `miniconda2`.
 
 ```bash
-$ ./miniconda2/bin/conda init
+$ ./miniconda3/bin/conda init
 $ bash
 $ which python
-/usit/abel/u1/iovercast/miniconda2/bin/python
+/usit/abel/u1/iovercast/miniconda3/bin/python
 ```
 
 The first line here initializes our conda install, something that the `-b`
@@ -167,12 +167,23 @@ to your terminal prompt. Mine looks like this:
 
 <a name="install-workshop-sw"></a>   
 ## Install workshop software and dependencies
-
+Turns out 95% of all the software we need for the whole workshop is included
+as a dependency of MESS, so here we'll just install MESS through conda. This
 
 ```bash
 ## Install MESS using conda
-$ conda install -c conda-forge -c mess mess
+$ conda install -c conda-forge -c mess mess -y
 ```
+
+This often takes a while (~5 minutes), and produces a bunch of pretty arcane
+output. After it finishes you can test it by running MESS. If this works then
+you are good to go:
+
+```bash
+$ MESS -h
+```
+    usage: MESS [-h] [-n new] [-p params] [-s sims] [-c cores] [-r] [-e empirical]
+                [-f] [-q] [-Q] [-d] [-l] [--ipcluster [ipcluster]] [--fancy-plots]
 
 <a name="example-job-script"></a>
 ## The queueing system and a example Job Submission Script
@@ -198,8 +209,7 @@ cd /work/users/<username>
 echo "Hello World" > watdo.txt
 ```
 
-**NB:** The `account`, `time`, and `mem-per-cpu` parameters are compulsory,
-your job will not run if any of them are not specified.
+> **NB:** The `account`, `time`, and `mem-per-cpu` parameters are compulsory, your job will not run if any of them are not specified.
 
 Submit this job to the cluster with `sbatch` and if your job script is well 
 formed you'll receive notification that the job was submitted as well as the
@@ -217,4 +227,10 @@ $ squeue -u iovercast
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
           27708069    normal myfirst. iovercas CG       0:02      1 c16-1
 ```
+
+`squeue` shows all the critical information about your running jobs, including the 
+job status (**ST**), the job ID #, and the name of the compute node the job is
+running on (here `c16-1`). If the job is pending (**PD**) the reason for the delay
+will show in the `NODELIST(REASON)` feild. The complete documentation of status codes 
+and "REASON" codes are provided on the [squeue man page](https://slurm.schedmd.com/squeue.html).
 
