@@ -25,10 +25,10 @@ the main difference being that with jupyter notebooks you can export
 your entire session with figures, tables, and results, all embedded
 between consecutive "tasks" specified by blocks of code.
 
-ipyrad analysis tools are best run inside Jupyter notebooks, as the analysis can be 
-monitored and tweaked and provides a self-documenting workflow, so we will
-focus the rest of the workshop on exploring the anaylsis tools in the
-jupyter notebook environment.
+Many of the tools we will learn this week are best run inside Jupyter 
+notebooks, as the analysis can be monitored and tweaked and provides 
+a self-documenting workflow, so we will get the configuration and setup
+out of the way at the very beginning.
 
 ## A word on Jupyter notebook setup in an HPC environment
 
@@ -68,7 +68,7 @@ Overview of process
 * [More information about jupyter](#useful-jupyter-tricks/ideas)
 
 ### Set Jupyter Notebook Password
-Jupyter was already installed as a dependency of ipyrad, so we just 
+Jupyter was already installed as a dependency of MESS, so we just 
 need to set a password before we can launch it. This command will 
 prompt you for a new password for your notebook (you will **only ever 
 have to do this once on the HPC**). Run this command in a terminal on
@@ -80,7 +80,7 @@ This will set a password on your notebook server so that other people
 won't have access to your files and notebooks. The notebook server 
 will prompt you for your password when you initially connect to it.
 
-> **Note:** The password tho access your jupyter notebook and the 
+> **Note:** The password to access your jupyter notebook and the 
 password for your cluster login ***are two different passwords.*** It
 will probably reduce confusion, though, if you make them the same, at
 least for now.
@@ -94,7 +94,7 @@ only have to do this **one time on the cluster.**
 The first parameter (`open-browser = False`) directs jupyter to run in
 the background and wait for connections. The second parameter (`port = <my_port_#>`) 
 is **very important for us**. Each user must enter the port number
-they were assigned on the [RADCamp NYC workshop port #s](https://github.com/radcamp/radcamp.github.io/blob/master/NYC2018/participants.txt) page. 
+they were assigned on the [CompPhylo workshop port #s](https://github.com/compphylo/compphylo.github.io/blob/master/Oslo2019/participants.txt) page.
 The final parameter (`port_retries = 0`) 
 prevents jupyter from assigning us a random port if our assigned port
 is not available. This is useful because if we're already running
@@ -133,12 +133,13 @@ For convenience we will run our instance of the jupyter notebook server
 using a new job submission script. Begin by creating a new file in your
 `job-scripts` directory:
 ```
+$ mkdir job-scripts
 $ cd job-scripts
 $ nano jupyter.sh
 ```
 Now enter the following text in this script. Be sure to replace your
 actual port number inside the angle brackets below. All these `SBATCH`
-flags should be familiar from yesterday:
+flags should be familiar from earlier:
 ```
 #!/bin/sh
 #SBATCH --account=nn9458k
@@ -149,6 +150,13 @@ flags should be familiar from yesterday:
 cd $HOME
 jupyter-notebook --ip=$(hostname -i) --port=<your_port_number>
 ```
+> **Special Note**: The `--ip=$(hostname -i)` argument automatically looks 
+up and specifies the IP address for the notebook server to listen on. We need 
+to set the IP because we want it to listen for connections from outside, 
+since we are connecting remotely.
+
+If all goes according to plan, this one notebook server will last you the
+entire week, since we request the process to run for 144 hours.
 
 Now you can submit your jupyter server job as follows:
 ```
@@ -182,7 +190,7 @@ $ squeue -u <your_username>
 
 > **NB:** In order to properly run an SSH tunnel to a notebook server on the
 cluster you must have **both your personal port number and the name
-of the compute node** on which the server is running.**
+of the compute node** on which the server is running.
 
 This part is run **on your local computer**. An "ssh tunnel" will
 allow your computer to talk to the notebook server on the cluster
@@ -209,36 +217,51 @@ you can find your port number here: [CompPhylo workshop port #s](https://raw.git
 
 ### Windows SSH Tunnel Configuration
 
-To set up a SSH Tunnel on a Windows machine, we use puTTY again. Open puTTY and fill out the host address in the first screen, like you do when connecting to the cluster.
+To set up a SSH Tunnel on a Windows machine, we use puTTY again. Open puTTY 
+and fill out the host address in the first screen, like you do when connecting 
+to the cluster. In this example you will have to replace `abel.uio.no` in the
+Host Name box:
 
 ![png](Jupyter_Notebook_Setup_files/08_puTTY1.png)
 
-Now, click on SSH on the left panel, and click on Tunnels. There are two boxes of interest here: `Source Port` and `Destination`. In `Source Port` you will put **your personal port #**. In `Destination` you should put `<compute_node>:<your_port_#>`. Now click "Add" and your tunnel info will appear in the empty window. Click "Open" and log in.
+Now, click on SSH on the left panel, and click on Tunnels. There are two 
+boxes of interest here: `Source Port` and `Destination`. In `Source Port` 
+you will put **your personal port #**. In `Destination` you should put 
+`<compute_node>:<your_port_#>`. Now click "Add" and your tunnel info will 
+appear in the empty window. Click "Open" and log in.
 
 ![png](Jupyter_Notebook_Setup_files/08_puTTY2.png)
+> **NB:** In this example you will need to replace `9001` with your personal port
+number and `localhost` with the name of your compute node.
 
 ### Mac/Linux SSH Tunnel Configuration
 
 SSH Tunnel on Mac/Linux can be established through the command line interface. Open a Terminal and run this command:
 
 ```
-ssh -N -f -L <my_port_#>:<compute_node>:<my_port_#> <username>@habanero.rcs.columbia.edu
+ssh -N -f -L <my_port_#>:<compute_node>:<my_port_#> <username>@abel.uio.no
 ```
-This will prompt you for your password (the password on the cluster). If you type the password correctly **it will look like nothing happened**, but this means it worked! If you think nothing happened you should not attempt to run it again because of panic, because if you run it twice you might see this error message:
+This will prompt you for your password (the password on the cluster). If you 
+type the password correctly **it will look like nothing happened**, but this 
+means it worked! If you think nothing happened you should not attempt to run 
+it again because of panic, because if you run it twice you might see this 
+error message:
 
 ```
 bind: Address already in use
 channel_setup_fwd_listener: cannot listen to port: 9000
 ```
-> **Note:** If you see this message ***it means your ssh tunnel is already running!!*** So you should celebrate! And not panic more because you got a (seeming) error message.
+> **Note:** If you see this message ***it means your ssh tunnel is already 
+running!!*** So you should celebrate! And not panic more because you got a 
+(seeming) error message.
 
 ## Test your notebook connection (Run on your laptop)
-To test your jupyter notebook configuration you can open a new
-browser tab and go to:
+To test your jupyter notebook configuration you can open a new browser tab 
+and go to:
 ```
 http://localhost:<my_port_#>
 ```
-You should see that your notebook server prompt you for your password
+You should see that your notebook server prompts you for your password
 before it gives you access. This is the password that you entered above
 during when we used the `jupyter notebook password` command. If
 everything is working, and you type the password correctly, then you'll
@@ -292,17 +315,17 @@ This error indicates that your ssh tunnel is running, but your notebook server i
 not running. SSH to the cluster and restart your notebook server.
 
 ### How to tell if the ssh tunnel is running (Windows)
-I have no fuckin idea.
+I have no idea.
 
 ### Killing a running jupyter notebook server
 If you ever find that you have a notebook server running on the cluster and you
 need to kill it, the easiest way is to use the `scancel` command. First you
 must find the job number of the running process with the `squeue` command:
 ```
-squeue -u work2
+squeue -u iovercast
 ```
     JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-    8384428      edu1 jupyter.    work2  R    1:48:09      1 node162
+    8384428      edu1 jupyter.   iovercast  R    1:48:09      1 node162
 
 Here the `JOBID` is the value of interest. Now we can kill this process like so:
 ```
@@ -312,13 +335,15 @@ scancel 83484428
 ### Starting a jupyter notebook server with command line arguments instead of a config file
 You might find in the future that you want to run a jupyter notebook server
 on some other computer, and that you only want to start it using command
-line arguments, rather than setting up the config file. The we illustrate 
+line arguments, rather than setting up the config file. Here we illustrate 
 usage of the three `jupyter notebook` arguments that correspond to the 
 three config file parameters we set. The first is `--no-browser`, which 
 tells jupyter to just run in the background and wait for connections. 
 The second is `--port`, which is **very important for us**. Each user must 
-enter the port number they were assigned on the [RADCamp NYC workshop port #s](https://github.com/radcamp/radcamp.github.io/blob/master/NYC2018/participants.txt) page, and this should be the same port as entered above for the ssh tunnel. The third is `--port-retries=0`, which tells 
-jupyter to error out if our port is already occupied.
+enter the port number they were assigned on the [CompPhylo workshop port #s](https://github.com/compphylo/compphylo.github.io/blob/master/Oslo2019/participants.txt)
+page, and this should be the same port as entered above for the ssh tunnel. 
+The third is `--port-retries=0`, which tells jupyter to error out if our port 
+is already occupied.
 ```
 $ jupyter notebook --no-browser --port <my_port_number> --port-retries=0 &
 ```
@@ -330,7 +355,6 @@ $ jupyter notebook --no-browser --port <my_port_number> --port-retries=0 &
 echo "export QT_QPA_PLATFORM=offscreen" >> ~/.bashrc
 source ~/.bashrc
 ```
-
 
 ## Further exploration with jupyter notebooks
 Here are links to a couple useful jupyter tutorials that explore
