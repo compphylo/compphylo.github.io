@@ -35,7 +35,7 @@ abel.uio.no
 * [Abel queueing system](https://www.uio.no/english/services/it/research/hpc/abel/help/user-guide/queue-system.html)
 * [Abel FAQ](https://www.uio.no/english/services/it/research/hpc/abel/help/faq/)
 
-**[RADCamp NYC 2018 Participant Username/Port# List](https://github.com/radcamp/radcamp.github.io/blob/master/NYC2018/participants.txt)**
+**[CompPhylo Participant Username/Port# List](https://github.com/compphylo/compphylo.github.io/blob/master/Oslo2019/participants.txt)**
 
 <a name="ssh-intro"></a>
 ## SSH and the command line
@@ -73,8 +73,8 @@ Applications->Utilities->Terminal, then you can start an ssh session like this:
 # enter your username here
 $ ssh <username>@abel.uio.no
 
-# this is an example for the username "work2"
-$ ssh work2@abel.uio.no
+# this is an example for the username iovercast
+$ ssh iovercast@abel.uio.no
 ```
 
 > **Note on usage:** In command line commands we'll use the convention of wrapping variable names in angle-brackets. For example, in the command above you should substitute your own username for `<username>`. We will provide usernames and passwords on the day of the workshop. 
@@ -93,7 +93,13 @@ $ ls
 00_README_Abel   nobackup
 ```
 
-`ls` stands for **"list"** and in our home directory there is **not much, it appears!** In fact right now there is nothing. This is okay, because you just got a brand new account, so you won't expect to have anything there. Throughout the workshop we will be adding files and directories and by the time we're done, not only will you have a bunch of experience with RAD-Seq analysis, but you'll also have a ***ton*** of stuff in your home directory. We can start out by adding the first directory for this workshop:
+`ls` stands for **"list"** and in our home directory there are two things by default,
+a README file that explains some useful stuff about the system, and an empty directory
+called nobackup. Throughout the workshop we will be adding files and directories and 
+by the time we're done, not only will you have a bunch of experience with analysis, 
+computational comparative phylogeographic methods, but you'll also have a ***ton*** 
+of stuff in your home directory. We can start out by adding the first directory for 
+this workshop:
 
 ```bash
 $ mkdir compphylo-workshop
@@ -106,9 +112,20 @@ $ ls
 compphylo-workshop
 ```
 
-Throughout the workshop we will be introducing new commands as the need for them arises. We will pay special attention to highlighting and explaining new commands and giving examples to practice with. 
-
 > **Special Note:** Notice that the above directory we are making is not called `compphylo workshop`. This is **very important**, as spaces in directory names are known to cause havoc on HPC systems. All linux based operating systems do not recognize file or directory names that include spaces because spaces act as default delimiters between arguments to commands. There are ways around this (for example Mac OS has half-baked "spaces in file names" support) but it will be so much for the better to get in the habit now of ***never including spaces in file or directory names***.
+
+Lets get rid of that 'nobackup' directory, since we won't use it. Use `rm -rf`
+to **remove** this directory. The `-rf` parts of this command are the *arguments*
+to the `rm` command, in this case indicating to remove **r**ecursively and to 
+**f**orce to remove everything and not prompt for permission. `rm -rf` can be 
+DANGEROUS if you do this on the wrong directory. The command line is like a 
+tightrope walk without a net, there is no 'undo' for `rm -rf`.
+
+```bash
+$ rm -rf nobackup
+```
+
+Throughout the workshop we will be introducing new commands as the need for them arises. We will pay special attention to highlighting and explaining new commands and giving examples to practice with. 
 
 <a name="conda-install"></a>
 ## Download and Install conda
@@ -140,7 +157,7 @@ $ bash Miniconda3-latest-Linux-x86_64.sh -b
 This will create a new directory where the `conda` program will be located, 
 and also where all of the software that we will eventually install with conda 
 will be stored. By default the new directory will be placed in your home 
-directory and will be called `miniconda2`.
+directory and will be called `minicondar3`.
 
 ```bash
 $ ./miniconda3/bin/conda init
@@ -168,7 +185,7 @@ to your terminal prompt. Mine looks like this:
 <a name="install-workshop-sw"></a>   
 ## Install workshop software and dependencies
 Turns out 95% of all the software we need for the whole workshop is included
-as a dependency of MESS, so here we'll just install MESS through conda. This
+as a dependency of MESS, so here we'll just install MESS through conda.
 
 ```bash
 ## Install MESS using conda
@@ -186,7 +203,7 @@ $ MESS -h
                 [-f] [-q] [-Q] [-d] [-l] [--ipcluster [ipcluster]] [--fancy-plots]
 
 <a name="example-job-script"></a>
-## The queueing system and a example Job Submission Script
+## The queueing system and an example Job Submission Script
 
 Abel utilizes a [SLURM](https://slurm.schedmd.com/documentation.html) workload
 management system for handling job submission, queueing, and resource allocation.
@@ -198,18 +215,34 @@ The general idea is that we will need to write simple scripts to tell the
 cluster what we want to run, how we want to run it, and what kinds of resources
 to allocate. We'll practice with a simple script here.
 
-Open a new file called `myfirst.job` and add the following text:
+We will use the `nano` text editor to create a new job submission script, like this:
+
+```bash
+nano myfirst.job
+```
+
+Nano is a very basic text editor, so you'll need to use only the arrow keys 
+on the keyboard for navigating around the file. Nano accepts a few special
+keyboard commands for doing things other than modifying text, and it lists 
+these on the bottom of the frame. Edit the file to contain this text:
+
 ```
 #!/bin/bash
 #SBATCH --account=nn9458k
 #SBATCH --time=00:10:00
 #SBATCH --mem-per-cpu=1G
 
-cd /work/users/<username>
+cd ~/compphylo_workshop/
 echo "Hello World" > watdo.txt
 ```
-
+> **NB:** The `~` character is a shortcut which represents your home directory.
 > **NB:** The `account`, `time`, and `mem-per-cpu` parameters are compulsory, your job will not run if any of them are not specified.
+
+
+After you finish the script you may save and exit nano by typing CTRL+o 
+(to write **O**utput), and then CTRL+x (to e**X**it the program).
+
+> **Note:** The `CTRL+x` notation indicates that you should hold down the control key (which is often styled 'ctrl' on the keyboard) and then push 'x'.
 
 Submit this job to the cluster with `sbatch` and if your job script is well 
 formed you'll receive notification that the job was submitted as well as the
@@ -225,7 +258,7 @@ And now monitor the progress of the job with `squeue:
 ```
 $ squeue -u iovercast
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-          27708069    normal myfirst. iovercas CG       0:02      1 c16-1
+          27708069    normal myfirst. iovercas R        0:02      1 c16-1
 ```
 
 `squeue` shows all the critical information about your running jobs, including the 
@@ -234,3 +267,19 @@ running on (here `c16-1`). If the job is pending (**PD**) the reason for the del
 will show in the `NODELIST(REASON)` feild. The complete documentation of status codes 
 and "REASON" codes are provided on the [squeue man page](https://slurm.schedmd.com/squeue.html).
 
+You'll know your job is finished because it won't be in the queue anymore:
+
+```                                                                                                                                                    
+$ squeue -u iovercast                                                                                                                                  
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)                                                                   
+```   
+
+Also, there will be a new file in your `work` directory, which you can examine:
+
+```bash
+cat ~/compphylo_workshop/watdo.txt
+```
+    Hello World
+
+This is essentially how all cluster job submission scripts act, just with
+(hopefully) more complicated and interesting results.
