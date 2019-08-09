@@ -17,7 +17,7 @@ List all the running ssh tunnels
 ```
 ps -ef | grep ssh
 ```
-    work1     7389     1  0 May16 ?        00:00:00 ssh -N -f -L 9000:localhost:9000 iovercast@abel.uio.no
+    iovercast     7389     1  0 May16 ?        00:00:00 ssh -N -f -L 9000:localhost:9000 iovercast@abel.uio.no
 
 Kill anything that looks like this `ssh -N -f -L`, using the process id, which is the number in the 2nd column:
 
@@ -28,7 +28,7 @@ kill 7389
 ### On the HPC
 List all your running cluster jobs
 ```
-squeue -u work1
+squeue -u iovercast
 ```
 (base) bash-4.1$ squeue -u iovercast                                                                                                                   
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
@@ -49,17 +49,21 @@ sbatch ~/job-scripts/jupyter.sh
 ```
 Figure out what compute node it's running on:
 ```
-squeue -u work1
+squeue -u iovercast
 ```
     JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-    8389553      edu1 jupyter.    work2  R    2:37:12      1 node162
+           27742583    normal jupyter. iovercas  R    4:44:32      1 c16-35
 
 
 ### On your laptop (Windows)
 Start a new ssh tunnel using the [Windows](https://github.com/radcamp/radcamp.github.io/blob/master/NYC2018/Jupyter_Notebook_Setup.md#windows-ssh-tunnel-configuration)
 
-### On your laptopt (Mac)
-[mac/linux](https://github.com/radcamp/radcamp.github.io/blob/master/NYC2018/Jupyter_Notebook_Setup.md#maclinux-ssh-tunnel-configuration) directions.
+### On your laptop (Mac)
+SSH Tunnel on Mac/Linux can be established through the command line interface. Open a Terminal and run this command:
+
+```bash
+ssh -N -f -L <my_port_#>:<compute_node>:<my_port_#> <username>@abel.uio.no
+```
 
 4) In a browser open a new tab and navigate to `http://localhost:<my_port_#>`
 
