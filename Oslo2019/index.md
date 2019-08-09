@@ -58,7 +58,7 @@ but if there is anything else we would need to know, please contact me directly.
 Times            | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
 -----            | ------ | ------ | ------ | ------- | ------ | ------ |
 8:30-9:00       | | Welcome/Intro/Housekeeping/Participant Summaries, data and questions. | Check-in and refreshments | Check-in and refreshments | Check-in and refreshments | Check-in and refreshments |
-9:00-12:30      | | Mike ([Introduction and Background.](Hicker_files/Norway_Workshop_2019_Hickerson.pdf)) / [Cluster config](UiO_Cluster_info.md) / [jupyter notebook setup]("Jupyter_Notebook_Setup.html") | [MESS Part I](MESS_files/MESS_PartI.md) (Isaac) | [PipeMaster](https://github.com/gehara/PipeMaster/blob/master/README.md)(Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
+9:00-12:30      | | Mike ([Introduction and Background.](Hicker_files/Norway_Workshop_2019_Hickerson.pdf)) / [Cluster config](UiO_Cluster_info.md) / [jupyter notebook setup](Jupyter_Notebook_Setup.html) | [MESS Part I](MESS_files/MESS_PartI.md) (Isaac) | [PipeMaster](https://github.com/gehara/PipeMaster/blob/master/README.md)(Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
 12:30-14:00 | | Lunch | Lunch | Lunch | Lunch | Lunch |
 14:00-17:00 | [Optional bash/python/R/scripting/CLI intro](Scripting_CLI_Intro/Scripting_CLI_Intro.md) | [CAMI](CAMI_files/CAMI.md) (Megan) | [MESS Part II](MESS_files/MESS_PartII.md) (Isaac) | [PipeMaster](https://github.com/gehara/PipeMaster/blob/master/README.md)(Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
 
