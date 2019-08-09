@@ -319,9 +319,4 @@ and inspect the new simulated outputs:
 <a name="Curate-Empirical"></a>
 ## Curating empirical data
 
-<a name="CLI-ML-Inference"></a>
-## MESS CLI machine learning inference procedure
-
-
-
-
+If there's time show how to process raw data into the obs dataframe.

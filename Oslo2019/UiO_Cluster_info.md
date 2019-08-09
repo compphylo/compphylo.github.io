@@ -8,6 +8,7 @@ advanced users hopefully will find value in some of the finer details we present
 * [Connecting to the cluster](#ssh-intro): [Windows](#ssh-for-windows)/[Mac/Linux](#ssh-for-mac)
 * [Basic command line navigation](#command-line-basics)
 * [Setting up the computing environment](#conda-install)
+* [Installing software for the workshop](#install-workshop-sw)
 * [Writing and executing an example job submission script](#example-job-script)
 
 ## Tutorial documentation conventions
@@ -121,7 +122,7 @@ applications, based on our own computing needs.
 
 Run this command inside an ssh window on the cluster:
 ```bash
-$ wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 ```
 > **Note:** `wget` is a command line utility for fetching content from the internet. 
 You use it when you want to **get** stuff from the **w**eb, so that's why it's called `wget`.
@@ -133,7 +134,7 @@ is specific to this `.sh` script, and tells it to automatically run the entire
 script (in **b**atch mode) instead of stopping to ask us questions as it goes. 
 
 ```bash
-$ bash Miniconda2-latest-Linux-x86_64.sh -b
+$ bash Miniconda3-latest-Linux-x86_64.sh -b
 ```
 
 This will create a new directory where the `conda` program will be located, 
@@ -164,8 +165,17 @@ to your terminal prompt. Mine looks like this:
 (base) bash-4.1$ 
 ``` 
 
+<a name="install-workshop-sw"></a>   
+## Install workshop software and dependencies
+
+
+```bash
+## Install MESS using conda
+$ conda install -c conda-forge -c mess mess
+```
+
 <a name="example-job-script"></a>
-## The queueing system and a sxample Job Submission Script
+## The queueing system and a example Job Submission Script
 
 Abel utilizes a [SLURM](https://slurm.schedmd.com/documentation.html) workload
 management system for handling job submission, queueing, and resource allocation.

@@ -11,7 +11,6 @@ be identical.
 
 ## MESS Part II Outline
 * [Crash course in machine learing](#ML-Intro)
-* [Introducing Jupyter notebooks](#Jupyter-NB-Intro)
 * [Setting up and connecting to a notebook server on the cluster](#NB-Cluster-Setup)
 * [Create and parameterize a new MESS Region](#Create-MESS-Region)
 * [Run MESS simulations in API mode](#Simulate-MESS-API)
@@ -43,11 +42,18 @@ wat
 Some stuff here about intro to machine learning and random forests.
 Megan will do 20-25 Minutes of this.
 
-<a name="Jupyter-NB-Intro"></a>
-## Introducing Jupyter notebooks
-
 <a name="NB-Cluster-Setup"></a>
 ## Setting up and connecting to a notebook server on the cluster
+Lets get set up and connected to our notebook server on the cluster again. If 
+you get stuck might review the [jupyter notebook troubleshooting page]("../Jupyter_Notebook_TLDR.html").
+
+<a name="Import-example-data"></a>
+## Download and examine example data
+We will be using as an example dataset COI sequences (~500bp) and densely sampled
+abundances for the spider community on La Reunion. This data is from Emerson
+et al (2017). For this exercise, we will just grab and use the formatted data 
+from the MESS github repository. For further instruction on properly formatting
+and converting raw data into MESS-ready format see the [MESS raw data handling page]("MESS_process_raw_data.html").
 
 <a name="Create-MESS-Region"></a>
 ## Create and parameterize a new MESS Region
@@ -64,3 +70,9 @@ Megan will do 20-25 Minutes of this.
 <a name="Example-Datasets"></a>
 ## Free time to experiment with other example datasets
 
+## References
+
+Emerson, B. C., Casquet, J., López, H., Cardoso, P., Borges, P. A., Mollaret, N., 
+... & Thébaud, C. (2017). A combined field survey and molecular identification
+ protocol for comparing forest arthropod biodiversity across spatial scales. 
+Molecular ecology resources, 17(4), 694-707.
