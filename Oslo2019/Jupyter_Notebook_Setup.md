@@ -267,6 +267,13 @@ during when we used the `jupyter notebook password` command. If
 everything is working, and you type the password correctly, then you'll
 be presented with the jupyter dashboard running on the HPC! **Magic!!!**
 
+Now convince yourself that it's actually running on the cluster by creating
+a new notebook and running the `hostname` command:
+
+![png](Jupyter_Notebook_Setup_files/Jupyter_Notebook_check_hostname.png)
+> **NB:** The `%%bash` is a magic command that tells jupyter to interpret
+the rest of the cell as bash commands, rather than python. Handy!
+
 If it does not work, proceed to [the section about troubleshooting jupyter
 notebook connections](#what-to-do-if-the-notebook-is-not-working).
 
