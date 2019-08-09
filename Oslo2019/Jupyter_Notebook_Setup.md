@@ -47,7 +47,7 @@ using ssh to *"tunnel"* traffic between these two computers:
 ![png](Jupyter_Notebook_Setup_files/Jupyter_Notebook_tunnel_diagram1.png)
 
 The end result is that we'll be able to sit on our laptops and run
-complicated analyses on the compute node **as if we were actually running
+complicated analyses on the compute node **as if we were operating a terminal
 directly on the cluster**, in this way taking advantage of both the
 resources of the cluster, and the convenience of the notebook environment:
 
