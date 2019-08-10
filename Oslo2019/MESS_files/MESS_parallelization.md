@@ -1,7 +1,8 @@
 ## MESS Parallelization Docs
 
 Either run this by hand on a compute node or add this line
-to your jupyter notebook job submission script:
+to your jupyter notebook job submission script before the call
+to launch the notebook server:
 
 ```
 ipcluster start -n 40 --cluster-id=MESS --daemonize
