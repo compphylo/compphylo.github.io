@@ -51,7 +51,7 @@ In a new cell in your notebook you can download the Reunion spider data like thi
 ```python
 !wget https://raw.githubusercontent.com/messDiv/MESS/master/empirical_data/Reunion_spiders/spider.dat
 ```
-**NB:** The `!` prior to the command here indicates that the jupyter notebook
+> **NB:** The `!` prior to the command here indicates that the jupyter notebook
 should interpret this as a bash command executed at the command line. This is a
 handy way of executing bash commands from within the notebook environment, rather
 than returning to a terminal window on the cluster. It's just a nice shortcut.
@@ -66,9 +66,10 @@ spider_df = pd.read_csv("spider.dat", index_col=0)
 spider_df[:5]
 ```
 
-**NB:** Importing pandas as `pd` is pretty cannonical. It makes typing out
+> **NB:** Importing pandas as `pd` is pretty cannonical. It makes typing out
 pandas commands shorter because you can reference it as `pd` rather than `pandas`.
-**NB::** The final line in the above command asks python to display the first 5 rows of
+
+> **NB:** The final line in the above command asks python to display the first 5 rows of
 the `spider_df` dataframe. It should look like this:
 
 ![png](images/Reunion_spider_df.png)
@@ -76,7 +77,13 @@ the `spider_df` dataframe. It should look like this:
 <a name="Create-MESS-Region"></a>
 ## Create and parameterize a new MESS Region
 
-A MESS `Region`
+MESS API mode lets you dive under the hood of the CLI mode a bit. You have
+all the power of the CLI mode, yet more flexibility. The first step in API
+mode is to create a MESS `Region`. A `Region` encompasses a very large
+Metacommunity and a much smaller local community which is connected to it 
+by colonization. In creating a `Region` the only thing you're required to
+pass in is a name, so lets go with "LaReunion" (No spaces!), as this is the
+region the empirical data is drawn from.
 
 ```python
 reunion = MESS.Region("LaReunion")
@@ -84,7 +91,7 @@ print(reunion.get_params())
 ```
 ```
 ------- MESS params file (v.0.1.0)----------------------------------------------
-wat                  ## [0] [simulation_name]: The name of this simulation scenario
+LaReunion            ## [0] [simulation_name]: The name of this simulation scenario
 ./default_MESS       ## [1] [project_dir]: Where to save files
 0                    ## [2] [generations]: Duration of simulations. Values/ranges Int for generations, or float [0-1] for lambda.
 neutral              ## [3] [community_assembly_model]: Model of Community Assembly: neutral, filtering, competition
@@ -105,9 +112,23 @@ Loc1                 ## [0] [name]: Local community name
 0.01                 ## [2] [m]: Migration rate into local community
 0                    ## [3] [speciation_prob]: Probability of speciation per timestep in local community
 ```
+These are all the parameters of the model. The defaults are chosen to reflect
+a typical oceanic island arthropod community. Don't worry at this point about
+all the parameters, we'll learn more about a couple of them momentarily. For now
+lets start by generating a few simulations.
 
 <a name="Simulate-MESS-API"></a>
 ## Run MESS simulations in API mode
+
+```python
+reunion.run(sims=1)
+```
+       Generating 1 simulation(s).
+    [####################] 100%  Finished 0 simulations    | 0:00:00 | 
+
+> We will not do this now, but the `run` method can also accept an `ipyclient`
+argument for specifying a connection to an ipyparallel backend, allowing for
+massive parallelization. For more info see the [MESS parallelization documentation]("MESS_parallelization.html").
 
 <a name="MESS-API-Classification"></a>
 ## ML assembly model classification
