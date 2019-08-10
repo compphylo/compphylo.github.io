@@ -84,7 +84,7 @@ The CLI provides a way to navigate a file system, move files around, and run com
 
 ```bash
 $ pwd
-/usit/abel/u1/iovercast/work
+/usit/abel/u1/iovercast
 ```
 `pwd` stands for **"print working directory"**, which literally means "where am I now in this filesystem?". This is a question you should always be aware of when working in a terminal. Just like when you open a file browser window, when you open a new terminal you are located somewhere; the terminal will usually start you out in your "home" directory. Ok, now we know where we are, lets take a look at what's in this directory:
 
