@@ -30,8 +30,7 @@ Megan will do 20-25 Minutes of this.
 <a name="NB-Cluster-Setup"></a>
 ## Setting up and connecting to a notebook server on the cluster
 Lets get set up and connected to our notebook server on the cluster again. If 
-you get stuck you might review the [jupyter notebook troubleshooting page]("../Jupyter_Notebook_TLDR.html"),
-or the [notebook troubleshooting quick-guide](../Jupyter_Notebook_TLDR.md)
+you get stuck you might review the [jupyter notebook troubleshooting page](../Jupyter_Notebook_TLDR.html),
 
 In the juypter browser window navigate to `~/MESS` and choose "New->Notebook->Python 3"
 
@@ -44,7 +43,7 @@ Mascarene islands, located in the Indian Ocean approximately 1000 km from
 Madagascar. The data we will be using was collected and published by Emerson 
 et al (2017). For this exercise, we will just grab and use the formatted data 
 from the MESS github repository. For further instruction on properly 
-formatting and converting raw data into MESS-ready format see the [MESS raw data handling page]("MESS_process_raw_data.html").
+formatting and converting raw data into MESS-ready format see the [MESS raw data handling page](MESS_process_raw_data.html).
 
 In a new cell in your notebook you can download the Reunion spider data like this:
 
@@ -128,7 +127,7 @@ reunion.run(sims=1)
 
 > We will not do this now, but the `run` method can also accept an `ipyclient`
 argument for specifying a connection to an ipyparallel backend, allowing for
-massive parallelization. For more info see the [MESS parallelization documentation]("MESS_parallelization.html").
+massive parallelization. For more info see the [MESS parallelization documentation](MESS_parallelization.html).
 
 <a name="MESS-API-Classification"></a>
 ## ML assembly model classification
