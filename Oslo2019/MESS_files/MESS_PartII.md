@@ -113,8 +113,8 @@ Loc1                 ## [0] [name]: Local community name
 ```
 These are all the parameters of the model. The defaults are chosen to reflect
 a typical oceanic island arthropod community. Don't worry at this point about
-all the parameters, lets focus for now on the `community_assembly_model`, the 
-size of the local community (`J`) and the rate of migration from the metacommunity 
+all the parameters, lets focus for now on `community_assembly_model`, the 
+size of the local community (`J`), and the rate of migration from the metacommunity 
 to the local community (`m`). We will set parameter ranges for these, and each 
 simulation will sample a random value from this range. In a new cell use the 
 `set_param()` method to change these values:
@@ -147,7 +147,10 @@ massive parallelization. For more info see the [MESS parallelization documentati
 
 Since it can take quite some time to run a number of simulations sufficient for
 model selection and parameter estimation we will use a suite of simulations I
-generated ahead of time. Fetch them with `wget` from the compphylo github:
+generated ahead of time. Fetch them with `wget` from the compphylo site:
+```
+!wget https://compphylo.github.io/Oslo2019/MESS_files/MESS_simulations/SIMOUT.txt
+```
 
 <a name="MESS-API-Classification"></a>
 ## ML assembly model classification
