@@ -63,6 +63,7 @@ Times            | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
 14:00-17:00 | [Optional bash/python/R/scripting/CLI intro](Scripting_CLI_Intro/Scripting_CLI_Intro.md) | [CAMI](CAMI_files/CAMI.md) (Megan) | [MESS Part II](MESS_files/MESS_PartII.md) (Isaac) | [PipeMaster](https://github.com/gehara/PipeMaster/blob/master/README.md)(Marcelo) | ABLE (Champak) | Multi-DICE (Xander) |
 
 ## Additional resources
+* [Jupyter notebook troubleshooting quick-guide](Jupyter_Notebook_TLDR.md)
 
 # CompPhylo Oslo 2019 co-sponsored by:
 

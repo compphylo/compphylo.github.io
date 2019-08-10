@@ -18,24 +18,9 @@ be identical.
 * [ML parameter estimation](#MESS-API-Regression)
 * [Free time to experiment with other example datasets](#Example-Datasets)
 
-Each grey cell in this tutorial indicates a command line interaction. 
-Lines starting with `$ ` indicate a command that should be executed 
-in a terminal connected to the cluster, for example by copying and 
-pasting the text into your terminal. Elements in code cells surrounded 
-by angle brackets (e.g. <username>) are variables that need to be 
-replaced by the user. All lines in code cells beginning with \#\# are 
-comments and should not be copied and executed. All other lines should 
-be interpreted as output from the issued commands.
-
-```bash
-## Example Code Cell.
-## Create an empty file in my home directory called `watdo.txt`
-$ touch ~/watdo.txt
-
-## Print "wat" to the screen
-$ echo "wat"
-wat
-```
+For the purposes of this tutorial, all command interactions will take place
+inside a jupyter notebook running on the cluster. For the most part we will
+be writing and executing python commands.
 
 <a name="ML-Intro"></a>
 ## Crash course in machine learing
@@ -45,9 +30,10 @@ Megan will do 20-25 Minutes of this.
 <a name="NB-Cluster-Setup"></a>
 ## Setting up and connecting to a notebook server on the cluster
 Lets get set up and connected to our notebook server on the cluster again. If 
-you get stuck you might review the [jupyter notebook troubleshooting page]("../Jupyter_Notebook_TLDR.html").
+you get stuck you might review the [jupyter notebook troubleshooting page]("../Jupyter_Notebook_TLDR.html"),
+or the [notebook troubleshooting quick-guide](../Jupyter_Notebook_TLDR.md)
 
-In the juypter browser window navigate to `~/work/MESS` and choose "New->Notebook->Python 3"
+In the juypter browser window navigate to `~/MESS` and choose "New->Notebook->Python 3"
 
 <a name="Import-example-data"></a>
 ## Download and examine example data
@@ -62,7 +48,7 @@ formatting and converting raw data into MESS-ready format see the [MESS raw data
 
 In a new cell in your notebook you can download the Reunion spider data like this:
 
-```bash
+```python
 !wget https://raw.githubusercontent.com/messDiv/MESS/master/empirical_data/Reunion_spiders/spider.dat
 ```
 **NB:** The `!` prior to the command here indicates that the jupyter notebook
@@ -70,10 +56,10 @@ should interpret this as a bash command executed at the command line. This is a
 handy way of executing bash commands from within the notebook environment, rather
 than returning to a terminal window on the cluster. It's just a nice shortcut.
 
-Now make a new cell and import MESS and pandas (which is a python data analysis
-library), and read in the data you just downloaded.
+Now make a new cell and import MESS and pandas (which is a python structured data
+library providing the DataFrame class), and read in the data you just downloaded.
 
-```
+```python
 import MESS
 import pandas as pd
 spider_df = pd.read_csv("spider.dat", index_col=0)
@@ -82,17 +68,43 @@ spider_df[:5]
 
 **NB:** Importing pandas as `pd` is pretty cannonical. It makes typing out
 pandas commands shorter because you can reference it as `pd` rather than `pandas`.
-It's syntactic suger, but pretty standard.
-
 **NB::** The final line in the above command asks python to display the first 5 rows of
 the `spider_df` dataframe. It should look like this:
 
 ![png](images/Reunion_spider_df.png)
 
-
-
 <a name="Create-MESS-Region"></a>
 ## Create and parameterize a new MESS Region
+
+A MESS `Region`
+
+```python
+reunion = MESS.Region("LaReunion")
+print(reunion.get_params())
+```
+```
+------- MESS params file (v.0.1.0)----------------------------------------------
+wat                  ## [0] [simulation_name]: The name of this simulation scenario
+./default_MESS       ## [1] [project_dir]: Where to save files
+0                    ## [2] [generations]: Duration of simulations. Values/ranges Int for generations, or float [0-1] for lambda.
+neutral              ## [3] [community_assembly_model]: Model of Community Assembly: neutral, filtering, competition
+point_mutation       ## [4] [speciation_model]: Type of speciation process: none, point_mutation, protracted, random_fission
+2.2e-08              ## [5] [mutation_rate]: Mutation rate scaled per base per generation
+2000                 ## [6] [alpha]: Abundance/Ne scaling factor
+570                  ## [7] [sequence_length]: Length in bases of the sequence to simulate
+------- Metacommunity params: --------------------------------------------------
+100                  ## [0] [S_m]: Number of species in the regional pool
+750000               ## [1] [J_m]: Total # of individuals in the regional pool
+2                    ## [2] [speciation_rate]: Speciation rate of metacommunity
+0.7                  ## [3] [death_proportion]: Proportion of speciation rate to be extinction rate
+2                    ## [4] [trait_rate_meta]: Trait evolution rate parameter for metacommunity
+1                    ## [5] [ecological_strength]: Strength of community assembly process on phenotypic change
+------- LocalCommunity params: Loc1---------------------------------------------
+Loc1                 ## [0] [name]: Local community name
+1000                 ## [1] [J]: Number of individuals in the local community
+0.01                 ## [2] [m]: Migration rate into local community
+0                    ## [3] [speciation_prob]: Probability of speciation per timestep in local community
+```
 
 <a name="Simulate-MESS-API"></a>
 ## Run MESS simulations in API mode

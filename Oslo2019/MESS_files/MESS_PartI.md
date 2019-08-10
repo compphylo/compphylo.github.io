@@ -129,9 +129,10 @@ requires you to pass in a name for your simulations. In the example we use
 own data you might call your parameters file something more informative, like
 the name of your target community and some details on the settings.
 
-```bash 
-# go to our working directory
-$ cd ~/work
+```bash
+$ cd ~
+$ mkdir MESS 
+$ cd MESS
 
 # Create a new params file named 'simdata'
 $ MESS -n simdata
@@ -215,7 +216,7 @@ Once we start running the simulations and performing MESS analyses all the temp
 files and directories it needs are created in the `project_dir` directory and
 use the prefix specified by the `simulation_name` parameter. Because we use the
 default (`./default_MESS`) for the `project_dir` for this tutorial, all these
-intermediate directories will be of the form: `~/work/default_MESS/simdata_*`,
+intermediate directories will be of the form: `~/MESS/default_MESS/simdata_*`,
 or the analagous name that you used for your assembly name.
 
 > **Note on files in the project directory:** MESS relies on the integrity

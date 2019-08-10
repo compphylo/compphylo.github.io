@@ -148,8 +148,14 @@ flags should be familiar from earlier:
 #SBATCH --mem-per-cpu=1G
 
 cd $HOME
-jupyter-notebook --ip=$(hostname -i) --port=<your_port_number>
+source .bashrc
+jupyter notebook --ip=$(hostname -i) --port=<your_port_number>
 ```
+> **NB:** The `source .bashrc` command is required to boot up conda inside
+the compute node. There is a difference between 'interactive' and 'non-interactive'
+shell sessions, and reading .bashrc is a feature of 'interactive' sessions, which
+HPC jobs by default are not.
+
 > **Special Note**: The `--ip=$(hostname -i)` argument automatically looks 
 up and specifies the IP address for the notebook server to listen on. We need 
 to set the IP because we want it to listen for connections from outside, 
