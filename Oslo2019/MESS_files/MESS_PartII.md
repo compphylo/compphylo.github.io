@@ -6,8 +6,8 @@ and analysis process. This is meant as a broad introduction to familiarize
 users with the general workflow, and some of the parameters and terminology. 
 We will use as an example in this tutorial the __??????__ data set from
 __?????__. However, you can follow along with one of the other example
-data sets if you like and although your results will vary the procedure will 
-be identical. 
+data sets if you like, although your results will vary the procedure will 
+be identical.
 
 ## MESS Part II Outline
 * [Crash course in machine learing](#ML-Intro)
@@ -113,11 +113,27 @@ Loc1                 ## [0] [name]: Local community name
 ```
 These are all the parameters of the model. The defaults are chosen to reflect
 a typical oceanic island arthropod community. Don't worry at this point about
-all the parameters, we'll learn more about a couple of them momentarily. For now
-lets start by generating a few simulations.
+all the parameters, lets focus for now on the `community_assembly_model`, the 
+size of the local community (`J`) and the rate of migration from the metacommunity 
+to the local community (`m`). We will set parameter ranges for these, and each 
+simulation will sample a random value from this range. In a new cell use the 
+`set_param()` method to change these values:
+
+```python
+reunion.set_param("community_assembly_model", "*")
+reunion.set_param("J", "1000-10000")
+reunion.set_param("m", "0.001-0.01")
+```
+> **NB:** Setting the `community_assembly_model` to `*` indicates that we want
+to sample uniformly among all three of the model types: neutral, competition,
+and environmental filtering.
 
 <a name="Simulate-MESS-API"></a>
 ## Run MESS simulations in API mode
+
+Now we can run a bunch of simulations given our new parameterization using the
+`run()` method. Run takes one argument (`nsims`) which indicates the number
+of independent community assembly realizations to perform.
 
 ```python
 reunion.run(sims=1)
@@ -128,6 +144,10 @@ reunion.run(sims=1)
 > We will not do this now, but the `run` method can also accept an `ipyclient`
 argument for specifying a connection to an ipyparallel backend, allowing for
 massive parallelization. For more info see the [MESS parallelization documentation](MESS_parallelization.html).
+
+Since it can take quite some time to run a number of simulations sufficient for
+model selection and parameter estimation we will use a suite of simulations I
+generated ahead of time. Fetch them with `wget` from the compphylo github:
 
 <a name="MESS-API-Classification"></a>
 ## ML assembly model classification
