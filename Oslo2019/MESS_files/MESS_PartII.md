@@ -27,6 +27,12 @@ be writing and executing python commands.
 Some stuff here about intro to machine learning and random forests.
 Megan will do 20-25 Minutes of this.
 
+The `MESS.inference` architecture is based on the powerful and extensive
+[scikit-learn](https://scikit-learn.org/) python machine learning library.
+
+Another really amazing resource I highly recommend is the 
+[Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/).
+
 <a name="NB-Cluster-Setup"></a>
 ## Setting up and connecting to a notebook server on the cluster
 Lets get set up and connected to our notebook server on the cluster again. If 
@@ -128,6 +134,35 @@ reunion.set_param("m", "0.001-0.01")
 to sample uniformly among all three of the model types: neutral, competition,
 and environmental filtering.
 
+Print the params again to prove to yourself that the ranges are now set:
+
+```python
+print(reunion.get_params())
+```
+```
+------- MESS params file (v.0.1.0)----------------------------------------------
+LaReunion            ## [0] [simulation_name]: The name of this simulation scenario
+./default_MESS       ## [1] [project_dir]: Where to save files
+0                    ## [2] [generations]: Duration of simulations. Values/ranges Int for generations, or float [0-1] for lambda.
+*                    ## [3] [community_assembly_model]: Model of Community Assembly: neutral, filtering, competition
+point_mutation       ## [4] [speciation_model]: Type of speciation process: none, point_mutation, protracted, random_fission
+2.2e-08              ## [5] [mutation_rate]: Mutation rate scaled per base per generation
+2000                 ## [6] [alpha]: Abundance/Ne scaling factor
+570                  ## [7] [sequence_length]: Length in bases of the sequence to simulate
+------- Metacommunity params: --------------------------------------------------
+100                  ## [0] [S_m]: Number of species in the regional pool
+750000               ## [1] [J_m]: Total # of individuals in the regional pool
+2                    ## [2] [speciation_rate]: Speciation rate of metacommunity
+0.7                  ## [3] [death_proportion]: Proportion of speciation rate to be extinction rate
+2                    ## [4] [trait_rate_meta]: Trait evolution rate parameter for metacommunity
+1                    ## [5] [ecological_strength]: Strength of community assembly process on phenotypic change
+------- LocalCommunity params: Loc1---------------------------------------------
+Loc1                 ## [0] [name]: Local community name
+1000-10000           ## [1] [J]: Number of individuals in the local community
+0.001-0.01           ## [2] [m]: Migration rate into local community
+0                    ## [3] [speciation_prob]: Probability of speciation per timestep in local community
+```
+
 <a name="Simulate-MESS-API"></a>
 ## Run MESS simulations in API mode
 
@@ -162,6 +197,7 @@ You can see this series of ~25k simulations is about 14MB.
 
 <a name="MESS-API-Classification"></a>
 ## ML assembly model classification
+
 The first step is now to assess the model of community assembly that best
 fits the data. The three models are `neutral`, in which all individuals are
 ecologically equivalent; `competition`, in which species have traits, and
@@ -175,7 +211,24 @@ Basically we want to know, are individuals in the local community ecologically
 equivalent, and if not are they interacting more with each other or more
 with the local environment.
 
+Here we create a `MESS.inference.Classifier` object and pass in the empirical
+dataframe, the simulations, and specify RandomForest ('rf') as the algorithm
+to use (other options are GradientBoosting ('gb') and AdaBoost ('ab')). Very
+thorough documentation of all the machine learning inference architecture is
+available on the [MESS documentation site](https://pymess.readthedocs.io/en/latest/api.html#inference-procedure).
 
+```python
+cla = MESS.inference.Classifier(empirical_df=spider_df, simfile="SIMOUT.txt", algorithm="rf")
+est, proba = cla.predict(select_features=False, param_search=False, quick=True, verbose=True)
+```
+
+
+
+
+```python
+display(est, proba)
+display(cla.feature_importances())
+```
 
 <a name="MESS-API-Regression"></a>
 ## ML parameter estimation
