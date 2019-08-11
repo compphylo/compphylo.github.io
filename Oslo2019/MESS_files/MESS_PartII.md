@@ -331,26 +331,54 @@ factors seem to contribute equally to estimation of migration rate (`m`).
 ## Perform posterior predictive simulations
 
 Finally, a very important step in machine learning inference is to validate
-the parameter estimates by performing posterior predictive checks. The
-logic of this procedure is that we will generate a suite of simulations
+the parameter estimates by performing posterior predictive checks (PPCs). 
+The logic of this procedure is that we will generate a suite of simulations
 using our most probable parameter estimates, and compare these simulations
 to our empirical data. For our purposes here we will project the summary
 statistics of observed and simulated datasets into principle component
 space. If the parameter estimates are a good fit to the data then our 
 posterior predictive simulations will cluster together with the real data,
 whereas if the parameter estimates are a poor fit, then the real data
-will be quite different from the simulations. Copy this next command
-to a new cell and run it, and we'll look at the arguments while it runs
-(this part takes a little bit of time).
+will be quite different from the simulations.
+
+**Spoiler alert:** Posterior predictive simulations can take quite a while
+to run, and I've seen with the range of estimates we get even with this
+toy data a reasonable number of sims could take a couple hours. **So!** 
+For the purpose of this exercise we are going to *munge* the estimates to
+make the simulations run faster. **DO NOT DO THIS WITH YOUR REAL DATA!**
 
 ```python
-MESS.inference.posterior_predictive_check(empirical_df=sp_df,
+est["J"] /= 3
+est["m"] *= 10
+est["_lambda"] /= 4
+est
+```
+Here we reduced the size of the local community (`J`), increased the rate of
+migration (`m`), and decreased the duration of the simulation (`_lambda`). 
+All these things will make the simulations run more quickly. Now go ahead
+and run this next cell and we'll talk about the arguments (should take about
+one minute).
+
+```python
+MESS.inference.posterior_predictive_check(empirical_df=spider_df,
                                           parameter_estimates=est,
-                                          est_only=True,
+                                          est_only=False,
                                           nsims=20,
-                                          verbose=True)
+                                          verbose=True,
+                                          force=True)
 ```
       [#                   ]   5% Performing simulations
+
+This time the only thing we *have* to pass in is the empirical data and 
+the dataframe of prediction values, but I'm showing a couple more arguments
+here for the sake of completeness. Setting `est_only` to True will use only 
+the exact parameter estimates for all simulations, whereas setting it to 
+False will sample uniformly between the upper and lower prediction interval 
+for each simulation. `nsims` should be obvious, the number of posterior
+predictive simulations to perform. `force` will overwrite any pre-existing
+simulations, thus preventing mixing apples with oranges from different
+simulation runs. On the other hand if this is `False` (the default), then
+this is a handy way to add more PPCs to your analysis.
 
 Here is a pretty typical example of a good fit of parameters to the data:
 ![png](images/MESS_PPC_GoodFit.png)
@@ -364,6 +392,13 @@ visual verification. Still useful.
 
 <a name="Example-Datasets"></a>
 ## Free time to experiment with other example datasets
+
+Assuming there is any time left you might want to experiment either with
+some of the other empirical datasets which are provided on the [MESS github
+repo](https://github.com/messDiv/MESS/tree/master/jupyter-notebooks/empirical),
+or with exploring the substantial [MESS inference procedure documentation](https://pymess.readthedocs.io/en/latest/api.html#inference-procedure)
+where we show a ton of other cool stuff MESS is capable of that we just don't
+have time to go over in this short workshop.
 
 ## References
 
