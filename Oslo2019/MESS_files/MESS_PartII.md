@@ -146,17 +146,40 @@ argument for specifying a connection to an ipyparallel backend, allowing for
 massive parallelization. For more info see the [MESS parallelization documentation](MESS_parallelization.html).
 
 Since it can take quite some time to run a number of simulations sufficient for
-model selection and parameter estimation we will use a suite of simulations I
-generated ahead of time. Fetch them with `wget` from the compphylo site:
+model selection and parameter estimation we will use a suite of pre-baked 
+simulations I generated ahead of time. Fetch them with `wget` from the compphylo 
+site:
 ```
 !wget https://compphylo.github.io/Oslo2019/MESS_files/MESS_simulations/SIMOUT.txt
+!wc -l SIMOUT.txt
 ```
+    100%[======================================>] 14,234,338  50.0M/s   in 0.3s    
+    2019-08-11 01:25:27 (50.0 MB/s) - "SIMOUT.txt.1" saved [14234338/14234338]
+    24440 SIMOUT.txt
+
+> **NB:** The `wc` command counts the number of lines if you pass it the `-l` flag.
+You can see this series of ~25k simulations is about 14MB.
 
 <a name="MESS-API-Classification"></a>
 ## ML assembly model classification
+The first step is now to assess the model of community assembly that best
+fits the data. The three models are `neutral`, in which all individuals are
+ecologically equivalent; `competition`, in which species have traits, and
+differential survival probability is weighted by distance of traits from
+the trait mean in the local community (closer to the trait mean == higher
+probability of death); and `filtering`, in which there is an environmental
+optimum, and proximity of trait values to this optimum is positively
+correlated with survival probability.
+
+Basically we want to know, are individuals in the local community ecologically
+equivalent, and if not are they interacting more with each other or more
+with the local environment.
+
+
 
 <a name="MESS-API-Regression"></a>
 ## ML parameter estimation
+
 
 <a name="Example-Datasets"></a>
 ## Free time to experiment with other example datasets
