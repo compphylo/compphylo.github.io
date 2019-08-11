@@ -266,7 +266,7 @@ in the nb window.
 ![png](images/MESSClassifier_feature_importance.png)
 
 The `plot_feature_importance()` method prunes out all the summary statistics
-that contribuet less than 5% of information to the final model. Here you can
+that contribute less than 5% of information to the final model. Here you can
 see that the shape of the abundance distributions (as quantified by the 
 first 4 hill numbers) and the standard deviation of pi within the local 
 community are the most important summary statistics for differentiating 
