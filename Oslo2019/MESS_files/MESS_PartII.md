@@ -246,6 +246,9 @@ from the `IPython` library, which just makes pd.DataFrames pretty print.
 
 ![png](images/MESSClassifier_results.png)
 
+Here we see that the `neutral` model is vastly favored over the `competition`
+and `fitering` models.
+
 You can also look the weight of importance of each feature, which indicates
 the contribution of each summary statistic to the inference of the ML
 algorithm. You can also get a quick and dirty plot of feature importances
@@ -254,9 +257,20 @@ method.
 
 ```python
 display(cla.feature_importances())
-cla.plot_feature_importance()
+cla.plot_feature_importance(figsize=(5,5))
 ```
+> **NB:** The `figsize` argument controls the size of the output figure. The
+default is `(10, 10)`, so here we just make it a bit smaller to fit better
+in the nb window.
+
 ![png](images/MESSClassifier_feature_importance.png)
+
+The `plot_feature_importance()` method prunes out all the summary statistics
+that contribuet less than 5% of information to the final model. Here you can
+see that the shape of the abundance distributions (as quantified by the 
+first 4 hill numbers) and the standard deviation of pi within the community
+are the most important summary statistics for differentiating between the
+different community assembly models.
 
 <a name="MESS-API-Regression"></a>
 ## ML parameter estimation
