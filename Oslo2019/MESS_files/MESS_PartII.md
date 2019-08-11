@@ -16,6 +16,7 @@ be identical.
 * [Run MESS simulations in API mode](#Simulate-MESS-API)
 * [ML assembly model classification](#MESS-API-Classification)
 * [ML parameter estimation](#MESS-API-Regression)
+* [Posterior predictive simulations](#Posterior-Predictive-Simulations)
 * [Free time to experiment with other example datasets](#Example-Datasets)
 
 For the purposes of this tutorial, all command interactions will take place
@@ -299,7 +300,8 @@ something the stock `rf` algorithm doesn't do. The gradient boosting method
 (`gb`) provides prediction intervals natively.
 
 The return value `est` is a dataframe that contains predicted values for
-each model parameter and 95% prediction intervals. 
+each model parameter and 95% prediction intervals, which are conceptually
+in the same ball park as confidence intervals and HPD. 
 
 ```python
 display(est)
@@ -308,14 +310,57 @@ display(est)
 
 Similar to the classifier, you can also extract feature importances from the
 regressor, to get an idea about how each feature is contributing to parameter
-estimation.
+estimation. In this case, the feature importance plots are a little more 
+useful than the giant table. Also note that we're requesting a slighly larger
+figure, because this time there will be much more information.
 
 ```python
 display(rgr.feature_importances()))
-rgr.p
+rgr.plot_feature_importance(figsize=(20,8))
 ```
 ![png](images/MESSRegressor_feature_importance.png)
 ![png](images/MESSRegressor_plot_feature_importance.png)
+
+You can see that some parameters are strongly driven by one or a couple of
+features, and for some the feature importances are more diffuse. For example 
+species richness (`S`) contributes overwhelmingly to estimation of local 
+community size (`J`), which makes sense. On the other hand, many more
+factors seem to contribute equally to estimation of migration rate (`m`).
+
+<a name="Posterior-Predictive-Simulations">
+## Perform posterior predictive simulations
+
+Finally, a very important step in machine learning inference is to validate
+the parameter estimates by performing posterior predictive checks. The
+logic of this procedure is that we will generate a suite of simulations
+using our most probable parameter estimates, and compare these simulations
+to our empirical data. For our purposes here we will project the summary
+statistics of observed and simulated datasets into principle component
+space. If the parameter estimates are a good fit to the data then our 
+posterior predictive simulations will cluster together with the real data,
+whereas if the parameter estimates are a poor fit, then the real data
+will be quite different from the simulations. Copy this next command
+to a new cell and run it, and we'll look at the arguments while it runs
+(this part takes a little bit of time).
+
+```python
+MESS.inference.posterior_predictive_check(empirical_df=sp_df,
+                                          parameter_estimates=est,
+                                          est_only=True,
+                                          nsims=20,
+                                          verbose=True)
+```
+      [#                   ]   5% Performing simulations
+
+Here is a pretty typical example of a good fit of parameters to the data:
+![png](images/MESS_PPC_GoodFit.png)
+
+And here is a nice example of a poor fit of parameters to the data:
+![png](images/MESS_PPC_BadFit.png)
+
+Quite a striking, and obvious difference. Posterior predictive checks are
+less of a formal model evaluation procedure and more of a quick-and-dirty
+visual verification. Still useful.
 
 <a name="Example-Datasets"></a>
 ## Free time to experiment with other example datasets
