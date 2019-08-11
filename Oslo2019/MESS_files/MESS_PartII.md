@@ -221,14 +221,31 @@ available on the [MESS documentation site](https://pymess.readthedocs.io/en/late
 cla = MESS.inference.Classifier(empirical_df=spider_df, simfile="SIMOUT.txt", algorithm="rf")
 est, proba = cla.predict(select_features=False, param_search=False, quick=True, verbose=True)
 ```
+> **NB:** The `Classifier.predict()` method provides a very sophisticated
+suite of routines for automating machine learning performance tuning. 
+Here we disable *all* of this in order for it to run quickly, trading 
+performance for accuracy. The `select_features` argument controls whether
+or not to prune summary statistics based on correlation and informativeness.
+The `param_search` argument controls whether or not to exhaustively search
+the space of parameters to maximize accuracy of the ML algorithm selected.
+Finally, the `quick` argument subsets the size of the simulation database
+to 1000 simulations. In normal conditions, when you want to investigate
+real data you should use `select_featers=True, param_search=True, quick=False`.
+This will result in much more accurate inference, yet will take *much* more
+time to run.
 
-
-
+The call to `cla.predict()` returns both the most likely community assembly
+model (`est`) and the model probabilities (`proba`), which you can view:
 
 ```python
+from IPython.display import display
 display(est, proba)
 display(cla.feature_importances())
 ```
+> **NB:** The first line of this codeblock imports the `display` method
+from the `IPython` library, which just makes pd.DataFrames pretty print.
+
+![png](images/MESSClassifier_results.png)
 
 <a name="MESS-API-Regression"></a>
 ## ML parameter estimation
