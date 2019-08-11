@@ -4,10 +4,10 @@ This is the first part of the full tutorial for the command line interface
 (**CLI**) for MESS. In this tutorial we'll walk through the entire simulation 
 and analysis process. This is meant as a broad introduction to familiarize 
 users with the general workflow, and some of the parameters and terminology. 
-We will use as an example in this tutorial the __??????__ data set from
-__?????__. However, you can follow along with one of the other example
-data sets if you like and although your results will vary the procedure will 
-be identical. 
+We will use as an example in this tutorial the spider community data set from
+La Reunion published by Emerson et al (2017). However, you can follow along 
+with one of the [other example datasets](https://github.com/messDiv/MESS/tree/master/jupyter-notebooks/empirical)
+if you like, the procedure will be identical although your results will vary.
 
 ## MESS Part I Outline
 * [Equilibrium theory of island biogeography and neutral theory (individual
@@ -20,8 +20,6 @@ based simulations)](#ETIB-NTIB-Intro)
 * [Run simulations using your edited params file](#Simulate)
 * [Inspect the output of the simulation runs](#Inspect-Simulations)
 * [Setting prior ranges on parameters](#Prior-Ranges)
-* [Curating empirical data](#Curate-Empirical)
-* [MESS CLI machine learning inference procedure](#CLI-ML-Inference)
 
 Each grey cell in this tutorial indicates a command line interaction. 
 Lines starting with `$ ` indicate a command that should be executed 
@@ -44,7 +42,7 @@ wat
 
 <a name="ETIB-NTIB-Intro"></a>
 ## Equilibrium theory of island biogeography and neutral theory
-Some stuff here about ETIB/NTIB simulations. Basic intro.
+[Background and a brief introduction to the MESS model.](https://docs.google.com/presentation/d/1dbQOZ17RliFyRBzyLdDDn3SWCmaWwXcVD2h1muyixv8/edit#slide=id.g35887b7c4d_0_159) 
 
 <a name="MESS-Overview"></a>
 ## Overview of MESS simulation and analysis workflow
@@ -317,7 +315,3 @@ and inspect the new simulated outputs:
 
 ???
 
-<a name="Curate-Empirical"></a>
-## Curating empirical data
-
-If there's time show how to process raw data into the obs dataframe.

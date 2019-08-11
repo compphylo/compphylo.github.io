@@ -4,10 +4,10 @@ This is the second part of the MESS tutorial in which we introduce the API mode
 using jupyter notebooks. In this tutorial we'll walk through the entire simulation 
 and analysis process. This is meant as a broad introduction to familiarize 
 users with the general workflow, and some of the parameters and terminology. 
-We will use as an example in this tutorial the __??????__ data set from
-__?????__. However, you can follow along with one of the other example
-data sets if you like, although your results will vary the procedure will 
-be identical.
+We will use as an example in this tutorial the spider community data set from
+La Reunion published by Emerson et al (2017). However, you can follow along 
+with one of the [other example datasets](https://github.com/messDiv/MESS/tree/master/jupyter-notebooks/empirical) 
+if you like, the procedure will be identical although your results will vary.
 
 ## MESS Part II Outline
 * [Crash course in machine learing](#ML-Intro)
