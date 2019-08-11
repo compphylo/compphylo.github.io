@@ -268,9 +268,9 @@ in the nb window.
 The `plot_feature_importance()` method prunes out all the summary statistics
 that contribuet less than 5% of information to the final model. Here you can
 see that the shape of the abundance distributions (as quantified by the 
-first 4 hill numbers) and the standard deviation of pi within the community
-are the most important summary statistics for differentiating between the
-different community assembly models.
+first 4 hill numbers) and the standard deviation of pi within the local 
+community are the most important summary statistics for differentiating 
+between the different community assembly models.
 
 <a name="MESS-API-Regression"></a>
 ## ML parameter estimation
