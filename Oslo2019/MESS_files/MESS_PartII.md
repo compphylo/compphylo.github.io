@@ -221,7 +221,7 @@ available on the [MESS documentation site](https://pymess.readthedocs.io/en/late
 cla = MESS.inference.Classifier(empirical_df=spider_df, simfile="SIMOUT.txt", algorithm="rf")
 est, proba = cla.predict(select_features=False, param_search=False, quick=True, verbose=True)
 ```
-> **NB:** The `Classifier.predict()` method provides a very sophisticated
+The `Classifier.predict()` method provides a very sophisticated
 suite of routines for automating machine learning performance tuning. 
 Here we disable *all* of this in order for it to run quickly, trading 
 performance for accuracy. The `select_features` argument controls whether
@@ -249,8 +249,8 @@ from the `IPython` library, which just makes pd.DataFrames pretty print.
 Here we see that the `neutral` model is vastly favored over the `competition`
 and `fitering` models.
 
-You can also look the weight of importance of each feature, which indicates
-the contribution of each summary statistic to the inference of the ML
+Now we can examine the weight of importance of each feature, an indication
+of the contribution of each summary statistic to the inference of the ML
 algorithm. You can also get a quick and dirty plot of feature importances
 directly from the `Classifier` object with the `plot_feature_importances()`
 method.
@@ -266,15 +266,56 @@ in the nb window.
 ![png](images/MESSClassifier_feature_importance.png)
 
 The `plot_feature_importance()` method prunes out all the summary statistics
-that contribute less than 5% of information to the final model. Here you can
-see that the shape of the abundance distributions (as quantified by the 
-first 4 hill numbers) and the standard deviation of pi within the local 
-community are the most important summary statistics for differentiating 
-between the different community assembly models.
+that contribute less than 5% of information to the final model. This method is
+simply for visualization. Here you can see that the shape of the abundance 
+distributions (as quantified by the first 4 hill numbers) and the standard 
+deviation of nucleotide diversity (pi) within the local community are the most 
+important summary statistics for differentiating between the different community
+assembly models.
 
 <a name="MESS-API-Regression"></a>
 ## ML parameter estimation
 
+Now that we have identified the neutral model as the most probable, we can
+estimate parameters of the emipirical data given this model. Essentially,
+we are asking the question "What are the parameters of the model that 
+generate summary statistics most similar to those of the empirical data?"
+
+The `MESS.inference` module provides the `Regressor` class, which has a very
+similar API to the `Classifier`. We create a `Regressor` and pass in the
+empirical data, the simulations, and the machine learning algorithm to use,
+but this time we also add the `target_model` which prunes the simulations to
+include only those of the community assembly model of interest. Again, we
+call `predict()` on the regressor and pass in all the arguments to make it 
+run fast, but do a bad job.
+
+```python
+rgr = MESS.inference.Regressor(empirical_df=spider_df, simfile=simfile, target_model="neutral", algorithm="rfq")
+est = rgr.predict(select_features=False, param_search=False, quick=True, verbose=False)
+```
+> **NB:** Note that here we ask for the `rfq` algorithm, which random forest
+quantile regression, and allows for constructing prediction intervals,
+something the stock `rf` algorithm doesn't do. The gradient boosting method
+(`gb`) provides prediction intervals natively.
+
+The return value `est` is a dataframe that contains predicted values for
+each model parameter and 95% prediction intervals. 
+
+```python
+display(est)
+```
+![png](images/MESSRegressor_parameter_estimates.png)
+
+Similar to the classifier, you can also extract feature importances from the
+regressor, to get an idea about how each feature is contributing to parameter
+estimation.
+
+```python
+display(rgr.feature_importances()))
+rgr.p
+```
+![png](images/MESSRegressor_feature_importance.png)
+![png](images/MESSRegressor_plot_feature_importance.png)
 
 <a name="Example-Datasets"></a>
 ## Free time to experiment with other example datasets
