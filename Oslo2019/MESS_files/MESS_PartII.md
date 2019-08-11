@@ -240,12 +240,23 @@ model (`est`) and the model probabilities (`proba`), which you can view:
 ```python
 from IPython.display import display
 display(est, proba)
-display(cla.feature_importances())
 ```
 > **NB:** The first line of this codeblock imports the `display` method
 from the `IPython` library, which just makes pd.DataFrames pretty print.
 
 ![png](images/MESSClassifier_results.png)
+
+You can also look the weight of importance of each feature, which indicates
+the contribution of each summary statistic to the inference of the ML
+algorithm. You can also get a quick and dirty plot of feature importances
+directly from the `Classifier` object with the `plot_feature_importances()`
+method.
+
+```python
+display(cla.feature_importances())
+cla.plot_feature_importance()
+```
+![png](images/MESSClassifier_feature_importance.png)
 
 <a name="MESS-API-Regression"></a>
 ## ML parameter estimation
