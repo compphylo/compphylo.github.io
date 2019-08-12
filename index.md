@@ -79,10 +79,10 @@ PipeMaster is an R-package to build demographic models and simulate data under t
 PipeMaster simulates summary statistics and coalescent trees. It calculates the same summary statistics on an empirical data. The user can use these sumary statistics to perform aproximate Bayesian computation (ABC) or supervized machine learning (SML) for model and parameter inference.
 
 * What kind of data it uses: Sanger, UCE, Radseq, ddRad, Anchored loci for non-hierarchical models. PipeMaster does not use the SFS, but fasta alignments of the entire loci with monomorphic sites. Alignments of invariable loci should also be included in the input. Single-locus data for comparative demography.
-* Documentation:(https://github.com/gehara/PipeMaster)
-* Software: PipeMaster (https://github.com/gehara/PipeMaster)
-* References: Gehara, M, Garda, AA, Werneck, FP, Oliveira, EF, da Fonseca, EM, Camurugi, F, ... & Silveira-Filho, R (2017). Estimating synchronous demographic changes across populations using hABC and its application for a herpetological community from northeastern Brazil. Molecular ecology, 26(18), 4756-4771.
-* Gehara M, Barth A, Oliveira EF de et al. (2017) Model-based analyses reveal insular population diversification and cryptic frog species in the Ischnocnema parva complex in the Atlantic Forest of Brazil. Molecular Phylogenetics and Evolution, 112, 68–78.
+* Documentation: [PipeMaster documentation](https://github.com/gehara/PipeMaster/blob/master/README.md)
+* Software: [PipeMaster github page](https://github.com/gehara/PipeMaster)
+* References: [Gehara M, Mazzochinni G, Burbrink F (*in review*) PipeMaster: inferring population divergence and demographic history with approximate Bayesian computation and supervised machine-learning in R](Oslo2019/PM_files/PipeMaster.pdf)
+* Gehara, M, Garda, AA, Werneck *et al* (2017). Estimating synchronous demographic changes across populations using hABC and its application for a herpetological community from northeastern Brazil. Molecular Ecology, 26(18), 4756-4771.
 
 
 
