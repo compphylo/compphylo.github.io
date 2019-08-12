@@ -1,7 +1,7 @@
 # Simulations and analyses with PipeMaster (nextgen example)
 
 This is an R script showing how to simulate data, test model and estimate parameters using [PipeMaster](https://github.com/gehara/PipeMaster), abc and caret packages.
-The data set used is the same as the one used in Gehara et al (in prep), and represents 2177 UCE loci for the neotropical frog Dermatonotus muelleri. For more information about this species see [Gehara et al. *in review*](https://drive.google.com/open?id=1zOit4hyFIAUjm1FFL-EDY16FfDQzJLehl2_Ovuy55_w) and [Oliveira et al. 2018](https://www.researchgate.net/profile/Adrian_Garda/publication/327624820_Phylogeography_of_Muller%27s_termite_frog_suggests_the_vicariant_role_of_the_Central_Brazilian_Plateau/links/5c40f99f92851c22a37d572c/Phylogeography-of-Mullers-termite-frog-suggests-the-vicariant-role-of-the-Central-Brazilian-Plateau.pdf)
+The data set used is the same as the one used in Gehara et al (in prep), and represents 2177 UCE loci for the neotropical frog Dermatonotus muelleri. For more information about this species see [Gehara et al. *in review*](PipeMaster.pdf) and [Oliveira et al. 2018](https://www.researchgate.net/profile/Adrian_Garda/publication/327624820_Phylogeography_of_Muller%27s_termite_frog_suggests_the_vicariant_role_of_the_Central_Brazilian_Plateau/links/5c40f99f92851c22a37d572c/Phylogeography-of-Mullers-termite-frog-suggests-the-vicariant-role-of-the-Central-Brazilian-Plateau.pdf)
 
 
 ### 1) Install and load all necessary packages for this example
@@ -45,7 +45,7 @@ The data set used is the same as the one used in Gehara et al (in prep), and rep
  setwd(paste(path,"/PM_example",sep=""))
 ```
 ### 3) Load example data
-This example data is based on [Gehara et al. *in review*](https://drive.google.com/open?id=1zOit4hyFIAUjm1FFL-EDY16FfDQzJLehl2_Ovuy55_w). 
+This example data is based on [Gehara et al. *in review*](PipeMaster.pdf). 
 
 ```{r}
 # observed summary statistics
