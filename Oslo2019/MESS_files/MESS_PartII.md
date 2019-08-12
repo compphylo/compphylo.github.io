@@ -371,7 +371,8 @@ MESS.inference.posterior_predictive_check(empirical_df=spider_df,
 simplicity here we will not use this option, but in reality it would be 
 a good idea to parallelize the posterior predictive simulations. See the
 [MESS parallelization docs](MESS_parallelization.md) for more info about
--per-taskow to implement the parallel backend.
+how to implement the parallel backend.
+
 This time the only thing we *have* to pass in is the empirical data and 
 the dataframe of prediction values, but I'm showing a couple more arguments
 here for the sake of completeness. Setting `est_only` to True will use only 

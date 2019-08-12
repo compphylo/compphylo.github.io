@@ -10,6 +10,7 @@ advanced users hopefully will find value in some of the finer details we present
 * [Setting up the computing environment](#conda-install)
 * [Installing software for the workshop](#install-workshop-sw)
 * [Writing and executing an example job submission script](#example-job-script)
+* [Establishing an interactive session](#interactive-session)
 
 ## Tutorial documentation conventions
 Each grey cell in this tutorial indicates a command line interaction. Lines starting with $ indicate a command that should be executed in a terminal, for example by copying and pasting the text into your terminal. All lines in code cells beginning with ## are comments and should not be copied and executed. Elements in code cells surrounded by angle brackets (e.g. `<username>`) are variables that need to be replaced by the user. All other lines should be interpreted as output from the issued commands.
