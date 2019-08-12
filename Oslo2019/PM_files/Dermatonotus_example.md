@@ -1,6 +1,6 @@
 # Simulations and analyses with PipeMaster (nextgen example)
 
-This is an R script showing how to simulate data, test model and estimate parameters using [PipeMaster](https://github/gehara/PipeMaster), abc and caret packages.
+This is an R script showing how to simulate data, test model and estimate parameters using [PipeMaster](https://github.com/gehara/PipeMaster), abc and caret packages.
 The data set used is the same as the one used in Gehara et al (in prep), and represents 2177 UCE loci for the neotropical frog Dermatonotus muelleri. For more information about this species see Gehara et al (in prep). and [Oliveira et al. 2018](https://www.researchgate.net/profile/Adrian_Garda/publication/327624820_Phylogeography_of_Muller%27s_termite_frog_suggests_the_vicariant_role_of_the_Central_Brazilian_Plateau/links/5c40f99f92851c22a37d572c/Phylogeography-of-Mullers-termite-frog-suggests-the-vicariant-role-of-the-Central-Brazilian-Plateau.pdf)
 
 
