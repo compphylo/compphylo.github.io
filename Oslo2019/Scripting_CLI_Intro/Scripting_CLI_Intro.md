@@ -37,19 +37,14 @@ Things we want to be able to do:
 * [Organize data](#organize-data): `pwd`, `mkdir`, `mv`
 * [Modify data](#modify-data): `nano`, `sed`
 
-<a name="look-at-data></a>
-## Looking at data
+## Look at data
 
-<a name="find-stuff-in-data"></a>
 ## Find stuff in data
 
-<a name="summarize-data></a>
 ## Summarize data
 
-<a name="organize-data></a>
 ## Organize data
 
-<a name="modify-data></a>
 ## Modify data
 
 ## Further resources
