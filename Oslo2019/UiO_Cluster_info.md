@@ -320,6 +320,4 @@ $ hostname
 ```
     compute-15-4.local
 
-BAM!
-$ hostname
-compute-15-4.local
+**BAM!**
