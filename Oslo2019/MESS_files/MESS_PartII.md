@@ -29,9 +29,7 @@ Some stuff here about intro to machine learning and random forests.
 Megan will do 20-25 Minutes of this.
 
 The `MESS.inference` architecture is based on the powerful and extensive
-[scikit-learn](https://scikit-learn.org/) python machine learning library.
-
-Another really amazing resource I highly recommend is the 
+[scikit-learn](https://scikit-learn.org/) python machine learning library. Another really amazing resource I highly recommend is the 
 [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/).
 
 <a name="NB-Cluster-Setup"></a>
@@ -348,9 +346,9 @@ For the purpose of this exercise we are going to *munge* the estimates to
 make the simulations run faster. **DO NOT DO THIS WITH YOUR REAL DATA!**
 
 ```python
-est["J"] /= 3
+est["J"] /= 2
 est["m"] *= 10
-est["_lambda"] /= 4
+est["_lambda"] /= 2
 est
 ```
 Here we reduced the size of the local community (`J`), increased the rate of
@@ -359,10 +357,17 @@ All these things will make the simulations run more quickly. Now go ahead
 and run this next cell and we'll talk about the arguments (should take about
 one minute).
 
+> **NB:** The `posterior_predictive_check()` function can also accept an
+`ipyclient` parameter to specify to use an ipyparallel backend. For 
+simplicity here we will not use this option, but in reality it would be 
+a good idea to parallelize the posterior predictive simulations. See the
+[MESS parallelization docs](MESS_parallelization.md) for more info about
+how to implement the parallel backend.
+
 ```python
 MESS.inference.posterior_predictive_check(empirical_df=spider_df,
                                           parameter_estimates=est,
-                                          est_only=False,
+                                          est_only=True,
                                           nsims=20,
                                           verbose=True,
                                           force=True)
