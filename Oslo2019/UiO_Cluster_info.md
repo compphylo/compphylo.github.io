@@ -283,3 +283,43 @@ cat ~/compphylo_workshop/watdo.txt
 
 This is essentially how all cluster job submission scripts act, just with
 (hopefully) more complicated and interesting results.
+
+<a name="interactive-session"></a>
+## Establish an interactive session
+
+Finally, it is often handy to get an interactive session on a compute node
+rather than writing a job submission script, for example if you need to 
+tinker with your computational workflow in the live cluster environment,
+or maybe you just prefer to operate your own stuff at the command line. In
+this case you can request an interactive session which will drop you onto
+the command line on a compute node.
+
+The `qlogin` command will grant you an interactive session, but it takes
+a bunch of arguments that would be annoying to type out every time, so
+lets just write a quick script. Use `nano` to edit a file called 
+`qlogin.sh` and type out the following commands:
+
+```bash
+#!/bin/bash                                                                                                
+                                                                                                                                                       
+qlogin --account=nn9458k --ntasks 1 --cpus-per-task 4
+```
+
+Now you can run this script and verify that you ended up on a compute node.
+
+```bash
+$ bash qlogin.sh
+```
+    salloc: Pending job allocation 27784665 
+    salloc: job 27784665 queued and waiting for resources
+    salloc: job 27784665 has been allocated resources
+    salloc: Granted job allocation 27784665
+    srun: Job step created
+```bash
+$ hostname
+```
+    compute-15-4.local
+
+BAM!
+$ hostname
+compute-15-4.local

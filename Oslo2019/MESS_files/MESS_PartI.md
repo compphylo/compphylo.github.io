@@ -15,7 +15,7 @@ based simulations)](#ETIB-NTIB-Intro)
 * [Overview of MESS Simulations](#MESS-Overview)
 * [Installation](#Installation)
 * [TL;DR Run your first simulations](#TLDR-Simulations)
-* [MESS CLI Help](#MESS-Help)
+* [Getting started with the MESS CLI](#MESS-CLI-intro)
 * [Create and edit a new params file](#Create-Params-File)
 * [Run simulations using your edited params file](#Simulate)
 * [Inspect the output of the simulation runs](#Inspect-Simulations)
@@ -74,14 +74,26 @@ $ conda install -c conda-forge -c mess mess
 Say you're impatient and want to skip right to the good stuff, well here you go.
 
 ```
+## Get an interactive session on the cluster
+bash qlogin.sh
 ## Create a parameters file
 MESS -n new-sims
-## Do 10 simulations using the default settings
-MESS -p params-new-sims.txt -s 10
+## Do 10 simulations using the default settings and 4 cores
+MESS -p params-new-sims.txt -s 10 -c 4
 ```
 
-<a name="MESS-Help"></a>
-## MESS Help
+<a name="MESS-CLI-intro"></a>
+## Getting started with the MESS CLI
+First, we need to get ourselves an interactive session on the cluster, so
+before going any farther run your `qlogin.sh` script:
+
+```bash
+$ cd ~
+$ bash qlogin.sh
+```
+Once this finishes you'll be sitting at a command line on one of the cluster
+compute nodes. This way any simulations you run will run on the cluster rather
+than on the login node (makes the admins happier).
 
 To better understand how to use MESS, let's take a look at the `help` argument.
 We will use some of the MESS command line arguments in this tutorial (for
