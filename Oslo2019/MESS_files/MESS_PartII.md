@@ -390,9 +390,7 @@ Here is a pretty typical example of a good fit of parameters to the data:
 And here is a nice example of a poor fit of parameters to the data:
 ![png](images/MESS_PPC_BadFit.png)
 
-Quite a striking, and obvious difference. Posterior predictive checks are
-less of a formal model evaluation procedure and more of a quick-and-dirty
-visual verification. Still useful.
+Quite a striking, and obvious difference.
 
 <a name="Example-Datasets"></a>
 ## Free time to experiment with other example datasets
