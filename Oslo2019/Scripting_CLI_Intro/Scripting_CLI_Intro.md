@@ -1,10 +1,18 @@
+# Intro to linux CLI data manipulation for biologists
 
-> **Note:** Again, the `./` notation indicates the current working directory.
-You can always view the current working directory with the `pwd` command
-(**p**rint **w**orking **d**irectory).
 
-Could use this as a skel/template:  
+Things we want to be able to do:
+* Look at data: `head`, `cat`, `less`
+* Find stuff in data: `cut`, `grep`
+* Summarize data: `wc`, `sort`, `uniq`
+* Organize data: `pwd`, `mkdir`, `mv`
+* Modify data: `nano`, `sed`
 
-    https://speciationgenomics.github.io/getting_used_to_unix/
-    https://speciationgenomics.github.io/going_further_unix/
+## Further resources
 
+* [The python data science handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
+
+A couple very nice pages of introduction to linux command line
+for biologists:
+* [https://speciationgenomics.github.io/getting_used_to_unix/]
+* [https://speciationgenomics.github.io/going_further_unix/]
