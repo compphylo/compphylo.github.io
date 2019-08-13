@@ -119,6 +119,7 @@ write it to a file instead. So running the following command will
 create the `.jupyter/jupyter_notebook_config.py` file with the 
 exact parameter settings we want.
 ```
+$ mkdir ~/.jupyter
 $ printf "c.NotebookApp.open_browser = False\nc.NotebookApp.port = 9000\nc.NotebookApp.port_retries = 0\n" > ~/.jupyter/jupyter_notebook_config.py
 ```
 
