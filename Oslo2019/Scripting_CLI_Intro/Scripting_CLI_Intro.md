@@ -112,11 +112,6 @@ $ sort udhr.txt
 $ sort -k 2 iris_data.tsv
 ```
 
-**uniq** reports or filters out repeated lines in a file
-```bash
-?
-```
-
 `**|**` indicates  a "pipe" and is used to pipe
 ```bash
 ## lists all text files
@@ -127,10 +122,62 @@ $ ls *.txt | wc -l
 $ ls *.txt | wc -m
 ```
 
+**uniq** reports or filters out repeated lines in a file
+```bash
+## use `cut` and `|` to ask how many unique species are in the iris data
+$ cut -f 5 iris_data.tsv | uniq
+Species
+setosa
+versicolor
+virginica
+```
+
+
 ## Organize data
+**pwd** returns the full path of the working directory you are in
+```bash
+$ pwd
+```
+
+**mkdir** makes a new directory
+```bash
+$ mkdir NewDirectory
+```
+
+**cp** makes a copy of a file/directory
+```bash
+$ cp mobydick.txt NewDirectory/mobydick_copy.txt
+## use `cd` to change into NewDirectory
+$ cd NewDirectory/
+## and `ls` to see the copied file
+$ ls
+$ cd ..
+```
+**mv** moves a file somewhere else and does NOT make a copy
+```bash
+$ mv mobydick.txt NewDirectory/
+## if we `ls`, we will no longer see the file
+## we can move it back up one directory using `.`
+$ mv NewDirectory/mobydick.txt .
+```
 
 ## Modify data
+**nano** is a text editor that allows you to modify files within the CLI
+```bash
+## explore nano using the iris data file
+$ nano iris_data.tsv
+## to exit use `ctrl` + `x`
+```
 
+**sed** is commonly used for find and replace text editing
+```bash
+## replace "whale" with "robot-kitten"
+$ sed 's/whale/robot-kitten/' mobydick.txt > robykitten.txt
+## see where the replacements occured
+$ grep --color "robot-kitten" robykitten.txt
+```
+
+* [Modify data](#modify-data): `nano`, `sed`
 ## Further resources
 
 * [The python data science handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
