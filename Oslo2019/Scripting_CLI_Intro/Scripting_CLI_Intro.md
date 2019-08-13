@@ -41,9 +41,7 @@ See the help for any of these functions with: `man [cmd]`
 
 ## Look at data
 
-#### head
-Head displays the first count of lines in a file.
-
+*head* displays the first count of lines in a file.
 ```bash
 ## indicate the number of lines to include with `-n`
 ## the default is 10
@@ -55,9 +53,7 @@ Sepal.Length	Sepal.Width	Petal.Length	Petal.Width	Species
 4.6	3.1	1.5	0.2	setosa
 5	3.6	1.4	0.2	setosa
 ```
-
-#### tail
-Tail displays the last lines of a file.
+*tail* displays the last lines of a file.
 ```bash
 ## show the last 10 lines in the file
 $ tail iris_data.tsv
@@ -66,8 +62,7 @@ $ tail iris_data.tsv
 $ tail -n+50 iris_data.tsv
 ```
 
-#### cat
-Concatenates and prints files
+*cat* concatenates and prints files
 ```bash
 ## cat will show all contents of the file
 $ cat mobydick.txt
@@ -75,8 +70,7 @@ $ cat mobydick.txt
 ## can be used to combine the contents of multiple files into Once
 $ cat mobydick.txt udrh.txt > combinedExample.txt
 ```
-#### less
-Used for viewing files and allows backward movement in the file, as well as forward movement.
+*less* is used for viewing files and allows backward movement in the file, as well as forward movement.
 ```bash
 ## use `q` to exit
 $ less mobydick.txt
