@@ -33,7 +33,7 @@ git clone https://github.com/speciationgenomics/unix_exercises.git
 Things we want to be able to do:
 * [Look at data](#look-at-data): `head`,`tail`, `cat`, `less`
 * [Find stuff in data](#find-stuff-in-data): `cut`, `grep`
-* [Summarize data](#summarize-data): `wc`, `sort`, `uniq`
+* [Summarize data](#summarize-data): `wc`, `sort`, `uniq`, `|`
 * [Organize data](#organize-data): `pwd`, `mkdir`, `mv`, `cp`
 * [Modify data](#modify-data): `nano`, `sed`
 
@@ -97,6 +97,35 @@ $ grep -c "whale" mobydick.txt
 ```
 
 ## Summarize data
+**wc** counts different elements of a file.
+```bash
+## See the number of lines, words, and characters in the file
+$ wc udhr.txt
+## specify only lines `-l`, words `-w`, or characters `-m`
+```
+
+**sort** sorts lines of a file
+```bash
+## Sorts files alphabetically if text
+$ sort udhr.txt
+## sort by column using `-k`; sorts numerically
+$ sort -k 2 iris_data.tsv
+```
+
+**uniq** reports or filters out repeated lines in a file
+```bash
+?
+```
+
+`**|**` indicates  a "pipe" and is used to pipe
+```bash
+## lists all text files
+$ ls *.txt
+## takes the text files and determines number of lines, i.e. the number of files
+$ ls *.txt | wc -l
+## shows the number of characters
+$ ls *.txt | wc -m
+```
 
 ## Organize data
 
