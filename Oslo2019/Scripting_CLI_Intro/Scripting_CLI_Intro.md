@@ -40,8 +40,7 @@ Things we want to be able to do:
 See the help for any of these functions with: `man [cmd]`
 
 ## Look at data
-
-*head* displays the first count of lines in a file.
+**head** displays the first count of lines in a file.
 ```bash
 ## indicate the number of lines to include with `-n`
 ## the default is 10
@@ -53,7 +52,8 @@ Sepal.Length	Sepal.Width	Petal.Length	Petal.Width	Species
 4.6	3.1	1.5	0.2	setosa
 5	3.6	1.4	0.2	setosa
 ```
-*tail* displays the last lines of a file.
+
+**tail** displays the last lines of a file.
 ```bash
 ## show the last 10 lines in the file
 $ tail iris_data.tsv
@@ -62,21 +62,39 @@ $ tail iris_data.tsv
 $ tail -n+50 iris_data.tsv
 ```
 
-*cat* concatenates and prints files
+**cat** concatenates and prints files
 ```bash
 ## cat will show all contents of the file
 $ cat mobydick.txt
 
-## can be used to combine the contents of multiple files into Once
+## `>` can be used to combine the contents of multiple files and push them into a new file
 $ cat mobydick.txt udrh.txt > combinedExample.txt
 ```
-*less* is used for viewing files and allows backward movement in the file, as well as forward movement.
+
+**less** is used for viewing files and allows backward movement in the file, as well as forward movement.
 ```bash
 ## use `q` to exit
 $ less mobydick.txt
 ```
-
 ## Find stuff in data
+**cut** cuts out selected portions of each line of a file.
+```bash
+## use `-f` to specify a column, or range of columns
+$ cut -f 3-5 iris_data.tsv
+## use `>` to push the cut data to a new file
+$ cut -f 3-5 iris_data.tsv > petalData.txt
+```
+
+**grep** searches input files for lines that match a specified search term or pattern
+```bash
+## search for the word whale in moby dick
+$ grep --color "whale" mobydick.txt
+## use the `--color` flag to highlight "whale" in the text.
+$ grep -v "whale" mobydick.txt
+## `v` inverts the search and fines lines without "whale"
+$ grep -c "whale" mobydick.txt
+## `-c` counts the number of appearances
+```
 
 ## Summarize data
 
