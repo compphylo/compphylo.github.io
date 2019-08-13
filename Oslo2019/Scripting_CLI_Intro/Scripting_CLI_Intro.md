@@ -40,7 +40,7 @@ Things we want to be able to do:
 See the help for any of these functions with: `man [cmd]`
 
 ## Look at data
-**head** displays the first count of lines in a file.
+`head` displays the first count of lines in a file.
 ```bash
 ## indicate the number of lines to include with `-n`
 ## the default is 10
@@ -53,7 +53,7 @@ Sepal.Length	Sepal.Width	Petal.Length	Petal.Width	Species
 5	3.6	1.4	0.2	setosa
 ```
 
-**tail** displays the last lines of a file.
+`tail` displays the last lines of a file.
 ```bash
 ## show the last 10 lines in the file
 $ tail iris_data.tsv
@@ -62,7 +62,7 @@ $ tail iris_data.tsv
 $ tail -n+50 iris_data.tsv
 ```
 
-**cat** concatenates and prints files
+`cat` concatenates and prints files
 ```bash
 ## cat will show all contents of the file
 $ cat mobydick.txt
@@ -71,13 +71,13 @@ $ cat mobydick.txt
 $ cat mobydick.txt udrh.txt > combinedExample.txt
 ```
 
-**less** is used for viewing files and allows backward movement in the file, as well as forward movement.
+`less` is used for viewing files and allows backward movement in the file, as well as forward movement.
 ```bash
 ## use `q` to exit
 $ less mobydick.txt
 ```
 ## Find stuff in data
-**cut** cuts out selected portions of each line of a file.
+`cut` cuts out selected portions of each line of a file.
 ```bash
 ## use `-f` to specify a column, or range of columns
 $ cut -f 3-5 iris_data.tsv
@@ -85,7 +85,7 @@ $ cut -f 3-5 iris_data.tsv
 $ cut -f 3-5 iris_data.tsv > petalData.txt
 ```
 
-**grep** searches input files for lines that match a specified search term or pattern
+`grep` searches input files for lines that match a specified search term or pattern
 ```bash
 ## search for the word whale in moby dick
 $ grep --color "whale" mobydick.txt
@@ -97,14 +97,14 @@ $ grep -c "whale" mobydick.txt
 ```
 
 ## Summarize data
-**wc** counts different elements of a file.
+`wc` counts different elements of a file.
 ```bash
 ## See the number of lines, words, and characters in the file
 $ wc udhr.txt
 ## specify only lines `-l`, words `-w`, or characters `-m`
 ```
 
-**sort** sorts lines of a file
+`sort` sorts lines of a file
 ```bash
 ## Sorts files alphabetically if text
 $ sort udhr.txt
@@ -112,7 +112,7 @@ $ sort udhr.txt
 $ sort -k 2 iris_data.tsv
 ```
 
-`**|**` indicates  a "pipe" and is used to pipe
+`|` indicates  a "pipe" and is used to pipe
 ```bash
 ## lists all text files
 $ ls *.txt
@@ -122,7 +122,7 @@ $ ls *.txt | wc -l
 $ ls *.txt | wc -m
 ```
 
-**uniq** reports or filters out repeated lines in a file
+`uniq` reports or filters out repeated lines in a file
 ```bash
 ## use `cut` and `|` to ask how many unique species are in the iris data
 $ cut -f 5 iris_data.tsv | uniq
@@ -134,17 +134,17 @@ virginica
 
 
 ## Organize data
-**pwd** returns the full path of the working directory you are in
+`pwd` returns the full path of the working directory you are in
 ```bash
 $ pwd
 ```
 
-**mkdir** makes a new directory
+`mkdir` makes a new directory
 ```bash
 $ mkdir NewDirectory
 ```
 
-**cp** makes a copy of a file/directory
+`cp` makes a copy of a file/directory
 ```bash
 $ cp mobydick.txt NewDirectory/mobydick_copy.txt
 ## use `cd` to change into NewDirectory
@@ -153,7 +153,7 @@ $ cd NewDirectory/
 $ ls
 $ cd ..
 ```
-**mv** moves a file somewhere else and does NOT make a copy
+`mv` moves a file somewhere else and does NOT make a copy
 ```bash
 $ mv mobydick.txt NewDirectory/
 ## if we `ls`, we will no longer see the file
@@ -162,14 +162,14 @@ $ mv NewDirectory/mobydick.txt .
 ```
 
 ## Modify data
-**nano** is a text editor that allows you to modify files within the CLI
+`nano` is a text editor that allows you to modify files within the CLI
 ```bash
 ## explore nano using the iris data file
 $ nano iris_data.tsv
 ## to exit use `ctrl` + `x`
 ```
 
-**sed** is commonly used for find and replace text editing
+`sed` is commonly used for find and replace text editing
 ```bash
 ## replace "whale" with "robot-kitten"
 $ sed 's/whale/robot-kitten/' mobydick.txt > robykitten.txt
@@ -177,7 +177,6 @@ $ sed 's/whale/robot-kitten/' mobydick.txt > robykitten.txt
 $ grep --color "robot-kitten" robykitten.txt
 ```
 
-* [Modify data](#modify-data): `nano`, `sed`
 ## Further resources
 
 * [The python data science handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
