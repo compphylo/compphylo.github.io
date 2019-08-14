@@ -318,7 +318,7 @@ common and easy to run several notebook servers on one computer.
 ### How to tell if the ssh tunnel is running (Mac/Linux)
 On your local computer open a new terminal and type:
 ```
-ps -ef | grep ssh | grep habanero
+ps -ef | grep ssh | grep abel
 ```
 
 If you **don't** see a line that includes this `ssh -N -f -L` then it's 
