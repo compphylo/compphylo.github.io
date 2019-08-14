@@ -158,7 +158,7 @@ $ bash Miniconda3-latest-Linux-x86_64.sh -b
 This will create a new directory where the `conda` program will be located, 
 and also where all of the software that we will eventually install with conda 
 will be stored. By default the new directory will be placed in your home 
-directory and will be called `minicondar3`.
+directory and will be called `miniconda3`.
 
 ```bash
 $ ./miniconda3/bin/conda init
