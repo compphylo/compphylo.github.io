@@ -1,6 +1,6 @@
 # Intro to linux CLI data manipulation for biologists
 This is an intro to data manipulation and intermediate command line scripting
-for biologists. We assume a basic familiarity with command line interactions,
+for biologists. We assume a [basic familiarity](Linux_CLI_101.html) with command line interactions,
 and instead focus here on the most useful tools for manipulating data.
 
 Each grey cell in this tutorial indicates a command line interaction.
