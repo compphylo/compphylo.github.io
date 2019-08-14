@@ -183,5 +183,5 @@ $ grep --color "robot-kitten" robykitten.txt
 
 A couple very nice pages of introduction to linux command line
 for biologists:
-* [https://speciationgenomics.github.io/getting_used_to_unix/]
-* [https://speciationgenomics.github.io/going_further_unix/]
+* [https://speciationgenomics.github.io/getting_used_to_unix/](https://speciationgenomics.github.io/getting_used_to_unix/)
+* [https://speciationgenomics.github.io/going_further_unix/](https://speciationgenomics.github.io/going_further_unix/)
