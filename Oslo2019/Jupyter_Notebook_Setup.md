@@ -150,6 +150,7 @@ flags should be familiar from earlier:
 
 cd $HOME
 source .bashrc
+conda activate CompPhylo
 jupyter notebook --ip=$(hostname -i) --port=<your_port_number>
 ```
 > **NB:** The `source .bashrc` command is required to boot up conda inside
