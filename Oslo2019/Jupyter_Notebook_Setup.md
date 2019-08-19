@@ -2,7 +2,7 @@
 
 # What are Jupyter Notebooks and why would I want to use one?
 
-Jupyter notebooks are primarily a way to generate reproducible 
+Jupyter notebooks are primarily a way to generate reproducible
 scientific analysis workflows in python. You can mix documentation,
 code, tables, and figures in one executable document which can easily
 be shared and published to the web. Here is a good examle of a notebook
@@ -13,7 +13,7 @@ of intermingling expanatory text, with executable code, and results:
 
 And this is not a static document! I can open this notebook and
 recreate my entire analysis, or even tweak things and rerun it
-without having to wrangle a ton of different scripts, or try to 
+without having to wrangle a ton of different scripts, or try to
 remember the parameters for a bunch of esoteric analyses I ran, or
 even remember **which** analyses I ran, because ***they're all here
 in one document***.
@@ -25,8 +25,8 @@ the main difference being that with jupyter notebooks you can export
 your entire session with figures, tables, and results, all embedded
 between consecutive "tasks" specified by blocks of code.
 
-Many of the tools we will learn this week are best run inside Jupyter 
-notebooks, as the analysis can be monitored and tweaked and provides 
+Many of the tools we will learn this week are best run inside Jupyter
+notebooks, as the analysis can be monitored and tweaked and provides
 a self-documenting workflow, so we will get the configuration and setup
 out of the way at the very beginning.
 
@@ -35,7 +35,7 @@ out of the way at the very beginning.
 Jupyter notebooks running on a cluster require a special kind of connection
 called an SSH Tunnel. We need to do this because we really only can "see"
 the head node from the outside world. In other words, we can only ssh directly
-to the head node, we can not ssh directly from our laptops to the compute nodes. 
+to the head node, we can not ssh directly from our laptops to the compute nodes.
 Yet, the compute nodes are where we want to run the notebooks, so what are we
 to do? Since we can ssh to the head node, and since we can do basically whatever
 we want once we are there, we can set up a "tunnel" to route messages from
@@ -55,8 +55,8 @@ resources of the cluster, and the convenience of the notebook environment:
 
 # Getting Set up with Jupyter Notebooks
 Setting up a jupyter notebook session involves running one command
-on your local machine, and a couple of commands on the cluster. Some 
-of these commands are picky so it's important to be careful and pay special 
+on your local machine, and a couple of commands on the cluster. Some
+of these commands are picky so it's important to be careful and pay special
 attention until you're very comfortable with the process.
 
 Overview of process
@@ -68,19 +68,19 @@ Overview of process
 * [More information about jupyter](#useful-jupyter-tricks/ideas)
 
 ### Set Jupyter Notebook Password
-Jupyter was already installed as a dependency of MESS, so we just 
-need to set a password before we can launch it. This command will 
-prompt you for a new password for your notebook (you will **only ever 
+Jupyter was already installed as a dependency of MESS, so we just
+need to set a password before we can launch it. This command will
+prompt you for a new password for your notebook (you will **only ever
 have to do this once on the HPC**). Run this command in a terminal on
 the head node:
 ```
 $ jupyter notebook password
 ```
-This will set a password on your notebook server so that other people 
-won't have access to your files and notebooks. The notebook server 
+This will set a password on your notebook server so that other people
+won't have access to your files and notebooks. The notebook server
 will prompt you for your password when you initially connect to it.
 
-> **Note:** The password to access your jupyter notebook and the 
+> **Note:** The password to access your jupyter notebook and the
 password for your cluster login ***are two different passwords.*** It
 will probably reduce confusion, though, if you make them the same, at
 least for now.
@@ -92,10 +92,10 @@ configuration file, rather than type them out over and over. You will
 only have to do this **one time on the cluster.**
 
 The first parameter (`open-browser = False`) directs jupyter to run in
-the background and wait for connections. The second parameter (`port = <my_port_#>`) 
+the background and wait for connections. The second parameter (`port = <my_port_#>`)
 is **very important for us**. Each user must enter the port number
 they were assigned on the [CompPhylo workshop port #s](https://github.com/compphylo/compphylo.github.io/blob/master/Oslo2019/participants.txt) page.
-The final parameter (`port_retries = 0`) 
+The final parameter (`port_retries = 0`)
 prevents jupyter from assigning us a random port if our assigned port
 is not available. This is useful because if we're already running
 a notebook server and we try to start another one we don't want the new
@@ -103,7 +103,7 @@ one to start, rather just to be informed that we're already running one.
 
 We are going to use the `printf` command to write the 3 parameter settings
 to the jupyter config file. First, just run this command and you'll see
-that printf simply prints the properly formatted parameters to the screen. 
+that printf simply prints the properly formatted parameters to the screen.
 The **\n** character is a special character that means "put a new line here".
 ```
 $ printf "c.NotebookApp.open_browser = False\nc.NotebookApp.port = 9000\nc.NotebookApp.port_retries = 0\n"
@@ -112,11 +112,11 @@ $ printf "c.NotebookApp.open_browser = False\nc.NotebookApp.port = 9000\nc.Noteb
     c.NotebookApp.port = <my_port_#>
     c.NotebookApp.port_retries = 0
 
-Now we can spice it up a bit by using "output redirection", which is a 
-feature of the linux command line. The `>` special character can 
+Now we can spice it up a bit by using "output redirection", which is a
+feature of the linux command line. The `>` special character can
 redirect output that would normally get printed to the screen and
 write it to a file instead. So running the following command will
-create the `.jupyter/jupyter_notebook_config.py` file with the 
+create the `.jupyter/jupyter_notebook_config.py` file with the
 exact parameter settings we want.
 ```
 $ mkdir ~/.jupyter
@@ -150,7 +150,7 @@ flags should be familiar from earlier:
 
 cd $HOME
 source .bashrc
-conda activate CompPhylo
+conda activate CompPhylo_1
 jupyter notebook --ip=$(hostname -i) --port=<your_port_number>
 ```
 > **NB:** The `source .bashrc` command is required to boot up conda inside
@@ -158,9 +158,9 @@ the compute node. There is a difference between 'interactive' and 'non-interacti
 shell sessions, and reading .bashrc is a feature of 'interactive' sessions, which
 HPC jobs by default are not.
 
-> **Special Note**: The `--ip=$(hostname -i)` argument automatically looks 
-up and specifies the IP address for the notebook server to listen on. We need 
-to set the IP because we want it to listen for connections from outside, 
+> **Special Note**: The `--ip=$(hostname -i)` argument automatically looks
+up and specifies the IP address for the notebook server to listen on. We need
+to set the IP because we want it to listen for connections from outside,
 since we are connecting remotely.
 
 If all goes according to plan, this one notebook server will last you the
@@ -180,12 +180,12 @@ $ squeue -u <your_username>
           27742560    normal jupyter. iovercas PD       0:00      1 (Priority)
 ```
 Here you see after you first submit a job the status (**ST**) will be pending
-(**PD**). Typically if your job is queued it'll be because of 'Priority', 
-other higher priority jobs are ahead of you. Once the job is running the status 
+(**PD**). Typically if your job is queued it'll be because of 'Priority',
+other higher priority jobs are ahead of you. Once the job is running the status
 will change to **R**. Also, the more resources you ask for (cores) the longer
 you will wait. Here we ask for few resources so we can get quick access.
 
-Once the job appears to be running, you must now take note of the 
+Once the job appears to be running, you must now take note of the
 compute node your notebook server is running on. This info is also provided by
 `squeue`. In the example results below you can see the compute node is `c16-35`:
 ```
@@ -202,8 +202,8 @@ of the compute node** on which the server is running.
 
 This part is run **on your local computer**. An "ssh tunnel" will
 allow your computer to talk to the notebook server on the cluster
-by using the web browser. It's a little confusing at first, but 
-once you see it up and running, it will make more sense and we hope you 
+by using the web browser. It's a little confusing at first, but
+once you see it up and running, it will make more sense and we hope you
 will find it very clever and useful.
 
 > **Note on terms:** A "port" is just a number, like the address of
@@ -212,30 +212,30 @@ of which are unused. You might not know this, but when you use a web
 browser to look at a web page, your computer is talking to the remote
 server on **port 80**. This is standardized. When you `ssh` to the
 cluster you are making a connection on **port 22**, and this is standard
-too. 
+too.
 
-We can tell computers to talk to each other on different ports, and 
-this is what we'll do here, since we have 25 people who all want to 
-talk to the cluster, we need to specify 25 different ports. Because 
-each notebook must have a unique port number to run on, we have 
-assigned unique port numbers for each workshop attendee. You can 
+We can tell computers to talk to each other on different ports, and
+this is what we'll do here, since we have 25 people who all want to
+talk to the cluster, we need to specify 25 different ports. Because
+each notebook must have a unique port number to run on, we have
+assigned unique port numbers for each workshop attendee. You can
 you can find your port number here: [CompPhylo workshop port #s](https://raw.githubusercontent.com/compphylo/compphylo.github.io/master/Oslo2019/participants.txt).
 
 > **Special Note:** An "SSH Tunnel" and an "SSH client connection" are two different things. The SSH client connection gives you access to the command line on a remote machine. The SSH tunnel will allow your web browser to talk to your jupyter notebook **using** ssh, but on a unique port. For a jupyter notebook to function properly you will normally always need **both** an ssh tunnel (for making the web interface work) and an ssh client connection (for running the jupyter notebook server).
 
 ### Windows SSH Tunnel Configuration
 
-To set up a SSH Tunnel on a Windows machine, we use puTTY again. Open puTTY 
-and fill out the host address in the first screen, like you do when connecting 
+To set up a SSH Tunnel on a Windows machine, we use puTTY again. Open puTTY
+and fill out the host address in the first screen, like you do when connecting
 to the cluster. In this example you will have to replace `abel.uio.no` in the
 Host Name box:
 
 ![png](Jupyter_Notebook_Setup_files/08_puTTY1.png)
 
-Now, click on SSH on the left panel, and click on Tunnels. There are two 
-boxes of interest here: `Source Port` and `Destination`. In `Source Port` 
-you will put **your personal port #**. In `Destination` you should put 
-`<compute_node>:<your_port_#>`. Now click "Add" and your tunnel info will 
+Now, click on SSH on the left panel, and click on Tunnels. There are two
+boxes of interest here: `Source Port` and `Destination`. In `Source Port`
+you will put **your personal port #**. In `Destination` you should put
+`<compute_node>:<your_port_#>`. Now click "Add" and your tunnel info will
 appear in the empty window. Click "Open" and log in.
 
 ![png](Jupyter_Notebook_Setup_files/08_puTTY2.png)
@@ -249,22 +249,22 @@ SSH Tunnel on Mac/Linux can be established through the command line interface. O
 ```
 ssh -N -f -L <my_port_#>:<compute_node>:<my_port_#> <username>@abel.uio.no
 ```
-This will prompt you for your password (the password on the cluster). If you 
-type the password correctly **it will look like nothing happened**, but this 
-means it worked! If you think nothing happened you should not attempt to run 
-it again because of panic, because if you run it twice you might see this 
+This will prompt you for your password (the password on the cluster). If you
+type the password correctly **it will look like nothing happened**, but this
+means it worked! If you think nothing happened you should not attempt to run
+it again because of panic, because if you run it twice you might see this
 error message:
 
 ```
 bind: Address already in use
 channel_setup_fwd_listener: cannot listen to port: 9000
 ```
-> **Note:** If you see this message ***it means your ssh tunnel is already 
-running!!*** So you should celebrate! And not panic more because you got a 
+> **Note:** If you see this message ***it means your ssh tunnel is already
+running!!*** So you should celebrate! And not panic more because you got a
 (seeming) error message.
 
 ## Test your notebook connection (Run on your laptop)
-To test your jupyter notebook configuration you can open a new browser tab 
+To test your jupyter notebook configuration you can open a new browser tab
 and go to:
 ```
 http://localhost:<my_port_#>
@@ -286,9 +286,9 @@ If it does not work, proceed to [the section about troubleshooting jupyter
 notebook connections](#what-to-do-if-the-notebook-is-not-working).
 
 ## **What to do if the notebook is not working**
-This **WILL** happen to everyone at least once, probably many times. You 
-attempt to open your web browser to `http://localhost/<my_port_#>` and 
-you see the dreaded: 
+This **WILL** happen to everyone at least once, probably many times. You
+attempt to open your web browser to `http://localhost/<my_port_#>` and
+you see the dreaded:
 
 ![png](Jupyter_Notebook_Setup_files/Jupyter_notebook_This_page_isnt_working.png)
 
@@ -322,7 +322,7 @@ On your local computer open a new terminal and type:
 ps -ef | grep ssh | grep abel
 ```
 
-If you **don't** see a line that includes this `ssh -N -f -L` then it's 
+If you **don't** see a line that includes this `ssh -N -f -L` then it's
 not running, so you can restart it.
 
 ### What does this error mean: "open failed: connect failed: Connection refused"?
@@ -350,14 +350,14 @@ scancel 83484428
 ### Starting a jupyter notebook server with command line arguments instead of a config file
 You might find in the future that you want to run a jupyter notebook server
 on some other computer, and that you only want to start it using command
-line arguments, rather than setting up the config file. Here we illustrate 
-usage of the three `jupyter notebook` arguments that correspond to the 
-three config file parameters we set. The first is `--no-browser`, which 
-tells jupyter to just run in the background and wait for connections. 
-The second is `--port`, which is **very important for us**. Each user must 
+line arguments, rather than setting up the config file. Here we illustrate
+usage of the three `jupyter notebook` arguments that correspond to the
+three config file parameters we set. The first is `--no-browser`, which
+tells jupyter to just run in the background and wait for connections.
+The second is `--port`, which is **very important for us**. Each user must
 enter the port number they were assigned on the [CompPhylo workshop port #s](https://github.com/compphylo/compphylo.github.io/blob/master/Oslo2019/participants.txt)
-page, and this should be the same port as entered above for the ssh tunnel. 
-The third is `--port-retries=0`, which tells jupyter to error out if our port 
+page, and this should be the same port as entered above for the ssh tunnel.
+The third is `--port-retries=0`, which tells jupyter to error out if our port
 is already occupied.
 ```
 $ jupyter notebook --no-browser --port <my_port_number> --port-retries=0 &
