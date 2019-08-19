@@ -1,5 +1,5 @@
 ### Summary Statistics used in CAMI
 
-![image](SumStats.jpeg)
+![image](images/SumStats.png)
 
 [back](./)
