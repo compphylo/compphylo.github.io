@@ -1,10 +1,28 @@
 # CAMI
 
-* [CAMI tutorial 1](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI_1.html)
+Welcome to Monday afternoon of Day 1 CompPhylo! Below is the schedule for the rest of the afternoon. We will begin with a background presentation on Community Assembly, then we will get familiar working in CAMI to ultimately perform community assembly model inference using empirical data from San Juan Island plant communities. Finally, if time permitting, there is an additional exercise using Amphibian data that poses more of a challenge.
 
-* [CAMI.pptx](Ruffley_CAMIExample.pptx)
-* [CAMI tutorial I - Kipukas](CAMI_tutorial1_Kipukas.Rmd)
-* [CAMI tutorial part II - San Juan](CAMI_tutorial2_SanJuan.Rmd)
 
-[schedule](schedule.md)
+
+| August 26, 2019 | CompPhylo workshop                           |
+| :-------------: | :------------------------------------------- |
+| **2:00 PM**     | Introduction to CAMI [presentation](CAMI_1_presentation.png)                         |
+|                 |                                              |
+| :-------------:  | :-------------------------------------------|
+| **2:30 PM**     | [CAMI intro tutorial](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI_1.html)
+|                 |                                              |
+| :-------------:  | :-------------------------------------------|
+| **3:00 PM**     | [CAMI San Juan Analysis](tbd)
+|                 |    
+| :-------------:  | :-------------------------------------------:|
+| **3:45 PM**     | ~Coffee Break~                               |
+| :-------------: | :-------------------------------------------:|
+| **4:15 PM**     | [CAMI Amphibian Analysis](tbd)            |
+|                 |                                              |
+| :-------------:  | :------------------------------------------- |
+| **4:45 PM**     | Discuss main results and conclusions        |
+| :-------------:  | :------------------------------------------- |
+
+
+
 [back](./)
