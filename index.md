@@ -38,7 +38,7 @@ their own work in the evenings.
 
 * What kind of data it uses: CAMI uses phylogenetic information from species in a regional community pool and local community pool, along with continuous trait information for each species present in the phylogenies.
 * Software: [CAMI github](https://github.com/ruffleymr/CAMI)
-* References: Ruffley M, Peterson K, Week B, Tank DC, Harmon LJ. (2019) Identifying Models of Trait-Mediated Community Assembly Using Random Forests and Approximate Bayesian Computation. In review. Link Soon.
+* References: Ruffley M, Peterson K, Week B, Tank DC, Harmon LJ. **2019** Identifying Models of Trait-Mediated Community Assembly Using Random Forests and Approximate Bayesian Computation. *Ecology and Evolution. *Accepted*
 
 ### MESS
 MESS is a novel comparative phylogeographic model grounded in community
