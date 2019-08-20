@@ -177,7 +177,7 @@ Submitted batch job 27708069
 And now monitor the progress of the job with `squeue:
 
 ```
-$ squeue -u iovercast
+$ squeue -u <username>
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
           27708069    normal myfirst. iovercas R        0:02      1 c16-1
 ```
@@ -198,7 +198,7 @@ $ squeue -u iovercast
 Also, there will be a new file in your `work` directory, which you can examine:
 
 ```bash
-cat ~/compphylo_workshop/watdo.txt
+$ cat ~/compphylo_workshop/watdo.txt
 ```
     Hello World
 
@@ -236,7 +236,9 @@ $ bash qlogin.sh
     salloc: job 27784665 has been allocated resources
     salloc: Granted job allocation 27784665
     srun: Job step created
+
 ```bash
+# Use the `hostname` command to verify that you are on a compute node.
 $ hostname
 ```
     compute-15-4.local
