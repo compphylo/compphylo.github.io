@@ -14,19 +14,19 @@ knitr::opts_knit$set(root.dir = "/Users/Megan/Documents/GitHub/CAMI/data/Marx_da
 
 ## CAMI tutorial #2   {-}
 
-### 1. Introduction 
+### 1. Introduction
 
-Marx *et al* (2015) surveyed 442 vascular plants species across 80 islands in the San Juan archipelago, which is a series of islands in between Washington state and Vancouver Island, BC, Canada. They reconstrcuted the community phylogeny for all of these species, using a supertree appraoch, and gathered data on several functional traits (seed mass, max height, specific leaf area (SLA), leaf size, and leaf N content). 
+Marx *et al* (2015) surveyed 442 vascular plants species across 80 islands in the San Juan archipelago, which is a series of islands in between Washington state and Vancouver Island, BC, Canada. They reconstrcuted the community phylogeny for all of these species, using a supertree appraoch, and gathered data on several functional traits (seed mass, max height, specific leaf area (SLA), leaf size, and leaf N content).
 
-In their analyses, they investigated mean pairwise distance (MPD) and mean-nearest taxon distance (MNTD) using phylgoenetic infornationa, and then also using the functional trait information. They used these standardized metrics as test statistics for significant over and under-dispersion compared to randomly assembly communities in statistical hypotheis testing. 
+In their analyses, they investigated mean pairwise distance (MPD) and mean-nearest taxon distance (MNTD) using phylgoenetic infornationa, and then also using the functional trait information. They used these standardized metrics as test statistics for significant over and under-dispersion compared to randomly assembly communities in statistical hypotheis testing.
 
-We advocate that using CAMI is an alternative to statistical hypothesis testing, as inferece here is based on performing model-selection with random forests (RF) and Approximate Bayesian Computation (ABC). In this, we can incorperate uncertainty in our model inference and simulatenously compare the support for each assembly process. 
+We advocate that using CAMI is an alternative to statistical hypothesis testing, as inferece here is based on performing model-selection with random forests (RF) and Approximate Bayesian Computation (ABC). In this, we can incorperate uncertainty in our model inference and simulatenously compare the support for each assembly process.
 
-Below, we go through analysizing Marx et al.'s (2015) data in CAMI. 
+Below, we go through analysizing Marx et al.'s (2015) data in CAMI.
 
 ### 2. Importing Data
 
-#### 2.1 Phylogenetic 
+#### 2.1 Phylogenetic
 
 We will first load the community phylogenetic tree constrcuted by Marx et al. (2015). This tree has 367 of the species identified on th San Juan Islands. The tree is a result of combining publically available sequence data from GenBank for five gene regions (atpB, rbcL, matK, trnTLF and ITS) using the PHLAWD pipeline (Smith et al., 2009). The phylogenetic tree was infered using Maximum Likelihood.
 
@@ -45,7 +45,7 @@ SanJuanTree
 
 #### 2.2 Community Matrix
 
-Next, we will load the community data matrix which identifies which species are located on what islands. In this matrix, the rows will be all of the species present on all islands and the columns each represent a different island. Inside the cells is then presence/absence data. 
+Next, we will load the community data matrix which identifies which species are located on what islands. In this matrix, the rows will be all of the species present on all islands and the columns each represent a different island. Inside the cells is then presence/absence data.
 
 ```{r, message=FALSE}
 ## the community matrix is imported as a data frame object
@@ -59,9 +59,9 @@ metadata <- read.csv(file="IslandMetadata.txt", header = T, sep = ",", row.names
 ```
 
 
-#### 2.3 Functional Traits 
+#### 2.3 Functional Traits
 
-Finally, we will load the functional trait data matrix. Again, in this matrix, each row is a species and each column corresponds to a trait. The traits data includes native/invasive status, seed mass (mg), maximum height (m), specific leaf area (SLA, cm2), leaf size (cm2), and leaf N content. 
+Finally, we will load the functional trait data matrix. Again, in this matrix, each row is a species and each column corresponds to a trait. The traits data includes native/invasive status, seed mass (mg), maximum height (m), specific leaf area (SLA, cm2), leaf size (cm2), and leaf N content.
 
 ```{r, message=FALSE}
 ## the functional trait data is also imported as a data frame object
@@ -95,7 +95,7 @@ missingSpecies <- names(TraitVec)[is.na(TraitVec)]
 RegTraitTree <- drop.tip(phy = SanJuanTree, tip = missingSpecies)
 RegTraitTree <- drop.tip(phy = RegTraitTree, tip = "Arctostaphylos_media")
 
-## remove species from trait data if missing 
+## remove species from trait data if missing
 TraitVec <- TraitVec[!is.na(TraitVec)]
 
 ## check the new tree and trait data objects to make sure they match with name.check()
@@ -138,11 +138,11 @@ local <- c(25,90)
 
 require("CAMI")
 #simulate data on crick under emp sims screen
-AssemblyData <- SimCommunityAssembly(sims, N, local, 
-                                       traitsim = "OU", 
-                                       comsim = "all", 
-                                       sig2 = OU.mod$opt$sigsq, 
-                                       alpha = OU.mod$opt$alpha, 
+AssemblyData <- SimCommunityAssembly(sims, N, local,
+                                       traitsim = "OU",
+                                       comsim = "all",
+                                       sig2 = OU.mod$opt$sigsq,
+                                       alpha = OU.mod$opt$alpha,
                                        tau=c(1,60))
 
 
@@ -217,8 +217,8 @@ colSums(SJModPredictions)
 
 #create color palette:
 library(RColorBrewer)
-coul = brewer.pal(5, "Set2") 
- 
+coul = brewer.pal(5, "Set2")
+
 t(SJModPredictions)
 
 # Make a stacked barplot--> it will be in %!
@@ -235,7 +235,7 @@ barplot(t(SJModPredictions), col=coul , border="white", xlab="San Juan Communiti
 ##might be good to look at some params.
 
 trues <- AssemblyData$params[,2]=="filtering"
-TauIndex <- as.numeric(paste(AssemblyData$params[trues,10])) 
+TauIndex <- as.numeric(paste(AssemblyData$params[trues,10]))
 
 summaryStatsTau <- AssemblyData$summary.stats[trues,-c(17,18,21,22,29)]
 ref.table.Regress <- data.frame(summaryStatsTau, TauIndex)
@@ -287,8 +287,8 @@ TauParams <- OUassemblyData$params[trues,5:10]
 SJsummaryStats.ABC <- SJsummaryStats[, c(4, 10, 12, 13, 16, 18, 19, 20)]
 
 for (i in 1:ncol(SanJuanCommunities)){
-  SJ.Param.Est <- abc(target = SJsummaryStats.ABC[i,], 
-                      param = TauParams, 
+  SJ.Param.Est <- abc(target = SJsummaryStats.ABC[i,],
+                      param = TauParams,
                       sumstat = summaryStatsTau[,c(4, 10, 12, 13, 16, 18, 19, 20)], tol = 0.01, method="rejection")
 
   tau <- as.numeric(paste(SJ.Param.Est$unadj.values[,colnames(SJ.Param.Est$unadj.values) == "tau"]))
