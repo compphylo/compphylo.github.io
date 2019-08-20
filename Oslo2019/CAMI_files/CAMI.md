@@ -5,14 +5,14 @@ Welcome to Monday afternoon of Day 1 CompPhylo! Below is the schedule for the re
 
 | August 26, 2019 | CompPhylo workshop                           |
 | :-------------: | :------------------------------------------- |
-| **2:00 PM**     | [Introduction to CAMI](CAMI_1_presentation.png)|
+| **2:00 PM**     | [Introduction to CAMI](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_Introduction.pdf)
 | :-------------: | :------------------------------------------- |
 |                 | [CAMI intro tutorial](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI_1.html)|
 | :-------------: | :------------------------------------------- |
 |  **3:00 PM**    | [CAMI San Juan Analysis](tbd)                |
-|                 | [San Juan Data]()                            |
+|                 | [San Juan Data]((https://compphylo.github.io/Oslo2019/CAMI_files/assets/SanJuan_Data))                            |
 | :-------------: | :------------------------------------------: |
-|  **3:45 PM**    | ~~Coffee Break~~                             |
+|  **3:45 PM**    | *~Coffee Break~*                             |
 | :-------------: | :------------------------------------------: |
 |  **4:00 PM**    | [CAMI Amphibian Analysis](tbd)               |
 |                 | [Amphibian Data]()                           |

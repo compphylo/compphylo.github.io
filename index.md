@@ -60,6 +60,7 @@ single locus data is supported, so community metabarcoding projects would be qui
 appropriate. Other data types can be included but are not required (abundances, per taxon
 trait metrics, and phylogenetic information).   
 * Documentation: [MESS documentation](https://pymess.readthedocs.io/en/latest/)
+* CompPhylo Webpage: [CAMI_Monday_afternoon](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI.html)
 * Software: [MESS GitHub](https://github.com/messDiv/MESS)
 * Reference: Overcast, I, Emerson, BC, Hickerson, MJ. (2019). An integrated model of population genetics and community ecology. Journal of Biogeography, 46: 816-829. [https://doi.org/10.1111/jbi.13541](https://doi.org/10.1111/jbi.13541)
 
