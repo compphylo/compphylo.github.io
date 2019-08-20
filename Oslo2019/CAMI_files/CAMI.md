@@ -10,7 +10,7 @@ Welcome to Monday afternoon of Day 1 CompPhylo! Below is the schedule for the re
 |                 | [CAMI intro tutorial](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI_1.html)|
 | :-------------: | :------------------------------------------- |
 |  **3:00 PM**    | [CAMI San Juan Analysis](tbd)                |
-|                 | [San Juan Data](https://github.com/compphylo/compphylo.github.io/blob/master/Oslo2019/CAMI_files/assets/SanJuan_Data.tar.gz)                            |
+|                 | [San Juan Data](https://github.com/compphylo/compphylo.github.io/raw/master/Oslo2019/CAMI_files/assets/SanJuan_Data.tar.gz)                            |
 | :-------------: | :------------------------------------------: |
 |  **3:45 PM**    | *~Coffee Break~*                             |
 | :-------------: | :------------------------------------------: |
