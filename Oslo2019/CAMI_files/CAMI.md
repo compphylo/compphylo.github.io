@@ -12,7 +12,7 @@ Welcome to Monday afternoon of Day 1 CompPhylo! Below is the schedule for the re
 |  **3:00 PM**    | [CAMI San Juan Analysis](tbd)                |
 |                 | [San Juan Data]()                            |
 | :-------------: | :------------------------------------------: |
-|  **3:45 PM**    | ~~~Coffee Break~~~                           |
+|  **3:45 PM**    | ~~Coffee Break~~                             |
 | :-------------: | :------------------------------------------: |
 |  **4:00 PM**    | [CAMI Amphibian Analysis](tbd)               |
 |                 | [Amphibian Data]()                           |
@@ -27,7 +27,7 @@ Welcome to Monday afternoon of Day 1 CompPhylo! Below is the schedule for the re
 - [CAMI manuscript]()
 
 ### Extra Downloads
-- [Introduction to CAMI presentation]
+- [Introduction to CAMI presentation](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_Introduction.pdf)
 - [CAMI_1.Rmd](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_1.Rmd)
 - [CAMI_2_SanJuan.Rmd]
 - [CAMI_3_Amphibiam.Rmd]
