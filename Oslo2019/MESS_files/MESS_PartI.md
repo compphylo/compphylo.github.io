@@ -60,6 +60,9 @@ The basic steps of this process are as follows:
 
 <a name="Installation"></a>
 ## Installing MESS
+**NB: You do not need to install MESS for this workshop, rather this is here for
+completeness and future information should you wish to install MESS on your home cluster.**
+
 MESS is distributed as a conda package so installation is simple and
 and straightforward. If you don't already have conda installed,
 [do the conda install first.](https://compphylo.github.io/Oslo2019/UiO_Cluster_info.html#conda-install)
@@ -84,12 +87,14 @@ MESS -p params-new-sims.txt -s 10 -c 4
 
 <a name="MESS-CLI-intro"></a>
 ## Getting started with the MESS CLI
-First, we need to get ourselves an interactive session on the cluster, so
-before going any farther run your `qlogin.sh` script:
+First, we need to get ourselves an interactive session in the proper conda
+environment on the cluster, so before going any farther run your 
+`qlogin.sh` script, and activate your environment when it fires up:
 
 ```bash
 $ cd ~
 $ bash qlogin.sh
+$ conda activate CompPhylo_1
 ```
 Once this finishes you'll be sitting at a command line on one of the cluster
 compute nodes. This way any simulations you run will run on the cluster rather

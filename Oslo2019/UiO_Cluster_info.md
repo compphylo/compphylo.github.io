@@ -138,8 +138,7 @@ We will use the `nano` text editor to create a new job submission script, like t
 ```bash
 # First make a directory to contain workshop files
 $ mkdir compphylo_workshop
-$ cd compphylo_workshop
-$ nano myfirst.job
+$ nano compphylo_workshop/myfirst.job
 ```
 
 Nano is a very basic text editor, so you'll need to use only the arrow keys 
@@ -170,7 +169,7 @@ formed you'll receive notification that the job was submitted as well as the
 job id #:
 
 ```
-$ sbatch myfirst.job
+$ sbatch compphylo_workshop/myfirst.job
 Submitted batch job 27708069
 ```
 
@@ -244,3 +243,9 @@ $ hostname
     compute-15-4.local
 
 **BAM!**
+
+Interactive mode is **really** useful for when you're writing a job
+submission script and you need to test it in the live HPC environment.
+We will use this throughout the workshop, but for now let us `exit` 
+to reliquish this allocation and return back to a terminal on the
+head node.

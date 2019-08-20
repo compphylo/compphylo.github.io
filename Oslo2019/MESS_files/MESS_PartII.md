@@ -292,10 +292,10 @@ run fast, but do a bad job.
 rgr = MESS.inference.Regressor(empirical_df=spider_df, simfile=simfile, target_model="neutral", algorithm="rfq")
 est = rgr.predict(select_features=False, param_search=False, quick=True, verbose=False)
 ```
-> **NB:** Note that here we ask for the `rfq` algorithm, which random forest
-quantile regression, and allows for constructing prediction intervals,
-something the stock `rf` algorithm doesn't do. The gradient boosting method
-(`gb`) provides prediction intervals natively.
+> **NB:** Note that here we ask for the `rfq` algorithm, which designates
+random forest quantile regression, and allows for constructing prediction 
+intervals, something the stock `rf` algorithm doesn't do. The gradient 
+boosting method (`gb`) provides prediction intervals natively.
 
 The return value `est` is a dataframe that contains predicted values for
 each model parameter and 95% prediction intervals, which are conceptually
