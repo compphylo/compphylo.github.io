@@ -281,11 +281,21 @@ available.
 <a name="Inspect-Simulations"></a>
 ## Inspect the output of the simulation runs
 
+Simulation parameters and summary statistics are written to the `SIMOUT.txt`
+file. You can check the length of this file.
 ```bash
-## -r fetches informative results from current simulations
-## TODO: Implement this feature!
-$ MESS -p params-simdata.txt -r
+$ wc -l wc -l default_MESS/SIMOUT.txt 
+11 default_MESS/SIMOUT.txt
+
+# Use `less` to look inside the file. Use `q` to quit less when you are done.
+less default_MESS/SIMOUT.txt
 ```
+> **NB:** Lines in this file are very long, so less will wrap the text by
+default. Turn of line wrapping by typing `-S` then pushing <enter>.
+
+    S_m     J_m     speciation_rate death_proportion        trait_rate_meta ecological_strength     generations     community_assembly_model
+    100     750000  2.0     0.7     2.0     1.0     0.0     neutral point_mutation  0.0     2000    570.0   500.0   0.01    0.0     189.0   0.696
+    100     750000  2.0     0.7     2.0     1.0     0.0     neutral point_mutation  0.0     2000    570.0   500.0   0.01    0.0     43.0    0.238
 
 <a name="Parameter-Ranges"></a>
 ## Setting prior ranges on parameters
@@ -304,12 +314,13 @@ nano params-simdata.txt
 and change the following two parameter settings:
 
 ```
-1000-1000                 ## [1] [J]: Number of individuals in the local community
+1000-2000                 ## [1] [J]: Number of individuals in the local community
 0.001-0.01                 ## [2] [m]: Migration rate into local community
 ```
 > **Note:** Saving and quitting from `nano`: `CTRL+o` then `CTRL+x`
 
-Now run some more simulations:
+Now run some more simulations (MESS will append these new simulations to the
+SIMOUT file):
 ```
 $ MESS -p params-simdata.txt -s 10 -c 4
  -------------------------------------------------------------
@@ -328,7 +339,18 @@ $ MESS -p params-simdata.txt -s 10 -c 4
  Clean up ipcluster <ipyparallel.client.client.Client object at 0x7f15cc3c9090>
 ```
 
-and inspect the new simulated outputs:
+and inspect the new simulated outputs again using `less`:
 
-???
+```bash
+less default_MESS/SIMOUT.txt
+```
+
+    100     750000  2.0     0.7     2.0     1.0     0.0     neutral point_mutation  0.0     2000    570.0   1096.0  0.00509
+    100     750000  2.0     0.7     2.0     1.0     0.0     neutral point_mutation  0.0     2000    570.0   1889.0  0.00112
+    100     750000  2.0     0.7     2.0     1.0     0.0     neutral point_mutation  0.0     2000    570.0   1699.0  0.00285
+
+And you'll see that the these parameter values are now taking a range, as we 
+specified. In [MESS Part II](MESS_PartI.md) you will see how we can combine massive amounts
+of simulations under varying parameter ranges with machine learning to
+estimate parameters of the model with real data.
 
