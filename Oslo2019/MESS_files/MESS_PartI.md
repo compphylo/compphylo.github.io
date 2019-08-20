@@ -339,18 +339,35 @@ $ MESS -p params-simdata.txt -s 10 -c 4
  Clean up ipcluster <ipyparallel.client.client.Client object at 0x7f15cc3c9090>
 ```
 
-and inspect the new simulated outputs again using `less`:
+Let's use `cut` to look at just the columns we're interested in (`J` and `m`),
+which are the 13th and 14th columns.
 
 ```bash
-less default_MESS/SIMOUT.txt
+$ cut -f 13,14 default_MESS/SIMOUT.txt
+J       m
+500.0   0.01
+500.0   0.01
+500.0   0.01
+500.0   0.01
+500.0   0.01
+500.0   0.01
+500.0   0.01
+500.0   0.01
+500.0   0.01
+500.0   0.01
+1118.0  0.00205
+1168.0  0.00172
+1515.0  0.00323
+1061.0  0.0014
+1305.0  0.00859
+1434.0  0.00881
+1397.0  0.00706
+1096.0  0.00509
+1889.0  0.00112
+1699.0  0.00285
 ```
 
-    100     750000  2.0     0.7     2.0     1.0     0.0     neutral point_mutation  0.0     2000    570.0   1096.0  0.00509
-    100     750000  2.0     0.7     2.0     1.0     0.0     neutral point_mutation  0.0     2000    570.0   1889.0  0.00112
-    100     750000  2.0     0.7     2.0     1.0     0.0     neutral point_mutation  0.0     2000    570.0   1699.0  0.00285
-
-And you'll see that the these parameter values are now taking a range, as we 
-specified. In [MESS Part II](MESS_PartI.md) you will see how we can combine massive amounts
-of simulations under varying parameter ranges with machine learning to
-estimate parameters of the model with real data.
-
+And you'll see that these parameter values are now taking a range, as we 
+specified. In [MESS Part II](MESS_PartI.md) you will see how we can combine 
+massive amounts of simulations under varying parameter ranges with machine 
+learning to estimate parameters of the model with real data.
