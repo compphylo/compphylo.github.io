@@ -60,30 +60,12 @@ of these commands are picky so it's important to be careful and pay special
 attention until you're very comfortable with the process.
 
 Overview of process
-* [Set Jupyter notebook password](#set-jupyter-notebook-password)
 * [Create the config file](#set-default-configuration-behavior)
+* [Set Jupyter notebook password](#set-jupyter-notebook-password)
 * [Start remote notebook server](#run-notebook-server)
 * Establish jupyter notebook ssh tunnel: [Windows](#windows-ssh-tunnel-configuration) - [Mac/Linux](#mac-ssh-tunnel-configuration)
 * **[What do do if your notebook isn't working](#what-to-do-if-the-notebook-is-not-working)**
 * [More information about jupyter](#useful-jupyter-tricks/ideas)
-
-### Set Jupyter Notebook Password
-Jupyter was already installed as a dependency of MESS, so we just
-need to set a password before we can launch it. This command will
-prompt you for a new password for your notebook (you will **only ever
-have to do this once on the HPC**). Run this command in a terminal on
-the head node:
-```
-$ jupyter notebook password
-```
-This will set a password on your notebook server so that other people
-won't have access to your files and notebooks. The notebook server
-will prompt you for your password when you initially connect to it.
-
-> **Note:** The password to access your jupyter notebook and the
-password for your cluster login ***are two different passwords.*** It
-will probably reduce confusion, though, if you make them the same, at
-least for now.
 
 ### Set default configuration behavior
 There are a couple arguments that we always want to start the jupyter
@@ -128,6 +110,24 @@ wrote the data to the config file:
 ```
 cat ~/.jupyter/jupyter_notebook_config.py
 ```
+
+### Set Jupyter Notebook Password
+Jupyter was already installed as a dependency of MESS, so we just
+need to set a password before we can launch it. This command will
+prompt you for a new password for your notebook (you will **only ever
+have to do this once on the HPC**). Run this command in a terminal on
+the head node:
+```
+$ jupyter notebook password
+```
+This will set a password on your notebook server so that other people
+won't have access to your files and notebooks. The notebook server
+will prompt you for your password when you initially connect to it.
+
+> **Note:** The password to access your jupyter notebook and the
+password for your cluster login ***are two different passwords.*** It
+will probably reduce confusion, though, if you make them the same, at
+least for now.
 
 ### Run Notebook Server on the cluster
 For convenience we will run our instance of the jupyter notebook server
