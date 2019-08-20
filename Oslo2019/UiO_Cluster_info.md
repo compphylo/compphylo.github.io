@@ -98,8 +98,13 @@ scratch are available on the [conda install]("Conda_Config.md") page.
 # Switch to my read-only conda install (only need to do this once):
 $ /usit/abel/u1/iovercast/miniconda3/bin/conda init
 
+# Refresh your bash instance to see the new configuration. Your
+# terminal will now reflect that you have the `(base)` environment
+# activated.
+$ bash
+
 # Activate the conda env we'll use:
-$ conda activate CompPhylo_1
+(base) $ conda activate CompPhylo_1
 
 (CompPhylo_1) $ which python
 /usit/abel/u1/iovercast/miniconda3/envs/CompPhylo_1/bin/python
@@ -131,7 +136,10 @@ to allocate. We'll practice with a simple script here.
 We will use the `nano` text editor to create a new job submission script, like this:
 
 ```bash
-nano myfirst.job
+# First make a directory to contain workshop files
+$ mkdir compphylo_workshop
+$ cd compphylo_workshop
+$ nano myfirst.job
 ```
 
 Nano is a very basic text editor, so you'll need to use only the arrow keys 

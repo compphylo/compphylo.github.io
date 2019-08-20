@@ -30,6 +30,12 @@ Once you have gotten logged use `git` to fetch some data:
 git clone https://github.com/speciationgenomics/unix_exercises.git
 ```
 
+Now change directory into the `unix_exercises`:
+
+```bash
+cd unix_exercises
+```
+
 Things we want to be able to do:
 * [Look at data](#look-at-data): `head`,`tail`, `cat`, `less`
 * [Find stuff in data](#find-stuff-in-data): `cut`, `grep`
@@ -66,6 +72,10 @@ $ tail -n+50 iris_data.tsv
 ```bash
 ## cat will show all contents of the file
 $ cat mobydick.txt
+
+Sometimes you may issue commands and then realize this is a bad idea
+(like cat'ing 15,000 lines of text to your screen), in which case you can
+kill commands using CTRL+c.
 
 ## `>` can be used to combine the contents of multiple files and push them into a new file
 $ cat mobydick.txt udrh.txt > combinedExample.txt
@@ -130,8 +140,14 @@ Species
 setosa
 versicolor
 virginica
-```
 
+## Count the number of unique occurrences with `-c`
+$ cut -f 5 iris_data.tsv | uniq -c
+      1 Species
+     50 setosa
+     50 versicolor
+     50 virginica
+```
 
 ## Organize data
 `pwd` returns the full path of the working directory you are in
