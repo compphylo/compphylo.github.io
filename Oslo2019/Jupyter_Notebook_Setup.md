@@ -132,10 +132,10 @@ least for now.
 ### Run Notebook Server on the cluster
 For convenience we will run our instance of the jupyter notebook server
 using a new job submission script. Begin by creating a new file in your
-`job-scripts` directory:
+`job_scripts` directory:
 ```
-$ mkdir job-scripts
-$ cd job-scripts
+$ mkdir job_scripts
+$ cd job_scripts
 $ nano jupyter.sh
 ```
 Now enter the following text in this script. Be sure to replace your
