@@ -145,7 +145,7 @@ flags should be familiar from earlier:
 #!/bin/sh
 #SBATCH --account=nn9458k
 #SBATCH --time=144:00:00
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=11
 #SBATCH --mem-per-cpu=1G
 
 source ~/.bashrc
