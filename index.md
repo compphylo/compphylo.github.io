@@ -37,8 +37,9 @@ their own work in the evenings.
 **CAMI** stands for Community Assembly Model Inference and is implemented as an R package.
 
 * What kind of data it uses: CAMI uses phylogenetic information from species in a regional community pool and local community pool, along with continuous trait information for each species present in the phylogenies.
+* CompPhylo Webpage: [CAMI_Monday_afternoon](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI.html)
 * Software: [CAMI github](https://github.com/ruffleymr/CAMI)
-* References: Ruffley M, Peterson K, Week B, Tank DC, Harmon LJ. **2019** Identifying Models of Trait-Mediated Community Assembly Using Random Forests and Approximate Bayesian Computation. *Ecology and Evolution. *Accepted*
+* References: Ruffley M, Peterson K, Week B, Tank DC, Harmon LJ. **2019** Identifying Models of Trait-Mediated Community Assembly Using Random Forests and Approximate Bayesian Computation. *Ecology and Evolution. Accepted*
 
 ### MESS
 MESS is a novel comparative phylogeographic model grounded in community

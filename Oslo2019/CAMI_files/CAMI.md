@@ -5,31 +5,32 @@ Welcome to Monday afternoon of Day 1 CompPhylo! Below is the schedule for the re
 
 | August 26, 2019 | CompPhylo workshop                           |
 | :-------------: | :------------------------------------------- |
-| **2:00 PM**     | [Introduction to CAMI](CAMI_1_presentation.png)|
+| **2:00 PM**     | [Introduction to CAMI](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_Introduction.pdf)
 | :-------------: | :------------------------------------------- |
 |                 | [CAMI intro tutorial](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI_1.html)|
 | :-------------: | :------------------------------------------- |
-|  **3:00 PM**    | [CAMI San Juan Analysis](tbd)                |
-|                 | [San Juan Data]()                            |
+|  **3:00 PM**    | [CAMI San Juan Analysis](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI_SanJuanAnalysis.html)                |
+|                 | [San Juan data download](https://github.com/compphylo/compphylo.github.io/raw/master/Oslo2019/CAMI_files/assets/SanJuan_Data.tar.gz)                            |
+
 | :-------------: | :------------------------------------------: |
-|  **3:45 PM**    | ~~Coffee Break~~                             |
+|  **3:45 PM**    | *~Coffee Break~*                             |
 | :-------------: | :------------------------------------------: |
 |  **4:00 PM**    | [CAMI Amphibian Analysis](tbd)               |
-|                 | [Amphibian Data]()                           |
+|                 | [Amphibian data download](tbd)                           |
 | :-------------: | :------------------------------------------- |
 |  **4:45 PM**    |  Discuss main results/ wrap-up               |
 | :-------------: | :------------------------------------------- |
 
 ### Extra links
-- [CAMI Installation](https://ruffleymr.github.io/CAMI_Installation.html)
+- [CAMI paper](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMImanuscript.pdf)
+- [CAMI installation tutorial](https://ruffleymr.github.io/CAMI_Installation.html)
 - [CAMI github](https://github.com/ruffleymr/CAMI)
 - [summary statistics description](https://compphylo.github.io/Oslo2019/CAMI_files/SumStats.html)
-- [CAMI manuscript]()
 
 ### Extra Downloads
 - [Introduction to CAMI presentation](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_Introduction.pdf)
 - [CAMI_1.Rmd](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_1.Rmd)
-- [CAMI_2_SanJuan.Rmd]
+- [CAMI_2_SanJuan.Rmd](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_SanJuanAnalysis.Rmd)
 - [CAMI_3_Amphibiam.Rmd]
 
 [back](../index.md)
