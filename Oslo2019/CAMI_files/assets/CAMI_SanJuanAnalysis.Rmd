@@ -1,0 +1,161 @@
+---
+title: "Community Assembly of Plant Communities in the San Juan Islands"
+author: "M. Ruffley"
+date: "26-August-2019"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "/Users/Megan/Documents/GitHub/CAMI/data/Marx_data/")
+library(CAMI)
+library(randomForest)
+library(phytools)
+```
+
+## CAMI tutorial 2 {-}
+## 1. Background 
+
+Marx *et al* (2015) surveyed 442 vascular plants species across 80 islands in the San Juan archipelago, which is a series of islands in between Washington state and Vancouver Island, BC, Canada. 
+
+![Islands that were sampled for this study are colored in red. The three largest unsampled island and the three largest sampled islands are labeled.](./SanJuanMap.png)
+
+
+In this study, authors also reconstructed the community phylogeny for all of the plant species living across the islands, using a supertree approach. 
+
+![Trait data were also collected for most species. The coverage of trait data across the phylogeny is indicated by the colors blocks surrounding the tips of the tree.](./SanJuanPhylogeny.png)
+
+In their community assembly analyses, Marx *et. al* investigated mean pairwise distance (MPD) and mean-nearest taxon distance (MNTD) using phylogenetic information, and then also using the functional trait information. They used these standardized metrics as test statistics for significant over and under-dispersion compared to randomly assembly communities in statistical hypothesis testing. 
+
+We advocate that using CAMI is an alternative to statistical hypothesis testing, as inference here is based on simulating data under each of the assembly models and performing model-selection with random forests (RF). In this, we can simultaneously compare the model support for each assembly process. 
+
+Below, we go through analyzing Marx *et al.'s* (2015) data in CAMI. Much like the first tutorial, we will be doing this analysis in R through jupyter notebooks. Login to abel, ensure the ssh connection, and navigate to your notebooks in a web browser. See [jupyter notebook help](https://compphylo.github.io/Oslo2019/Jupyter_Notebook_Setup.html) if stuck.  Go to your CAMI directory and make a new `python 3` file. Remember to load `rpy2` in the first cell of your notebook. 
+
+```{r eval=FALSE}
+%load_ext rpy2.ipython
+```
+
+## 2. San Juan Data
+
+### a) download data 
+
+The data are available on the CompPhylo website on the CAMI [homepage], to download directly to your local device. To download them onto you cluster account, use the linux `wget` command. We can run the following code to download the data directly in the terminal on abel, or we can run the command in our jupyter notebook. If we run the command in our notebook, we need to add `!` to the beginning. This tells the notebook to run the command in the terminal anyway. 
+
+```{r, eval=FALSE}
+## download SanJuan_Data.tar.gz
+!wget https://github.com/compphylo/compphylo.github.io/raw/master/Oslo2019/CAMI_files/assets/SanJuan_Data.tar.gz
+
+## open the file
+!tar xvzf SanJuan_Data.tar.gz
+```
+
+Try listing the files in the directory through jupyter notebooks by running `!ls SanJuan_Data/`. You should see three data files; Marx.tre, CommunityDataMatrix.csv, and FunctionalTraitData.csv.
+
+### b) load data into R
+
+#### Phylogenetic Tree
+
+We will first load the community phylogenetic tree constructed by Marx *et al.* (2015). This tree has 367 of the species identified on the San Juan Islands. The tree is a result of combining publicly available sequence data from GenBank for five gene regions (atpB, rbcL, matK, trnTLF and ITS) using a modified supermatrix method, termed 'mega-phylogeny' (Smith *et al.*, 2009) . The phylogenetic tree was inferred using Maximum Likelihood.
+
+```{r, eval=FALSE}
+## we need this to run R in jupyter notebooks
+%%R
+library(CAMI)
+## phytools has the read.tree() function we need
+library(phytools)
+
+regionalTree <-  read.tree("SanJuan_Data/Marx.tre")
+regionalTree
+```
+```{r, echo=FALSE}
+regionalTree <-  read.tree("Marx.tre")
+regionalTree
+```
+
+
+
+#### Community Data Matrix
+
+Next, we will load the community data matrix which identifies which species are located on which San Juan islands. In this matrix, the rows will the total species pool present on all islands and the columns each represent a different island. Inside the cells is then presence/absence data in the form of 0s and 1s.
+
+```{r, eval=FALSE}
+%%R
+## the community matrix is imported as a data frame object
+communityMatrix <- read.csv(file="SanJuan_Data/CommunityDataMatrix.csv", sep=",", header=T, row.names = 1)
+
+## check out the data in the first 10 communities, or columns
+head(communityMatrix[,1:10])
+```
+```{r, echo=FALSE}
+## the community matrix is imported as a data frame object
+communityMatrix <- read.csv(file="CommunityDataMatrix.csv", sep=",", header=T, row.names = 1)
+
+## check out the data
+head(communityMatrix[, 1:10])
+```
+
+#### Functional Traits 
+
+Finally, we will load the functional trait data frame. Again, in this matrix, each row is a species and each of the columns correspond to a trait. The traits data includes native/invasive status, seed mass (mg), maximum height (m), specific leaf area (SLA, cm2), leaf size (cm2), and leaf N content. Today, we each will only investigate one trait out of seed mass, max height, and specific leaf area (SLA).
+
+```{r, eval=FALSE}
+%%R
+## the functional trait data is also imported as a data frame object
+traitData <-  read.csv(file="SanJuan_Data/FunctionalTraitData.csv", sep=",", header=T, row.names = 1)
+
+head(traitData)
+```
+```{r, echo=FALSE}
+## the functional trait data is also imported as a data frame object
+traitData <-  read.csv(file="FunctionalTraitData.csv", sep=",", header=T, row.names = 1)
+head(traitData)
+```
+
+Note the missing data present as NAs. Use the code below to see which traits have the most missing data.
+
+```{r eval=FALSE}
+%%R
+colSums(is.na(traitData))
+```
+```{r echo=FALSE}
+colSums(is.na(traitData))
+```
+
+## 3. Trait Evolution
+
+In the rest of this tutorial, we will be investigating how Maximum height has influenced the structure of the San Juan plant communities. In the code below, we will extract the height data and continue on. If you are interested in investigating another trait other than height, replace the `Maximum.Height..m.` indicator in the code below to the name of another trait. IF using a differnt trait, you can still continue on with the tutorial but you will need to adjust parameters in the simulations differently than is done in the tutorial. I will note when to do so. I suggest following along with height for convenience, however if you are feeling adventurous, try investigating a different trait. 
+
+```{r, message=FALSE}
+## PICK TRAIT HERE (replace "Maximum.Height..m.")
+regionalTraits <- traitData$Maximum.Height..m.
+names(regionalTraits) <- rownames(regionalTraits)
+
+## keep only the trait information for which you also have phylogenetic information
+regionalTraits <- regionalTraits[names(regionalTraits) %in% regionalTree$tip.label]
+
+## remove species with missing trait data from the phylogeney
+missingSpecies <- names(regionalTraits)[is.na(regionalTraits)]
+
+## load ape for drop.tip()
+library(ape)
+regionalTree <- drop.tip(phy = regionalTree, tip = missingSpecies)
+
+library(ape)
+RegTraitTree <- drop.tip(phy = RegTraitTree, tip = "Arctostaphylos_media")
+
+## remove species from trait data if missing 
+TraitVec <- TraitVec[!is.na(TraitVec)]
+
+## check the new tree and trait data objects to make sure they match with name.check()
+name.check(RegTraitTree, TraitVec)
+
+```
+
+
+## References
+
+Marx HE, Giblin DE, Dunwiddie PW, Tank DC. **2015** Deconstructing Darwin's Naturalization Conundrum in the San Juan Islands using community phylogenetics and functional traits. *Diversity and Distributions*, 22, 318-331. [link](https://onlinelibrary.wiley.com/doi/epdf/10.1111/ddi.12401) 
+
+Smith SA, Beaulieu JM, Donoghue MJ. **2009** Mega-phylogeny approach for comparative biology: an alternative to supertree and supermatrix approaches. *BMC Evolutionary Biology*, 9, 37. [link](https://bmcevolbiol.biomedcentral.com/track/pdf/10.1186/1471-2148-9-37)
