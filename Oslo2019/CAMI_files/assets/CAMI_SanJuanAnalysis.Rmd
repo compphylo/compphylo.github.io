@@ -18,7 +18,7 @@ library(phytools)
 ## CAMI tutorial 2 {-}
 ## 1. Background 
 
-Marx *et al* (2015) surveyed 442 vascular plants species across 80 islands in the San Juan archipelago, which is a series of islands in between Washington state and Vancouver Island, BC, Canada. 
+Marx et al. (2015) surveyed 442 vascular plants species across 80 islands in the San Juan archipelago, which is a series of islands in between Washington state and Vancouver Island, BC, Canada. 
 
 ![Islands that were sampled for this study are colored in red. The three largest unsampled island and the three largest sampled islands are labeled.](./SanJuanMap.png)
 
@@ -27,11 +27,11 @@ In this study, authors also reconstructed the community phylogeny for all of the
 
 ![Trait data were also collected for most species. The coverage of trait data across the phylogeny is indicated by the colors blocks surrounding the tips of the tree.](./SanJuanPhylogeny.png)
 
-In their community assembly analyses, Marx *et. al* investigated mean pairwise distance (MPD) and mean-nearest taxon distance (MNTD) using phylogenetic information, and then also using the functional trait information. They used these standardized metrics as test statistics for significant over and under-dispersion compared to randomly assembly communities in statistical hypothesis testing. 
+In their community assembly analyses, Marx et al. (2015) investigated mean pairwise distance (MPD) and mean-nearest taxon distance (MNTD) using phylogenetic information, and then also using the functional trait information. They used these standardized metrics as test statistics for significant over and under-dispersion compared to randomly assembly communities in statistical hypothesis testing. 
 
 We advocate that using CAMI is an alternative to statistical hypothesis testing, as inference here is based on simulating data under each of the assembly models and performing model-selection with random forests (RF). In this, we can simultaneously compare the model support for each assembly process. 
 
-Below, we go through analyzing Marx *et al.'s* (2015) data in CAMI. Much like the first tutorial, we will be doing this analysis in R through jupyter notebooks. Login to abel, ensure the ssh connection, and navigate to your notebooks in a web browser. See [jupyter notebook help](https://compphylo.github.io/Oslo2019/Jupyter_Notebook_Setup.html) if stuck.  Go to your CAMI directory and make a new `python 3` file. Remember to load `rpy2` in the first cell of your notebook. 
+Below, we go through analyzing Marx et al.'s (2015) data in CAMI. Much like the first tutorial, we will be doing this analysis in R through jupyter notebooks. Login to abel, ensure the ssh connection, and navigate to your notebooks in a web browser. See [jupyter notebook help](https://compphylo.github.io/Oslo2019/Jupyter_Notebook_Setup.html), if stuck.  Go to your CAMI directory and make a new `python 3` file. Remember to load `rpy2` in the first cell of your notebook. 
 
 ```{r eval=FALSE}
 %load_ext rpy2.ipython
@@ -41,7 +41,7 @@ Below, we go through analyzing Marx *et al.'s* (2015) data in CAMI. Much like th
 
 ### a) download data 
 
-The data are available on the CompPhylo website on the CAMI [homepage], to download directly to your local device. To download them onto you cluster account, use the linux `wget` command. We can run the following code to download the data directly in the terminal on abel, or we can run the command in our jupyter notebook. If we run the command in our notebook, we need to add `!` to the beginning. This tells the notebook to run the command in the terminal anyway. 
+The data are available on the CompPhylo website on the CAMI [homepage], to download directly to your local device. To download them onto you cluster account, use the linux `wget` command. We can run the following code to download the data directly in the terminal on abel, or we can run the command in our jupyter notebook. If we run the command in our notebook, we need to add `!` to the beginning. This tells the notebook to run the command in the terminal. 
 
 ```{r, eval=FALSE}
 ## download SanJuan_Data.tar.gz
@@ -57,7 +57,7 @@ Try listing the files in the directory through jupyter notebooks by running `!ls
 
 #### Phylogenetic Tree
 
-We will first load the community phylogenetic tree constructed by Marx *et al.* (2015). This tree has 367 of the species identified on the San Juan Islands. The tree is a result of combining publicly available sequence data from GenBank for five gene regions (atpB, rbcL, matK, trnTLF and ITS) using a modified supermatrix method, termed 'mega-phylogeny' (Smith *et al.*, 2009) . The phylogenetic tree was inferred using Maximum Likelihood.
+We will first load the community phylogenetic tree constructed by Marx et al. (2015). This tree has 367 of the species identified on the San Juan Islands. The tree is a result of combining publicly available sequence data from GenBank for five gene regions (atpB, rbcL, matK, trnTLF and ITS) using a modified supermatrix method, termed 'mega-phylogeny' (Smith et al., 2009) . The phylogenetic tree was inferred using Maximum Likelihood.
 
 ```{r, eval=FALSE}
 ## we need this to run R in jupyter notebooks
@@ -74,7 +74,33 @@ regionalTree <-  read.tree("Marx.tre")
 regionalTree
 ```
 
+The tree is an object of class `phylo`. These objects have several features that can be extracted from them; use the `attributes()` function to see all of them. Then use the `$` operator to extract some of the attributes.
 
+```{r, eval=FALSE}
+%%R
+attributes(regionalTree)
+```
+```{r, echo=FALSE}
+attributes(regionalTree)
+```
+
+```{r, eval=FALSE}
+%%R
+regionalTree$tip.label
+```
+```{r, echo=FALSE, results="hide"}
+regionalTree$tip.label
+```
+
+We can also plot the object easily using `plotTree()` from the `phytools` R package.
+
+```{r, eval=FALSE}
+%%R
+plotTree(regionalTree, type = "fan", fsize=0.1)
+```
+```{r, echo=FALSE}
+plotTree(regionalTree, type = "fan", fsize=0.1)
+```
 
 #### Community Data Matrix
 
@@ -85,20 +111,40 @@ Next, we will load the community data matrix which identifies which species are 
 ## the community matrix is imported as a data frame object
 communityMatrix <- read.csv(file="SanJuan_Data/CommunityDataMatrix.csv", sep=",", header=T, row.names = 1)
 
-## check out the data in the first 10 communities, or columns
-head(communityMatrix[,1:10])
+## check out how many species are in each community 
+## the -1 just says to ignore the first column becuase we already know it is the "all" community
+colSums(communityMatrix[,-1])
 ```
 ```{r, echo=FALSE}
 ## the community matrix is imported as a data frame object
 communityMatrix <- read.csv(file="CommunityDataMatrix.csv", sep=",", header=T, row.names = 1)
 
-## check out the data
-head(communityMatrix[, 1:10])
+## check out how many species are in each community 
+## the -1 just says to ignore the first column becuase we already know it is the "all" community
+colSums(communityMatrix[,-1])
+```
+
+We see that there are some communities that have very few species, somtimes less than 20. We are going to use all communities with 20 or more species. 
+
+```{r, eval=FALSE}
+%%R
+## only keeo communities with 20 or more species
+communityMatrix <- communityMatrix[,colSums(communityMatrix) >= 20]
+
+## get rid of the first column that is the "all" community
+communityMatrix <- communityMatrix[,-1]
+```
+```{r, echo=FALSE}
+## only keeo communities with 20 or more species
+communityMatrix <- communityMatrix[,colSums(communityMatrix) >= 20]
+
+## get rid of the first column that is the "all" community
+communityMatrix <- communityMatrix[,-1]
 ```
 
 #### Functional Traits 
 
-Finally, we will load the functional trait data frame. Again, in this matrix, each row is a species and each of the columns correspond to a trait. The traits data includes native/invasive status, seed mass (mg), maximum height (m), specific leaf area (SLA, cm2), leaf size (cm2), and leaf N content. Today, we each will only investigate one trait out of seed mass, max height, and specific leaf area (SLA).
+Finally, we will load the functional trait data frame. Again, in this matrix, each row is a species and each of the columns correspond to a trait. The traits data includes native/invasive status, seed mass (mg), maximum height (m), specific leaf area (SLA, cm2), leaf size (cm2), and leaf N content.
 
 ```{r, eval=FALSE}
 %%R
@@ -123,38 +169,460 @@ colSums(is.na(traitData))
 colSums(is.na(traitData))
 ```
 
-## 3. Trait Evolution
+### c) curate data
 
-In the rest of this tutorial, we will be investigating how Maximum height has influenced the structure of the San Juan plant communities. In the code below, we will extract the height data and continue on. If you are interested in investigating another trait other than height, replace the `Maximum.Height..m.` indicator in the code below to the name of another trait. IF using a differnt trait, you can still continue on with the tutorial but you will need to adjust parameters in the simulations differently than is done in the tutorial. I will note when to do so. I suggest following along with height for convenience, however if you are feeling adventurous, try investigating a different trait. 
+In the rest of this tutorial, we will be investigating how Maximum height has influenced the structure of the San Juan plant communities. In the code below, we will extract the height data and continue on. If you are interested in investigating another trait other than height, replace the `Maximum.Height..m.` indicator in the code below to the name of another trait. If using a differnt trait, you can still continue on with the tutorial but you will need to adjust parameters in the simulations differently than is done in the tutorial. I will note when to do so. I suggest following along with height for convenience, however if you are feeling adventurous, try investigating a different trait. 
 
-```{r, message=FALSE}
+```{r, eval=FALSE}
+%%R
 ## PICK TRAIT HERE (replace "Maximum.Height..m.")
 regionalTraits <- traitData$Maximum.Height..m.
-names(regionalTraits) <- rownames(regionalTraits)
+names(regionalTraits) <- rownames(traitData)
 
-## keep only the trait information for which you also have phylogenetic information
+## check how many species we have trait information for
+length(regionalTraits)
+
+## have a look at the data
+regionalTraits
+```
+```{r, echo=FALSE}
+## PICK TRAIT HERE (replace "Maximum.Height..m.")
+regionalTraits <- traitData$Maximum.Height..m.
+names(regionalTraits) <- rownames(traitData)
+length(regionalTraits)
+```
+
+One thing we notice immediately is that the number of species we have trait information for is great than the number of species in the phylogenetic tree. This will be a problem for us as the species in the phylogeny must exactly match all of the species in the trait data and vice versa.
+
+We can remedy this problem by dropping all of the species in the trait data vector that are not present in the phylogeny.
+
+```{r, eval=FALSE}
+%%R
 regionalTraits <- regionalTraits[names(regionalTraits) %in% regionalTree$tip.label]
+```
+```{r, echo=FALSE}
+regionalTraits <- regionalTraits[names(regionalTraits) %in% regionalTree$tip.label]
+```
+ 
+We still have a problem though because there is a lot of missing trait data, and CAMI cannot handle missing trait information.
 
-## remove species with missing trait data from the phylogeney
+```{r,eval=FALSE}
+%%R
+## identify the names of the species that have missing trait data
 missingSpecies <- names(regionalTraits)[is.na(regionalTraits)]
 
 ## load ape for drop.tip()
 library(ape)
+## drop species from the phylogeny that have missing trait data
 regionalTree <- drop.tip(phy = regionalTree, tip = missingSpecies)
 
+## keep only trait data that are not NAs
+regionalTraits <- regionalTraits[!is.na(regionalTraits)]
+```
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
+## identify the names of the species that have missing trait data
+missingSpecies <- names(regionalTraits)[is.na(regionalTraits)]
+
+## load ape for drop.tip()
 library(ape)
-RegTraitTree <- drop.tip(phy = RegTraitTree, tip = "Arctostaphylos_media")
+## drop species from the phylogeny that have missing trait data
+regionalTree <- drop.tip(phy = regionalTree, tip = missingSpecies)
 
-## remove species from trait data if missing 
-TraitVec <- TraitVec[!is.na(TraitVec)]
-
-## check the new tree and trait data objects to make sure they match with name.check()
-name.check(RegTraitTree, TraitVec)
-
+## keep only trait data that are not NAs
+regionalTraits <- regionalTraits[!is.na(regionalTraits)]
 ```
 
+In the R package `geiger` there is a handy function called `name.check()`. This function will check whether the trait data and the phylogeny exactly match. For this, the tip labels must match the names of the trait vector.
 
-## References
+```{r, eval=FALSE}
+%%R
+library(geiger)
+name.check(phy = regionalTree, data = regionalTraits)
+```
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(geiger)
+name.check(phy = regionalTree, data = regionalTraits)
+```
+
+Looks like there is one species in the tree that is not in the trait data. This makes sense because we never checked the tree for species that weren't in the trait data, just the other way around. Remove this lone species now and re-check the names.
+
+```{r, eval=FALSE}
+%%R
+regionalTree <- drop.tip(phy = regionalTree, tip = "Arctostaphylos_media")
+name.check(phy = regionalTree, data = regionalTraits)
+```
+```{r, echo=FALSE}
+regionalTree <- drop.tip(phy = regionalTree, tip = "Arctostaphylos_media")
+name.check(phy = regionalTree, data = regionalTraits)
+```
+
+We got the official "OK", so we are good to proceed.
+
+## 3. Trait Evolution
+
+First things first, since we are dealing with height data, we almost always need to log-transform our data. Have a look at the data and see why. 
+
+```{r, eval=FALSE}
+%%R
+hist(regionalTraits, breaks=100)
+```
+```{r, echo=FALSE}
+hist(regionalTraits, breaks=100)
+```
+
+```{r, eval=FALSE}
+%%R
+hist(log10(regionalTraits), breaks=100)
+```
+```{r, echo=FALSE}
+hist(log10(regionalTraits), breaks=100)
+```
+> Note that we don't just log-transform for statistical convienience, especially in the case of height. This is because the differences in height between the species on the ground and herbaceous level are less dramatic, but arguably just as important as the incredibly large differences in height that occurr because of the few very tall trees and shrubs in the community. If we do not log-transform we are not weighting the importance of the small height differences on the ground level where there are many more species. 
+
+Before we can simulate community assembly data, we need to see what model of trait evolution is most appropriate for our data, Brownian Motion (BM; Felsensten 1985) or Ornstein-Uhlenbeck (OU; Hansen 1997, Butler & King 2004). For this, we will fit both models of trait evolution to our phylogenetic and trait data using the `fitContinuous()` function in `geiger`. Then we will perform model selection using an information theoric approach, AIC. Briefly, AIC estimates the quality of each model, relative to each of the other models, while dealing with the trade-off between the goodness of fit of the model and the simplicity of the model. 
+
+```{r eval=FALSE}
+%%R
+## fit BM and OU models
+BM.mod <- fitContinuous(phy = regionalTree, dat = log10(regionalTraits)*10, model = "BM", control=list(niter=100))
+OU.mod <- fitContinuous(phy = regionalTree, dat = log10(regionalTraits)*10, model = "OU", bounds=list(alpha=c(0.001, 0.02)), control=list(niter=100))
+
+## look at one model fit object
+BM.mod
+```
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+## fit BM and OU models
+BM.mod <- fitContinuous(phy = regionalTree, dat = log10(regionalTraits)*10, model = "BM", control=list(niter=100))
+OU.mod <- fitContinuous(phy = regionalTree, dat = log10(regionalTraits)*10, model = "OU", bounds=list(alpha=c(0.001, 0.02)), control=list(niter=100))
+BM.mod
+```
+
+Notice all of the information associated with fitting the BM model to our data, including the parameter estimates. What we are interested in looking at now is the AIC score and specifically, which model has the lower AIC score.
+
+```{r eval=FALSE}
+%%R
+## BM AIC
+BM.mod$opt$aic
+
+## OU AIC
+OU.mod$opt$aic
+```
+```{r echo=FALSE}
+## BM AIC
+BM.mod$opt$aic
+
+## OU AIC
+OU.mod$opt$aic
+```
+
+The Ornstein-Uhlenbeck model has a lower AIC score by about 60 units. In information theory, the model is thought to be better than another if its' AIC score is smaller by > 2 units, so I would say the OU is a much better fit to the data. If you opted to use a differnt trait other than height, you may be seeing support for the BM model. 
+
+## 4. Simulate Community Assembly
+
+Get all of the parameters set to run community assembly simulations modeled after the empirical data sample sizes and trait evolution parameters.
+
+```{r eval=FALSE}
+%%R
+## set the size of the regional community equal to the size of our regional community
+N.sj <- length(regionalTree$tip.label)
+
+## this line tells use the number of species in each local community
+## because we have so many local communities, we will simulate under a range of local community sizes
+local.sj <- range(colSums(communityMatrix))
+
+## We will use the parameter estimates from the OU model fit to our data
+sig2.sj <- OU.mod$opt$sigsq
+alpha.sj = OU.mod$opt$alpha
+```
+```{r echo=FALSE}
+## set the size of the regional community equal to the size of our regional community
+N.sj <- length(regionalTree$tip.label)
+
+## this line tells use the number of species in each local community
+## because we have so many local communities, we will simulate under a range of local community sizes
+local.sj <- range(colSums(communityMatrix))
+
+## We will use the parameter estimates from the OU model fit to our data
+sig2.sj <- OU.mod$opt$sigsq
+alpha.sj = OU.mod$opt$alpha
+```
+
+Now we can simulate the assembly data. Simulating this much data would maybe only take ~20 minutes on abel. But for each of us, this is a bit much. Instead of running this, let's load some data that has already been run. If you are investigating another trait other than height, you will need to run new simulations. You can lower the number of `sims` if need be.
+
+```{r, eval=FALSE}
+%%R
+Assembly.Data <- SimCommunityAssembly(sims = 5000, 
+                                     N = N.sj, 
+                                     local = local.sj,
+                                     traitsim = "OU",
+                                     comsim = "all",
+                                     lambda = c(0.05, 2.0),
+                                     eps = c(0.2, 0.8),
+                                     sig2 = sig2.sj,
+                                     alpha = alpha.sj,
+                                     tau = c(1, 30))
+```
+
+Load the data instead.
+
+```{r, eval=FALSE}
+%%R
+load(file="SanJuan_Data/Assembly.Data.Rdata")
+head(Assembly.Data)
+```
+```{r, echo=FALSE}
+load(file="Assembly.Data.Rdata")
+```
+
+## 5. Model Predictions
+
+In order to use the simulated data to make predictions about the plant communities in the San Juan Island, we first need to do two things. 
+
+### a) RF classifier
+
+First, we will build our `randomForest` classifier and we will do this in the same way we built the first one.
+
+```{r eval=FALSE}
+%%R
+library(randomForest)
+
+## The response variables
+modelIndex <- Assembly.Data$params[,"comsim"]
+
+## Organize the predictor variables with the response
+ReferenceTable <- data.frame(Assembly.Data$summary.stats, modelIndex)
+
+## build the classifier using all predictors, 
+RF.model <- randomForest(modelIndex ~., data=ReferenceTable, ntree=1000, importance=T)
+
+## check out the OOB error rates for each model
+RF.model
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(randomForest)
+modelIndex <- Assembly.Data$params[,"comsim"]
+
+## Organize the predictor variables with the response
+ReferenceTable <- data.frame(Assembly.Data$summary.stats, modelIndex)
+
+## build the classifier using all predictors, 
+RF.model <- randomForest(modelIndex ~., data=ReferenceTable, ntree=1000, importance=T)
+
+RF.model
+```
+
+We can see that, with this data, the error rates for classification are very low (<5%), meaning RF is doing a good job at distinguishing between which simulated data are from which model. As mentioned before, there are ways to tune your classifier if the error rates are unsatisfying. We will learn more about these techniques throughout the week, but for now, our classifier is working fine.
+
+### b) summary statistics
+
+In order to use our classifier, we must have the same summary statistics for the empirical data as we do for the simulated data. To do this, we will use the code below to go through and create all of the phylogenetic trees and trait vectors for each of the San Juan communities. We will need this information to calculate the summary statistics. 
+
+```{r eval=FALSE}
+%%R
+## first, remove all of the species from the community matrix for which there are no traits
+communityMatrix <- communityMatrix[rownames(communityMatrix) %in%  names(regionalTraits),]
+
+## use a for look to go through each local community and do 2 things
+## 1. create  a local phylogeny for each community
+## 2. isolate the traits for each local community
+
+allLocalTraits <- list()
+
+for (i in 1:ncol(communityMatrix)) {
+  
+  ## local phylogeny
+  species.to.drop <- rownames(communityMatrix)[communityMatrix[,i]==0]
+  localTree <- drop.tip(regionalTree, species.to.drop)
+  if (i == 1){ 
+    allLocalTrees <- localTree } ## if this is the first tree, create tree list
+  else{  allLocalTrees <- c(allLocalTrees, localTree)
+  }
+  ## local traits
+  localTraits <- regionalTraits[match(localTree$tip.label, names(regionalTraits))]
+  allLocalTraits[[i]] <- localTraits
+}
+```
+```{r echo=FALSE}
+## first, remove all of the species from the community matrix for which there are no traits
+communityMatrix <- communityMatrix[rownames(communityMatrix) %in%  names(regionalTraits),]
+allLocalTraits <- list()
+
+for (i in 1:ncol(communityMatrix)) {
+  
+  ## local phylogeny
+  species.to.drop <- rownames(communityMatrix)[communityMatrix[,i]==0]
+  localTree <- drop.tip(regionalTree, species.to.drop)
+  if (i == 1){ 
+    allLocalTrees <- localTree } ## if this is the first tree, create tree list
+  else{  allLocalTrees <- c(allLocalTrees, localTree)
+  }
+  ## local traits
+  localTraits <- regionalTraits[match(localTree$tip.label, names(regionalTraits))]
+  allLocalTraits[[i]] <- localTraits
+}
+```
+
+We can `name.check()` to check some of the the phylogeny - trait pairings to make sure they match up. Change the index and check some pairings to make sure they match.
+
+```{r eval=FALSE}
+%%R
+index = 1
+name.check(phy = allLocalTrees[[i]], data = allLocalTraits[[i]])
+```
+
+Now that the data is ready, we can calculate the summary statistics for each community and make model predictions. `CAMI` has a function `CalcSummaryStats()` that takes a regional and local phylogeny and regional and local trait vectors.
+
+```{r eval=FALSE}
+## calculate summary statistics
+allSummaryStats <- matrix(NA, ncol(communityMatrix), 30)
+for (i in 1:ncol(communityMatrix)){
+  stats<-  CalcSummaryStats(regional.tree = regionalTree,
+                                      local.tree = allLocalTrees[[i]],
+                                      regional.traits = log10(regionalTraits)*10,
+                                      local.traits = log10(allLocalTraits[[i]])*10)
+  allSummaryStats[i,] <- stats
+  colnames(allSummaryStats) <- names(stats)
+}
+
+## add rownames of communities
+rownames(allSummaryStats) <- colnames(communityMatrix)
+
+## have a look at all of the summary statistics
+allSummaryStats
+```
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+## calculate summary statistics
+allSummaryStats <- matrix(NA, ncol(communityMatrix), 30)
+for (i in 1:ncol(communityMatrix)){
+  stats<-  CalcSummaryStats(regional.tree = regionalTree,
+                                      local.tree = allLocalTrees[[i]],
+                                      regional.traits = log10(regionalTraits)*10,
+                                      local.traits = log10(allLocalTraits[[i]])*10)
+  allSummaryStats[i,] <- stats
+  colnames(allSummaryStats) <- names(stats)
+}
+
+## add rownames of communities
+rownames(allSummaryStats) <- colnames(communityMatrix)
+```
+
+Make RF predicitons for each community and plot the results.
+
+```{r eval=FALSE}
+%%R
+## use the predict() function from randomForest
+modelPredictions <- predict(RF.model, allSummaryStats, type="vote")
+
+## transpose the predictions for plotting
+barplot(t(modelPredictions), col=c("#005679", "#00B7C4", "#FF8800") , border="white", xlab="San Juan Communities", cex.names = 0.1)
+legend("topleft", legend = c("competition", "filtering", "neutral"), fill = c("#005679", "#00B7C4", "#FF8800"), cex=.8)
+
+## if desired, you can save the figure in your folder 
+pdf('SJModelPredictions_MaxHght_Barplot.pdf', width=5, height=4)
+```
+```{r echp=FALSE}
+## use the predict() function from randomForest
+modelPredictions <- predict(RF.model, allSummaryStats, type="vote")
+
+## transpose the predictions for plotting
+barplot(t(modelPredictions), col=c("#005679", "#00B7C4", "#FF8800") , border="white", xlab="San Juan Communities", cex.names = 0.1)
+legend("topleft", legend = c("competition", "filtering", "neutral"), fill = c("#005679", "#00B7C4", "#FF8800"), cex=.8)
+```
+
+## 6. Parameter Estimation
+
+Finally, we will perform parameter estimation using randomForest, except instead of using a RF for classification of categorical variables, we will use it for regression and the prediction of continuous variables. In a regression tree, since the target variable is a real valued number, we fit a regression model to the target variable using each of the independent, or predictor variables. Then for each predictor variable, the data is split at several split points. We calculate Sum of Squared Error(SSE) at each split point between the predicted value and the actual values. The variable resulting in minimum SSE is selected for the node. Then this process is recursively continued till the entire data is covered. We will cover regression trees more indepth tomorrow.
+
+We will only estimate the parameters for all of the communities that have high support for the `filtering` model.
+
+```{r eval=FALSE}
+$$R
+## we will predict for any community with >70% model support for filtering
+modelPredictions[modelPredictions[, "filtering"] > .70,]
+
+## isolate the summary statistics for these communities
+filtComSumStats <- allSummaryStats[rownames(modelPredictions[modelPredictions[, "filtering"] > .70,]), ]
+```
+```{r echo=FALSE}
+modelPredictions[modelPredictions[, "filtering"] > .70,]
+
+filtComSumStats <- allSummaryStats[rownames(modelPredictions[modelPredictions[, "filtering"] > .70,]), ]
+```
+
+To estimate `tau` as the strength of filtering, we will need to isolate only the simulations under the filtering model to perform paramter estimation, as the other models would be innappropriate. As a reminder, the lower `tau` is, the stronger the filtering effect.
+
+```{r eval=FALSE}
+%%R
+## which simulation are filtering
+filtIndex <- Assembly.Data$params[,2]=="filtering"
+## isolate tau and sum.stats only for those simualtions
+tauIndex <- Assembly.Data$params[filtIndex,"tau"]
+summaryStatsTau <- Assembly.Data$summary.stats[filtIndex, ]
+
+## constuct reference table for regression forest and build
+refTableRegress <- data.frame(summaryStatsTau, tauIndex)
+RF.regress <- randomForest(tauIndex ~., data=refTableRegress, ntree=1000, importance=T)
+
+RF.regress
+```
+```{r echo=FALSE}
+## which simulation are filtering
+filtIndex <- Assembly.Data$params[,2]=="filtering"
+## isolate tau and sum.stats only for those simualtions
+tauIndex <- Assembly.Data$params[filtIndex,"tau"]
+summaryStatsTau <- Assembly.Data$summary.stats[filtIndex, ]
+
+## constuct reference table for regression forest and build
+refTableRegress <- data.frame(summaryStatsTau, tauIndex)
+RF.regress <- randomForest(tauIndex ~., data=refTableRegress, ntree=1000, importance=T)
+
+RF.regress
+```
+
+Estimate `tau` for the San Juan communities isolated using this RF regression forest.
+
+```{r eval=FALSE}
+%%R
+## isolate summary stats for 
+paramPredictions <- predict(RF.regress, filtComSumStats, type="response", predict.all = TRUE)
+paramPredictions
+```                
+
+```{r echo=FALSE}
+paramPredictions <- predict(RF.regress, filtComSumStats, type="response", predict.all = TRUE)
+```                 
+
+If we want a prediction interval around the mean estimates of each parameter for each community, we need to make some assumptions about the distribution of the individual points around the predicted means. IF we do, we can take the predictions from the individual trees (the bootstrapped confidence interval piece) and generate a random value from the assumed distribution with that center. The quantiles for those generated pieces may form the prediction interval. Here is an example of doing this by adding normal (since we know the original data used a normal) deviations to the predictions with the standard deviation based on the estimated MSE from that forest.
+
+```{r eval=FALSE}
+%%R
+## get prediciton intervals for the parameter estimates
+paramIntervals <- sapply(1:nrow(filtComSumStats), function(i) {
+  tmp <- paramPredictions$individual[i, ] + rnorm(RF.regress$ntree, 0, sqrt(RF.regress$mse))
+  quantile(tmp, c(0.025, 0.975))
+})
+
+t(paramIntervals)
+```
+```{r echo=FALSE}
+## get prediciton intervals for the parameter estimates
+paramIntervals <- sapply(1:nrow(filtComSumStats), function(i) {
+  tmp <- paramPredictions$individual[i, ] + rnorm(RF.regress$ntree, 0, sqrt(RF.regress$mse))
+  quantile(tmp, c(0.025, 0.975))
+})
+
+t(paramIntervals)
+```
+
+We see here some problems immediately, for one, the intervals extend beyound the upper bound of the prior distribution (30). We should note that these could be for several reasons. The first being that we have not conducted nearly enough simulations to be able to perform parameter estimation accuratly. We have ~1300 simulations under the `filtering` model that we are using for parameter estimation, when really, we should be using a much larger database of simulations (>10000). Additionally, this is not the only way to infer prediction intervals around the mean of RF estiamtes, there are a plethora of ways to try to do this and a lot of the appraoches currently being developed. 
+
+## 7. References
+
+Butler, M.A. & King, A.A. **2004**. Phylogenetic Comparative Analysis: A Modeling Approach for Adaptive Evolution. *Am. Nat.*,164, 683-695. [link](https://www.journals.uchicago.edu/doi/pdfplus/10.1086/426002)
+
+Felsenstein, J. **1985**. Phylogenies and the Comparative Method. *Am. Nat.* 125, 1-15. [link](https://www.jstor.org/stable/pdf/2461605.pdf)
+
+Hansen, T.F. **1997**. Stabilizing Selection and the Comparative Analysis of Adaptation. *Evolution.* 51, 1341-1351. [link](https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1558-5646.1997.tb01457.x)
 
 Marx HE, Giblin DE, Dunwiddie PW, Tank DC. **2015** Deconstructing Darwin's Naturalization Conundrum in the San Juan Islands using community phylogenetics and functional traits. *Diversity and Distributions*, 22, 318-331. [link](https://onlinelibrary.wiley.com/doi/epdf/10.1111/ddi.12401) 
 
