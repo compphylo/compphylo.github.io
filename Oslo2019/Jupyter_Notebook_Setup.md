@@ -148,8 +148,7 @@ flags should be familiar from earlier:
 #SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=1G
 
-cd $HOME
-source .bashrc
+source ~/.bashrc
 conda activate CompPhylo_1
 jupyter notebook --ip=$(hostname -i) --port=<your_port_number>
 ```

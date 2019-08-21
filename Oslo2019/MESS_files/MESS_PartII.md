@@ -37,7 +37,9 @@ The `MESS.inference` architecture is based on the powerful and extensive
 Lets get set up and connected to our notebook server on the cluster again. If 
 you get stuck you might review the [jupyter notebook troubleshooting page](../Jupyter_Notebook_TLDR.html),
 
-In the juypter browser window navigate to `~/MESS` and choose "New->Notebook->Python 3"
+Assuming your SSH tunnel is still running, you will only need open your web 
+browser and type `localhost:<your_port_#>. Once you are connected to your
+notebook server, navigate to `~/MESS` and choose "New->Notebook->Python 3"
 
 <a name="Import-example-data"></a>
 ## Download and examine example data
@@ -64,11 +66,15 @@ Now make a new cell and import MESS and pandas (which is a python structured dat
 library providing the DataFrame class), and read in the data you just downloaded.
 
 ```python
+%matplotlib inline
 import MESS
 import pandas as pd
 spider_df = pd.read_csv("spider.dat", index_col=0)
 spider_df[:5]
 ```
+> **Special Note:** The `%matplotlib inline` command tells jupyter to draw the figures
+actually inside your notebook environment. If you don't put this your figures won't
+show up!
 
 > **NB:** Importing pandas as `pd` is pretty cannonical. It makes typing out
 pandas commands shorter because you can reference it as `pd` rather than `pandas`.
@@ -289,7 +295,7 @@ call `predict()` on the regressor and pass in all the arguments to make it
 run fast, but do a bad job.
 
 ```python
-rgr = MESS.inference.Regressor(empirical_df=spider_df, simfile=simfile, target_model="neutral", algorithm="rfq")
+rgr = MESS.inference.Regressor(empirical_df=spider_df, simfile="SIMOUT.txt", target_model="neutral", algorithm="rfq")
 est = rgr.predict(select_features=False, param_search=False, quick=True, verbose=False)
 ```
 > **NB:** Note that here we ask for the `rfq` algorithm, which designates
@@ -313,7 +319,7 @@ useful than the giant table. Also note that we're requesting a slighly larger
 figure, because this time there will be much more information.
 
 ```python
-display(rgr.feature_importances()))
+display(rgr.feature_importances())
 rgr.plot_feature_importance(figsize=(20,8))
 ```
 ![png](images/MESSRegressor_feature_importance.png)
