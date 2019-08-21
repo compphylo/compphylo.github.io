@@ -152,7 +152,7 @@ source ~/.bashrc
 conda activate CompPhylo_1
 jupyter notebook --ip=$(hostname -i) --port=<your_port_number>
 ```
-> **NB:** The `source .bashrc` command is required to boot up conda inside
+> **NB:** The `source ~/.bashrc` command is required to boot up conda inside
 the compute node. There is a difference between 'interactive' and 'non-interactive'
 shell sessions, and reading .bashrc is a feature of 'interactive' sessions, which
 HPC jobs by default are not.
