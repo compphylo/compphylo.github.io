@@ -1,12 +1,12 @@
 # MESS (Massive Eco-Evolutionary Synthesis Simulations) - Part II
 
 This is the second part of the MESS tutorial in which we introduce the API mode
-using jupyter notebooks. In this tutorial we'll walk through the entire simulation 
-and analysis process. This is meant as a broad introduction to familiarize 
-users with the general workflow, and some of the parameters and terminology. 
+using jupyter notebooks. In this tutorial we'll walk through the entire simulation
+and analysis process. This is meant as a broad introduction to familiarize
+users with the general workflow, and some of the parameters and terminology.
 We will use as an example in this tutorial the spider community data set from
-La Reunion published by Emerson et al (2017). However, you can follow along 
-with one of the [other example datasets](https://github.com/messDiv/MESS/tree/master/jupyter-notebooks/empirical) 
+La Reunion published by Emerson et al (2017). However, you can follow along
+with one of the [other example datasets](https://github.com/messDiv/MESS/tree/master/jupyter-notebooks/empirical)
 if you like, the procedure will be identical although your results will vary.
 
 ## MESS Part II Outline
@@ -24,32 +24,31 @@ inside a jupyter notebook running on the cluster. For the most part we will
 be writing and executing python commands.
 
 <a name="ML-Intro"></a>
-## Crash course in machine learing
-Some stuff here about intro to machine learning and random forests.
-Megan will do 20-25 Minutes of this.
+## Crash course in machine learning
+Here, Megan will introduce you to Random Forest, how it works, and what we can use it for. [random forest presentation](https://compphylo.github.io/Oslo2019/MESS_files/images/RandomForest.pdf)
 
 The `MESS.inference` architecture is based on the powerful and extensive
-[scikit-learn](https://scikit-learn.org/) python machine learning library. Another really amazing resource I highly recommend is the 
+[scikit-learn](https://scikit-learn.org/) python machine learning library. Another really amazing resource I highly recommend is the
 [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/).
 
 <a name="NB-Cluster-Setup"></a>
 ## Setting up and connecting to a notebook server on the cluster
-Lets get set up and connected to our notebook server on the cluster again. If 
+Lets get set up and connected to our notebook server on the cluster again. If
 you get stuck you might review the [jupyter notebook troubleshooting page](../Jupyter_Notebook_TLDR.html),
 
-Assuming your SSH tunnel is still running, you will only need open your web 
+Assuming your SSH tunnel is still running, you will only need open your web
 browser and type `localhost:<your_port_#>. Once you are connected to your
 notebook server, navigate to `~/MESS` and choose "New->Notebook->Python 3"
 
 <a name="Import-example-data"></a>
 ## Download and examine example data
-We will be using as an example dataset of community-scale COI sequences 
-(~500bp) and densely sampled abundances for the spider community on the island 
-of La Reunion, an overseas department of France, which is  the largest of the 
-Mascarene islands, located in the Indian Ocean approximately 1000 km from 
-Madagascar. The data we will be using was collected and published by Emerson 
-et al (2017). For this exercise, we will just grab and use the formatted data 
-from the MESS github repository. For further instruction on properly 
+We will be using as an example dataset of community-scale COI sequences
+(~500bp) and densely sampled abundances for the spider community on the island
+of La Reunion, an overseas department of France, which is  the largest of the
+Mascarene islands, located in the Indian Ocean approximately 1000 km from
+Madagascar. The data we will be using was collected and published by Emerson
+et al (2017). For this exercise, we will just grab and use the formatted data
+from the MESS github repository. For further instruction on properly
 formatting and converting raw data into MESS-ready format see the [MESS raw data handling page](MESS_process_raw_data.html).
 
 In a new cell in your notebook you can download the Reunion spider data like this:
@@ -90,7 +89,7 @@ the `spider_df` dataframe. It should look like this:
 MESS API mode lets you dive under the hood of the CLI mode a bit. You have
 all the power of the CLI mode, yet more flexibility. The first step in API
 mode is to create a MESS `Region`. A `Region` encompasses a very large
-Metacommunity and a much smaller local community which is connected to it 
+Metacommunity and a much smaller local community which is connected to it
 by colonization. In creating a `Region` the only thing you're required to
 pass in is a name, so lets go with "LaReunion" (No spaces!), as this is the
 region the empirical data is drawn from.
@@ -124,10 +123,10 @@ Loc1                 ## [0] [name]: Local community name
 ```
 These are all the parameters of the model. The defaults are chosen to reflect
 a typical oceanic island arthropod community. Don't worry at this point about
-all the parameters, lets focus for now on `community_assembly_model`, the 
-size of the local community (`J`), and the rate of migration from the metacommunity 
-to the local community (`m`). We will set parameter ranges for these, and each 
-simulation will sample a random value from this range. In a new cell use the 
+all the parameters, lets focus for now on `community_assembly_model`, the
+size of the local community (`J`), and the rate of migration from the metacommunity
+to the local community (`m`). We will set parameter ranges for these, and each
+simulation will sample a random value from this range. In a new cell use the
 `set_param()` method to change these values:
 
 ```python
@@ -179,15 +178,15 @@ of independent community assembly realizations to perform.
 reunion.run(sims=1)
 ```
        Generating 1 simulation(s).
-    [####################] 100%  Finished 0 simulations    | 0:00:00 | 
+    [####################] 100%  Finished 0 simulations    | 0:00:00 |
 
 > We will not do this now, but the `run` method can also accept an `ipyclient`
 argument for specifying a connection to an ipyparallel backend, allowing for
 massive parallelization. For more info see the [MESS parallelization documentation](MESS_parallelization.html).
 
 Since it can take quite some time to run a number of simulations sufficient for
-model selection and parameter estimation we will use a suite of pre-baked 
-simulations I generated ahead of time. Fetch them with `wget` from the compphylo 
+model selection and parameter estimation we will use a suite of pre-baked
+simulations I generated ahead of time. Fetch them with `wget` from the compphylo
 site:
 ```
 !wget https://compphylo.github.io/Oslo2019/MESS_files/MESS_simulations/SIMOUT.txt
@@ -227,8 +226,8 @@ cla = MESS.inference.Classifier(empirical_df=spider_df, simfile="SIMOUT.txt", al
 est, proba = cla.predict(select_features=False, param_search=False, quick=True, verbose=True)
 ```
 The `Classifier.predict()` method provides a very sophisticated
-suite of routines for automating machine learning performance tuning. 
-Here we disable *all* of this in order for it to run quickly, trading 
+suite of routines for automating machine learning performance tuning.
+Here we disable *all* of this in order for it to run quickly, trading
 performance for accuracy. The `select_features` argument controls whether
 or not to prune summary statistics based on correlation and informativeness.
 The `param_search` argument controls whether or not to exhaustively search
@@ -272,9 +271,9 @@ in the nb window.
 
 The `plot_feature_importance()` method prunes out all the summary statistics
 that contribute less than 5% of information to the final model. This method is
-simply for visualization. Here you can see that the shape of the abundance 
-distributions (as quantified by the first 4 hill numbers) and the standard 
-deviation of nucleotide diversity (pi) within the local community are the most 
+simply for visualization. Here you can see that the shape of the abundance
+distributions (as quantified by the first 4 hill numbers) and the standard
+deviation of nucleotide diversity (pi) within the local community are the most
 important summary statistics for differentiating between the different community
 assembly models.
 
@@ -283,7 +282,7 @@ assembly models.
 
 Now that we have identified the neutral model as the most probable, we can
 estimate parameters of the emipirical data given this model. Essentially,
-we are asking the question "What are the parameters of the model that 
+we are asking the question "What are the parameters of the model that
 generate summary statistics most similar to those of the empirical data?"
 
 The `MESS.inference` module provides the `Regressor` class, which has a very
@@ -291,7 +290,7 @@ similar API to the `Classifier`. We create a `Regressor` and pass in the
 empirical data, the simulations, and the machine learning algorithm to use,
 but this time we also add the `target_model` which prunes the simulations to
 include only those of the community assembly model of interest. Again, we
-call `predict()` on the regressor and pass in all the arguments to make it 
+call `predict()` on the regressor and pass in all the arguments to make it
 run fast, but do a bad job.
 
 ```python
@@ -299,13 +298,13 @@ rgr = MESS.inference.Regressor(empirical_df=spider_df, simfile="SIMOUT.txt", tar
 est = rgr.predict(select_features=False, param_search=False, quick=True, verbose=False)
 ```
 > **NB:** Note that here we ask for the `rfq` algorithm, which designates
-random forest quantile regression, and allows for constructing prediction 
-intervals, something the stock `rf` algorithm doesn't do. The gradient 
+random forest quantile regression, and allows for constructing prediction
+intervals, something the stock `rf` algorithm doesn't do. The gradient
 boosting method (`gb`) provides prediction intervals natively.
 
 The return value `est` is a dataframe that contains predicted values for
 each model parameter and 95% prediction intervals, which are conceptually
-in the same ball park as confidence intervals and HPD. 
+in the same ball park as confidence intervals and HPD.
 
 ```python
 display(est)
@@ -314,7 +313,7 @@ display(est)
 
 Similar to the classifier, you can also extract feature importances from the
 regressor, to get an idea about how each feature is contributing to parameter
-estimation. In this case, the feature importance plots are a little more 
+estimation. In this case, the feature importance plots are a little more
 useful than the giant table. Also note that we're requesting a slighly larger
 figure, because this time there will be much more information.
 
@@ -326,8 +325,8 @@ rgr.plot_feature_importance(figsize=(20,8))
 ![png](images/MESSRegressor_plot_feature_importance.png)
 
 You can see that some parameters are strongly driven by one or a couple of
-features, and for some the feature importances are more diffuse. For example 
-species richness (`S`) contributes overwhelmingly to estimation of local 
+features, and for some the feature importances are more diffuse. For example
+species richness (`S`) contributes overwhelmingly to estimation of local
 community size (`J`), which makes sense. On the other hand, many more
 factors seem to contribute equally to estimation of migration rate (`m`).
 
@@ -335,20 +334,20 @@ factors seem to contribute equally to estimation of migration rate (`m`).
 ## Perform posterior predictive simulations
 
 Finally, a very important step in machine learning inference is to validate
-the parameter estimates by performing posterior predictive checks (PPCs). 
+the parameter estimates by performing posterior predictive checks (PPCs).
 The logic of this procedure is that we will generate a suite of simulations
 using our most probable parameter estimates, and compare these simulations
 to our empirical data. For our purposes here we will project the summary
 statistics of observed and simulated datasets into principle component
-space. If the parameter estimates are a good fit to the data then our 
+space. If the parameter estimates are a good fit to the data then our
 posterior predictive simulations will cluster together with the real data,
 whereas if the parameter estimates are a poor fit, then the real data
 will be quite different from the simulations.
 
 **Spoiler alert:** Posterior predictive simulations can take quite a while
-to run. With the parameters we get even with this toy data a reasonable 
-number of sims could take a couple hours. **So!** For the purpose of this 
-exercise we are going to *munge* the estimates to make the simulations run 
+to run. With the parameters we get even with this toy data a reasonable
+number of sims could take a couple hours. **So!** For the purpose of this
+exercise we are going to *munge* the estimates to make the simulations run
 faster. **DO NOT DO THIS WITH YOUR REAL DATA!**
 
 ```python
@@ -358,7 +357,7 @@ est["_lambda"] /= 2
 est
 ```
 Here we reduced the size of the local community (`J`), increased the rate of
-migration (`m`), and decreased the duration of the simulation (`_lambda`). 
+migration (`m`), and decreased the duration of the simulation (`_lambda`).
 All these things will make the simulations run more quickly. Now go ahead
 and run this next cell, it should take one to two minutes.
 
@@ -373,17 +372,17 @@ MESS.inference.posterior_predictive_check(empirical_df=spider_df,
       [#                   ]   5% Performing simulations
 
 > **NB:** The `posterior_predictive_check()` function can also accept an
-`ipyclient` parameter to specify to use an ipyparallel backend. For 
-simplicity here we will not use this option, but in reality it would be 
+`ipyclient` parameter to specify to use an ipyparallel backend. For
+simplicity here we will not use this option, but in reality it would be
 a good idea to parallelize the posterior predictive simulations. See the
 [MESS parallelization docs](MESS_parallelization.md) for more info about
 how to implement the parallel backend.
 
-This time the only thing we *have* to pass in is the empirical data and 
+This time the only thing we *have* to pass in is the empirical data and
 the dataframe of prediction values, but I'm showing a couple more arguments
-here for the sake of completeness. Setting `est_only` to True will use only 
-the exact parameter estimates for all simulations, whereas setting it to 
-False will sample uniformly between the upper and lower prediction interval 
+here for the sake of completeness. Setting `est_only` to True will use only
+the exact parameter estimates for all simulations, whereas setting it to
+False will sample uniformly between the upper and lower prediction interval
 for each simulation. `nsims` should be obvious, the number of posterior
 predictive simulations to perform. `force` will overwrite any pre-existing
 simulations, thus preventing mixing apples with oranges from different
@@ -410,7 +409,7 @@ have time to go over in this short workshop.
 
 ## References
 
-Emerson, B. C., Casquet, J., López, H., Cardoso, P., Borges, P. A., Mollaret, N., 
+Emerson, B. C., Casquet, J., López, H., Cardoso, P., Borges, P. A., Mollaret, N.,
 ... & Thébaud, C. (2017). A combined field survey and molecular identification
- protocol for comparing forest arthropod biodiversity across spatial scales. 
+ protocol for comparing forest arthropod biodiversity across spatial scales.
 Molecular ecology resources, 17(4), 694-707.

@@ -374,6 +374,8 @@ head(Assembly.Data)
 load(file="Assembly.Data.Rdata")
 ```
 
+#### STOP HERE
+
 ## 5. Model Predictions
 
 In order to use the simulated data to make predictions about the plant communities in the San Juan Island, we first need to do two things. 
