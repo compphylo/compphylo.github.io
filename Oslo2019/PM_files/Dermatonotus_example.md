@@ -8,11 +8,12 @@ output:
   This is an R script showing how to simulate data, test model and estimate parameters using [*PipeMaster*](https://github.com/gehara/PipeMaster), *abc* and *caret* r-packages.
   The data in this tutorial is the same as in Gehara et al *in review*, and represents 2177 UCE loci for the neotropical frog *Dermatonotus muelleri*. We will first work with a subset of this data (200 loci) in the first and secound section of this tutorial and then use the entire data in the third part. For more information about *Dermatonotus muelleri* see [Gehara et al. *in review*](PipeMaster.pdf) and [Oliveira et al. 2018](https://www.researchgate.net/profile/Adrian_Garda/publication/327624820_Phylogeography_of_Muller%27s_termite_frog_suggests_the_vicariant_role_of_the_Central_Brazilian_Plateau/links/5c40f99f92851c22a37d572c/Phylogeography-of-Mullers-termite-frog-suggests-the-vicariant-role-of-the-Central-Brazilian-Plateau.pdf)
   
+# Overview
 
-* [Instalation](#Instalation)
-* [First Part:  building a model, calculating sumstats and simulating data](#first-part)
-* [Secound Part: visualizations and plotting functions ](#secound-part)
-* [Third Part: data analysis, approximate Bayesian computation (ABC) & supervized machine-learning (SML)](#third-part)
+* Instalation
+* First Part:  building a model, calculating sumstats and simulating data
+* Secound Part: visualizations and plotting functions
+* Third Part: data analysis, approximate Bayesian computation (ABC) & supervized machine-learning (SML)
 
 ------------------------------------------------------------------------------------------------------
   
