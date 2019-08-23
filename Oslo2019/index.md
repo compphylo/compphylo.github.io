@@ -3,10 +3,9 @@
 Sponsored by [Forskerskole i biosystematikk (ForBio)](https://www.forbio.uio.no/) & [UiO:Life Science](https://www.uio.no/english/research/strategic-research-areas/life-science/)  
 
 August 26-30, 2019  
-[Tollboden, Drobak Marine Station](https://goo.gl/maps/6UamJ4Bnog92)  
-Universitetets Marinbiologisk Feltstasjon
-Biologveien 2  
-1440 Drobak  
+[Tollboden, Drobak Marine Station](https://goo.gl/maps/FGg8bdhJvXC996Wr8)  
+Storgata 43
+1440 Drøbak  
 Norway  
 
 ForBio and UiO:Life Science jointly offer a generator workshop on model-based 
@@ -34,7 +33,7 @@ biological systems for this cutting-edge field of research.
 ### Local travel and accommodation
 You are welcome to arrive at the field station on Sunday afternoon. There is 
 both a regular bus 500 and an express bus 500E that goes from Oslo S to 
-Storgata in DrÃ¸bak, a short walk from Tollboden on Storgata 43.An example trip:
+Storgata in Drøbak, a short walk from Tollboden on Storgata 43.An example trip:
 [on google maps](https://goo.gl/maps/aSAWbipaG5y76JDL6). You can also see
 the bus schedule on the [official Ruter site](https://ruter.no/en/journey-planner/?from=%7B%22id%22%3A%22NSR%3AStopPlace%3A59872%22%2C%22name%22%3A%22Oslo+S%22%2C%22county%22%3A%22Oslo%22%2C%22locality%22%3A%22Oslo%22%2C%22coordinates%22%3A%7B%22x%22%3A10.753051%2C%22y%22%3A59.910357%7D%2C%22category%22%3A%5B%22onstreetBus%22%2C%22railStation%22%5D%7D&to=%7B%22id%22%3A%22NSR%3AStopPlace%3A5578%22%2C%22name%22%3A%22Storgata%22%2C%22county%22%3A%22Akershus%22%2C%22locality%22%3A%22Frogn%22%2C%22coordinates%22%3A%7B%22x%22%3A10.630112%2C%22y%22%3A59.660524%7D%2C%22category%22%3A%5B%22onstreetBus%22%5D%7D),
 and find information about [how to buy a ticket](https://ruter.no/en/buying-tickets/sales-outlets/). 
