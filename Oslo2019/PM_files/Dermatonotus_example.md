@@ -8,8 +8,7 @@ output:
   This is an R script showing how to simulate data, test model and estimate parameters using [*PipeMaster*](https://github.com/gehara/PipeMaster), *abc* and *caret* r-packages.
   The data in this tutorial is the same as in Gehara et al *in review*, and represents 2177 UCE loci for the neotropical frog *Dermatonotus muelleri*. We will first work with a subset of this data (200 loci) in the first and secound section of this tutorial and then use the entire data in the third part. For more information about *Dermatonotus muelleri* see [Gehara et al. *in review*](PipeMaster.pdf) and [Oliveira et al. 2018](https://www.researchgate.net/profile/Adrian_Garda/publication/327624820_Phylogeography_of_Muller%27s_termite_frog_suggests_the_vicariant_role_of_the_Central_Brazilian_Plateau/links/5c40f99f92851c22a37d572c/Phylogeography-of-Mullers-termite-frog-suggests-the-vicariant-role-of-the-Central-Brazilian-Plateau.pdf)
   
-# Index
-  
+
 * [Instalation](#Instalation)
 * [First Part:  building a model, calculating sumstats and simulating data](#first-part)
 * [Secound Part: visualizations and plotting functions ](#secound-part)
@@ -17,10 +16,10 @@ output:
 
 ------------------------------------------------------------------------------------------------------
   
-# **Instalation**. 
+# **Instalation** 
   PipeMaster is not available on cran, but you can use *devtools* to install it from github, or download and install the latest release from my [github](github.com/gehara/PipeMaster) repository.
 
-* **Instalation with *devtools* **. 
+* **Instalation with devtools** 
 Go to the R console install devtools and than PipeMaster:  
   
   ```
@@ -29,7 +28,7 @@ Go to the R console install devtools and than PipeMaster:
   
   ```
 
-* **Instalation without *devtools* **. 
+* **Instalation without devtools** 
 Install all dependencies, download *PipeMaster* and install the package from a local file. You can do all of this inside the R console. You may need to check for the latest version and change it in the code bellow <PipeMaster-0.2.1.tar.gz>.
 
   ```
@@ -49,7 +48,7 @@ Install all dependencies, download *PipeMaster* and install the package from a l
 
 # **CompPhylo workshop** start here! 
 
-* Activate the ssh tunnel. 
+* Activate the ssh tunnel 
 
   ```
   ssh -N -f -L <port>:<node>:<port> <username>@abel.uio.no
@@ -66,7 +65,7 @@ Install all dependencies, download *PipeMaster* and install the package from a l
 ------------------------------------------------------------------------------------------------------
 
 
-# **First part**: building a model, calculating sumstats and simulating data
+# **First Part**: building a model, calculating sumstats and simulating data
 We will download some real data to use as an example. We are going to walk through the basics of the *Model Builder (main.menu function)* and set up a couple of models. We will run some simulations and calculate summary statistics for the downloaded data. *PipeMaster cannot simulate missing data or gaps, so sites with "?", "N" or "-" are not allowed. Each locus can have different number of individuals per population as long as there are more than 4.*
 
 * Create a new directory to save the examples
@@ -552,10 +551,10 @@ Now that we have two models, **Is** and **IM** we are going to simulate summary 
 
 
 ```
-  sim.msABC.sumstat(Is, nsim.blocks = 1, use.alpha = F, output.name = "Is", append.sims = F,
+sim.msABC.sumstat(Is, nsim.blocks = 1, use.alpha = F, output.name = "Is", append.sims = F,
                     block.size =   500, ncores = 2)
 
-  sim.msABC.sumstat(IM, nsim.blocks = 1, use.alpha = F, output.name = "IM", append.sims = F,
+sim.msABC.sumstat(IM, nsim.blocks = 1, use.alpha = F, output.name = "IM", append.sims = F,
                     block.size =   500, ncores = 2)
 ```
 -------------------------------------------------------------------------------------------------------
@@ -569,82 +568,88 @@ In this part of the tutorial we will going to go through some of the vialization
 * To run R in jupyter notebook we need to load rpy2
   
   ```
-    %load_ext rpy2.ipython
+  %load_ext rpy2.ipython
   ```
 
 * From now on every chunk of R code you want to run should start with *%%R*.
 
 * Load PipeMaster, check the working directory and list the files.
   ```
-    %%R
-    suppressMessages(library(PipeMaster))
-    suppressMessages(library(POPdemog))
-    list.files()
+  %%R
+  suppressMessages(library(PipeMaster))
+  suppressMessages(library(POPdemog))
+  list.files()
   ```
 * change working directory to PM_example, if needed, and list files
-
   ```
-    %%R
-    setwd("./PM_example")
-    list.files()
+  %%R
+  setwd("./PM_example")
+  list.files()
   ```
 
 ## **Plotting a Model**
 
 There is now a new function in PipeMaster to plot your model, this function is a wrapper of the PlotMS function from the POPdemog r-package. I have not tested it extensivelly, if you find bugs please send me an email (marcelo.gehara@gmail.com). 
 
-  ```
-    %%R
-    Is <- dget("Is.txt")
-    IM <- dget("IM.txt")
+```
+%%R
+Is <- dget("Is.txt")
+IM <- dget("IM.txt")
 
-    PlotModel(model=Is, use.alpha = F, average.of.priors=F)
-    PlotModel(model=Is, use.alpha = F, average.of.priors=T)
+PlotModel(model=Is, use.alpha = F, average.of.priors=F)
+PlotModel(model=Is, use.alpha = F, average.of.priors=T)
 
-    PlotModel(model=IM, use.alpha = F, average.of.priors=F)
-    PlotModel(model=IM, use.alpha = F, average.of.priors=T)
-  ```
+PlotModel(model=IM, use.alpha = F, average.of.priors=F)
+PlotModel(model=IM, use.alpha = F, average.of.priors=T)
+```
+
+![Is model plot](model_plot_Is.png)
+
+![IM model plot](model_plot_IM.png)
+
 ## **Visualize prior distributions**
 
 We can use the *plot.prior* function to visualize the prior distributions. 
   
-  ```
-    %%R
-    PipeMaster:::plot.priors(Is, nsamples = 1000)
-  ```
+```
+%%R
+PipeMaster:::plot.priors(Is, nsamples = 10000)
+```
+![Prior distributions](priors.png)
 
 ## **Plotting simulations against empirical data**
 
 Let's visualize the simulations. Read the simulations back into R. If your simulation file is very big (you have many simulations, like 5E5 or more) you should use the bigmemmory r-package to handle the data. We will also match the simulations sumstats to the observed so that we keep the same set of sumstats in the simulated. 
 
-  ```
-    %%R
+```
+%%R
+Is.sim <- read.table("SIMS_Is.txt", header=T)
+IM.sim <- read.table("SIMS_IM.txt", header=T)
+obs <- read.table("observed.txt", header=T)
 
-    Is.sim <- read.table("SIMS_Is.txt", header=T)
-    IM.sim <- read.table("SIMS_IM.txt", header=T)
-    obs <- read.table("observed.txt", header=T)
-
-    Is.sim <- Is.sim[,colnames(Is.sim) %in% colnames(obs)]
-    IM.sim <- IM.sim[,colnames(IM.sim) %in% colnames(obs)]
-  ```
+Is.sim <- Is.sim[,colnames(Is.sim) %in% colnames(obs)]
+IM.sim <- IM.sim[,colnames(IM.sim) %in% colnames(obs)]
+```
 
 Now we can plot the observed againt the simulated. This helps you evaluate your model and have a visual idea of how the simulations fit the empirical data. 
 
-  ```
-    %%R
-    PipeMaster:::plot.sim.obs(Is.sim, obs)
-  ```
+```
+%%R
+PipeMaster:::plot.sim.obs(Is.sim, obs)
+```
+![Simulated (histogram) and observed (red line) summary statistics](sim.obs.png)
 
 ## **Plotting a PCA**
 
 We can also plot a Principal Component Analysis of the simulations against the empirical data. This also helps evaluating the fit of your models. First we will combine the models in a single data frame and we will generate an index. 
 
-  ```
-    %%R
-    models <- rbind(Is.sim, IM.sim)
-    index <- c(rep("Is", nrow(Is.sim)), rep("IM", nrow(IM.sim)))
-    plotPCs(model = models, index = index, observed = obs, subsample = 1)
-  ```
+```
+%%R
+models <- rbind(Is.sim, IM.sim)
+index <- c(rep("Is", nrow(Is.sim)), rep("IM", nrow(IM.sim)))
+plotPCs(model = models, index = index, observed = obs, subsample = 1)
+```
+![Principal Components of simulated and observed data](pca.png)
 -----------------------------------------------------------------------------------------------------
 
 ## **Third part: approximate Bayesian computation (ABC) & supervized machine-learning (SML)**
@@ -664,21 +669,21 @@ In the last part of the tutorial we are going to perform the data analysis using
 *abc* is already a dependency of *PipeMaster* but we need to load *caret*. To run *caret* in parallel we need to load a r-package that manages nodes to run loops in parallel using MPI. There are several r-packages for this, we are goig to use *doMC*.
 
 ``` 
-  %%R
-  library(caret) # caret: used to perform the superevised machine-learning (SML)
+%%R
+library(caret) # caret: used to perform the superevised machine-learning (SML)
   
-  library(doMC) # doMC: necessary to run the SML in parallel
+library(doMC) # doMC: necessary to run the SML in parallel
 ```
   
 Load the example data available in *PipeMaster*. This example data is based on [Gehara et al. *in review*](PipeMaster.pdf) which is the paper that describes the package. [**Here**](https://docs.google.com/spreadsheets/d/1FZonOF27VgGKiAgWQS56zZ4G5bbtz5t_-302LJQFlQA/edit?usp=sharing) you can access a spreed sheet with all model parameters and priors. 
   
 ```
-  %%R 
-  # observed summary statistics
-  data("observed_Dermatonotus", package = "PipeMaster")
+%%R 
+# observed summary statistics
+data("observed_Dermatonotus", package = "PipeMaster")
   
-  # models used in Gehara et al
-  data("models", package="PipeMaster")
+# models used in Gehara et al
+data("models", package="PipeMaster")
 ```
 There are 10 models. Let's plot one of these models. Remeber, you can use them as templates for your own analysis. You will just need to update the priors as above, and replicate your data structure to the model using the *get.data.structue* as explaned above. To see all the model objects type *ls()* in the R console.
 
@@ -817,12 +822,12 @@ It can be very time consumming to set up the parameters of the neural network an
 Visualize and write results to file
 
 ```
-  %%R
-  # visualize results
-  t(c(pred,accu))
+%%R
+# visualize results
+t(c(pred,accu))
   
-  # write results to file
-  write.table(c(pred,accu),"results.selection.txt")
+# write results to file
+write.table(c(pred,accu),"results.selection.txt")
 ```
 
 ## **Approximate Bayesian computation with neural network for parameter estimate**. 
@@ -830,35 +835,35 @@ Visualize and write results to file
 The *abc* performs a rejection step and then uses the retained data to train a neural network to estimate parameters.
   
 ```
-  %%R
-  # read selected model
-  IsBot2.sim <- read.table("SIMS_IsBot2.txt", header=T)
+%%R
+# read selected model
+IsBot2.sim <- read.table("SIMS_IsBot2.txt", header=T)
   
-  # separate summary statistics from parameters
-  sims <- IsBot2.sim[,colnames(IsBot2.sim) %in% colnames(observed)]
-  param <- IsBot2.sim[,1:11]
+# separate summary statistics from parameters
+sims <- IsBot2.sim[,colnames(IsBot2.sim) %in% colnames(observed)]
+param <- IsBot2.sim[,1:11]
   
-  # estimate posterior distribution of parameters
+# estimate posterior distribution of parameters
   
-  post <- abc(target = observed,
-              param = param,
-              sumstat = sims,
-              sizenet = 20,
-              method = "neuralnet",
-              MaxNWts = 5000,
-              tol=0.1) 
-              # adjust tolerance level according to the total number of simulations.
+post <- abc(target = observed,
+            param = param,
+            sumstat = sims,
+            sizenet = 20,
+            method = "neuralnet",
+            MaxNWts = 5000,
+            tol=0.1) 
+            # adjust tolerance level according to the total number of simulations.
   
-  # write results to file
-  write.table(summary(post), "parameters_est.txt")
+# write results to file
+write.table(summary(post), "parameters_est.txt")
 ```  
 
 Plot posterior distribution
 
 ```
-  %%R
-  # plot posterior probabilities
-  plot(post, param = param)
+%%R
+# plot posterior probabilities
+plot(post, param = param)
 ```
 
 **Cross-validation** 
@@ -866,24 +871,24 @@ Plot posterior distribution
 It is important to perform a cross-validation to evaluate if we can estimate the parameters with confidence. The function *cv4abc* performs a leave-one-out experiment to evaluate the performance of the method. To correctly do this we have to use the same tolerace value and *method* with the same parameters as used above. 
 
 ```
-  %%R
-  # cross-validation for parameter estimates
-  cv <- cv4abc(param = param,
-                sumstat = sims,
-                nval = 20,
-                sizenet = 20,
-                method = "neuralnet",
-                MaxNWts = 5000,
-                tol = 0.1)
+%%R
+# cross-validation for parameter estimates
+cv <- cv4abc(param = param,
+              sumstat = sims,
+              nval = 20,
+              sizenet = 20,
+              method = "neuralnet",
+              MaxNWts = 5000,
+              tol = 0.1)
   
-  plot(cv)
+plot(cv)
   
 ```
 Check the error of the estimate
 
 ```
-  %%R
-  summary(cv)
+%%R
+summary(cv)
 ```
 
 # FIM!
