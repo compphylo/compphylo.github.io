@@ -7,13 +7,20 @@ output:
   
   This is an R script showing how to simulate data, test model and estimate parameters using [*PipeMaster*](https://github.com/gehara/PipeMaster), *abc* and *caret* r-packages.
   The data in this tutorial is the same as in Gehara et al *in review*, and represents 2177 UCE loci for the neotropical frog *Dermatonotus muelleri*. We will first work with a subset of this data (200 loci) in the first and secound section of this tutorial and then use the entire data in the third part. For more information about *Dermatonotus muelleri* see [Gehara et al. *in review*](PipeMaster.pdf) and [Oliveira et al. 2018](https://www.researchgate.net/profile/Adrian_Garda/publication/327624820_Phylogeography_of_Muller%27s_termite_frog_suggests_the_vicariant_role_of_the_Central_Brazilian_Plateau/links/5c40f99f92851c22a37d572c/Phylogeography-of-Mullers-termite-frog-suggests-the-vicariant-role-of-the-Central-Brazilian-Plateau.pdf)
+  
+# Index
+  
+* [Instalation](#Instalation)
+* [First Part:  building a model, calculating sumstats and simulating data](#first-part)
+* [Secound Part: visualizations and plotting functions ](#secound-part)
+* [Third Part: data analysis, approximate Bayesian computation (ABC) & supervized machine-learning (SML)](#third-part)
 
 ------------------------------------------------------------------------------------------------------
   
-### 1) **Instalation**. 
+# **Instalation**. 
   PipeMaster is not available on cran, but you can use *devtools* to install it from github, or download and install the latest release from my [github](github.com/gehara/PipeMaster) repository.
 
-1.1) Instalation with *devtools*. 
+* **Instalation with *devtools* **. 
 Go to the R console install devtools and than PipeMaster:  
   
   ```
@@ -22,83 +29,85 @@ Go to the R console install devtools and than PipeMaster:
   
   ```
 
-1.2) Instalation without *devtools*. 
+* **Instalation without *devtools* **. 
 Install all dependencies, download *PipeMaster* and install the package from a local file. You can do all of this inside the R console. You may need to check for the latest version and change it in the code bellow <PipeMaster-0.2.1.tar.gz>.
 
-```
+  ```
 
-install.packages(c("ape","abc","e1071","phyclust","PopGenome","msm","ggplot2","foreach"),
+  install.packages(c("ape","abc","e1071","phyclust","PopGenome","msm","ggplot2","foreach"),
                  repos="http://cran.us.r-project.org")
 
-install.packages("http://github.com/gehara/PipeMaster/archive/PipeMaster-0.2.1.tar.gz", repos=NULL)
-install.packages("https://github.com/YingZhou001/POPdemog/raw/master/POPdemog_1.0.3.tar.gz", repos=NULL)
+  install.packages("http://github.com/gehara/PipeMaster/archive/PipeMaster-0.2.1.tar.gz",
+                 repos=NULL)
+                 
+  install.packages("https://github.com/YingZhou001/POPdemog/raw/master/POPdemog_1.0.3.tar.gz",
+                 repos=NULL)
 
-```
+  ```
 
 ------------------------------------------------------------------------------------------------------
 
-### **CompPhylo workshop** start here! 
+# **CompPhylo workshop** start here! 
 
-1) Activate the ssh tunnel and start R. 
-
-1.1)  Activate the tunnel
+* Activate the ssh tunnel. 
 
   ```
-  
   ssh -N -f -L <port>:<node>:<port> <username>@abel.uio.no
   
   ```
   
-1.2) Open your Jupyter notebook following these [guidelines](https://github.com/radcamp/radcamp.github.io/blob/master/NYC2018/Jupyter_Notebook_Setup.md). In your Jupyter Notebook tab, go to *New* on the upper right corner and open a new terminal. In the terminal tab get into R territory:
+* Open your Jupyter notebook following these [guidelines](https://github.com/radcamp/radcamp.github.io/blob/master/NYC2018/Jupyter_Notebook_Setup.md). In your Jupyter Notebook tab, go to *New* on the upper right corner and open a new terminal. In the terminal tab get into R territory:
 
-```
-  bash-4.1$ R
-  ##inside R load the pipemaster package
-  library(PipeMaster)
-```
+  ```
+    bash-4.1$ R
+    ##inside R load the pipemaster package
+    library(PipeMaster)
+  ```
 ------------------------------------------------------------------------------------------------------
 
-## **First part**: building a model, calculating sumstats and simulating data
-We will download some real data to use as an example. We are going to walk through the basics of the *Model Builder (main.menu function)* and set up a couple of models. We will run some simulations and calculate summary statistics for the downloaded data. **PipeMaster cannot simulate missing data or gaps, so sites with "?", "N" or "-" are not allowed. Each locus can have different number of individuals per population as long as there are more than 4.**
 
-2.1) Create a new directory to save the examples
+# **First part**: building a model, calculating sumstats and simulating data
+We will download some real data to use as an example. We are going to walk through the basics of the *Model Builder (main.menu function)* and set up a couple of models. We will run some simulations and calculate summary statistics for the downloaded data. *PipeMaster cannot simulate missing data or gaps, so sites with "?", "N" or "-" are not allowed. Each locus can have different number of individuals per population as long as there are more than 4.*
+
+* Create a new directory to save the examples
   
-```
-   # get the working directory
-   getwd()
+  ```
+    # get the working directory
+    getwd()
    
-   # create a new directory to save outputs
-   dir.create(paste(getwd(),"/PM_example",sep=""))
+    # create a new directory to save outputs
+    dir.create(paste(getwd(),"/PM_example",sep=""))
    
-   # set this new folder as your working directory
-   setwd(paste(getwd(),"/PM_example",sep=""))
-```
+    # set this new folder as your working directory
+    setwd(paste(getwd(),"/PM_example",sep=""))
+  ```
   
-2.2) Download and unzip the data. The *system* function allows you to control the OS terminal in order to use bash inside R.
+* Download and unzip the data. The *system* function allows you to control the OS terminal in order to use bash inside R.
 
-```
-  system("wget https://www.dropbox.com/s/y6k9lthazmhea1k/fastas.tar.gz?dl=0")
-  system("mv fastas.tar.gz?dl=0 fastas.tar.gz")
-  system("tar -zxvf fastas.tar.gz")
-```
+  ```
+    system("wget https://www.dropbox.com/s/y6k9lthazmhea1k/fastas.tar.gz?dl=0")
+    
+    system("mv fastas.tar.gz?dl=0 fastas.tar.gz")
+    
+    system("tar -zxvf fastas.tar.gz")
+  ```
 
-Using the following code you can see how many files are present in the folder
+* Run the code bellow to see how many files are present in the folder
 
+  ```
+    length(list.files("./fastas"))
+  ```
 
-```
-  length(list.files("./fastas"))
-```
+* Set up a model by going into the Model Builder. You will be prompted to an interactive menu. Point this function to an object so your model is saved at the end. We are going to set up a 2 population model.
 
-2.3) Set up a model by going into the model builder. You will be prompted to an interactive menu. Point this function to an object so your model is saved at the end. We are going to set up a 2 population model.
+  ```
+    Is <- main.menu()
+    > write bifurcating topology in newick format or 1 for single population:
+  ```
 
-```
-  Is <- main.menu()
-  > write bifurcating topology in newick format or 1 for single population:
-```
+## **Main Menu**
 
-2.3.1) **Main Menu**
-
-  We start by writing a 2 pop newick: *(1,2)*. This will sep up a 2 pop isolation model with constant population size, no migration. You can follow the description in the menu to add parameters and and priors to the model. The numbers on the right indicate the parameters of the model. This model has 2 population size parameters and 1 divergence parameter, or 1 junction in the coalescent direction. We are going to stick with a 3 parameter model for now. 
+We start by writing a 2 pop newick: *(1,2)*. This will sep up a 2 pop isolation model with constant population size, no migration. You can follow the description in the menu to add parameters and and priors to the model. The numbers on the right indicate the parameters of the model. This model has 2 population size parameters and 1 divergence parameter, or 1 junction in the coalescent direction. We are going to stick with a 3 parameter model for now. 
 
 ```
   A > Number of populations to simulate      2
@@ -124,9 +133,9 @@ Using the following code you can see how many files are present in the folder
   Model Builder>>>>
 ```
 
-2.3.2) **Ne Priors Menu** 
+## **Ne Priors Menu** 
 
-Let's check the Ne priors by typing *E* in the *main menu*. In this menu you can see the parameter names and their distribution. PipeMaster has as defaut uniform distributions with min and max values of 100,000 and 500,000 individuals respectively. The name Ne0.pop1 indicates that the parameter is contemporary, hence Ne0. Ancestral parameters will have acending numbers going to the past. For instance, Ne1.pop1 is the ancestral Ne after Ne0, Ne2 is the ancestral Ne after Ne1 and so on. Let's keep it like this and go back to the main menu. by typing *B*.   
+Let's check the Ne priors by typing *E* in the *main menu*. In this menu you can see the parameter names and their distribution. PipeMaster has as defaut uniform distributions with min and max values of 100,000 and 500,000 individuals respectively. The name Ne0.pop1 indicates that the parameter is contemporary, hence Ne0. Ancestral parameters will have acending numbers going to the past. For instance, Ne1.pop1 is the ancestral Ne after Ne0, Ne2 is the ancestral Ne after Ne1 and so on. Let's change one of the priors. Type **C** and then follow the instructions of the menu.  
 
 ```
   N > Ne prior distribution:               uniform
@@ -136,11 +145,27 @@ Let's check the Ne priors by typing *E* in the *main menu*. In this menu you can
                     2   Ne0.pop2        1e+05       5e+05
 
   B > Back to main menu
+  >>>>C
 ```
+You need to specify the number of the parameter you want to change and then the two parameters of the distribution. Since we are using *uniform* distribution we need to set up the *min* and *max* values. We will change the values for the **Ne0.pop1** to min = 2e5, max = 1e6. Then type **B** to go back to the **main.menu**
 
-2.3.3) **Time Priors Menu**
+```
+>>>C
+Which parameter do you want to set up? (write the reference number from the menu): 1
+Ne prior (4Nm) Ne0.pop1 min: 2e5
+Ne prior (4Nm) Ne0.pop1 max: 1e6
+N > Ne prior distribution:               uniform
+D > Different ancestral Ne?              FALSE
+C > current Ne priors                     min, max
+                 1   Ne0.pop1        2e5        1e6
+                 2   Ne0.pop2        1e+05      5e+05
+ 
+B > Back to main menu
+>>>>B
+```
+## **Time Priors Menu**
 
-Type *G* in the *main menu* to go to time priors. In the *time prior* menu you can see all parameters relative to time. Here we have a single parameter, *join1_2*, which represents the junction (or divergence in real life direction) of population 1 and 2. The defaut of PipeMaster is a uniform distribution with min and max of 500,000 and 1,500,000 generation. **Time is measured in generations**. If your organism has a generation time different than 1, you will need to convert the time from years to generations in order to set up your prior. For example if you want to setup a divergence between 100,000 and 1,000,000 years and your organims has a generation time of 4 years, you will need to divide the time by 4. Your min and max values will be 25,000 ans 250,000. Type **B** to go back to the main menu.
+Type **G** in the **main menu** to go to **time priors**. In the **time prior** menu you can see all parameters relative to time. In this model we have a single parameter, *join1_2*, which represents the junction (or divergence in real life direction) of population 1 and 2. The defaut of PipeMaster is a uniform distribution with *min* and *max* of *500,000* and *1,500,000* generation. **Time is measured in generations**. If your organism has a generation time different than 1, you will need to convert the time from years to generations in order to set up your prior. For example if you want to setup a divergence between 100,000 and 1,000,000 years and your organims has a generation time of 4 years, you will need to divide the time by 4. Your min and max values will be 25,000 ans 250,000. Type **B** to go back to the main menu.
 
 ```
   P > Time prior distribution:     uniform
@@ -152,9 +177,9 @@ Type *G* in the *main menu* to go to time priors. In the *time prior* menu you c
   B > Back to Ne menu
 ```
 
-2.3.4) **Conditions Menu**
+## **Conditions Menu**
 
-Type **H** in the *main menu* to go to the conditions menu. Here you get a list of parameters and some options. You can use the options represented by the letters to set up a condition on your parameters. For example if you want Ne0.pop1 to be always larger than Ne0.pop2 and their priors overlap you can go to option **S** and setup a size condition. Let's try this.
+Type **H** in the **main menu** to go to the **conditions menu**. Here you get a list of parameters and some options. You can use the options represented by the letters to set up a condition on your parameters. For example if you want Ne0.pop1 to be always larger than Ne0.pop2 and their priors overlap you can go to option **S** and setup a size condition. Let's try this.
 
 ```
   Model Builder >>>> H
@@ -173,9 +198,9 @@ Type **H** in the *main menu* to go to the conditions menu. Here you get a list 
   >>>>S
 ```
 
-2.3.5) **Matrix of parameter conditions**
+## **Matrix of parameter conditions**
 
-This matrix indicates the parameter conditions where *NA* means there is no condition. Let's try to set up a condition. We want Ne0.pop1 to be always larger than Ne0.pop2, so we need to write *Ne0.pop1 > Ne0.pop2* as explaned in the menu.
+This matrix indicates the parameter conditions where *NA* means there is no condition. Let's try to set up a condition. We want **Ne0.pop1** to be always larger than **Ne0.pop2**, so we need to write **Ne0.pop1 > Ne0.pop2** as explaned in the menu.
 
 ```
            Ne0.pop1 Ne0.pop2
@@ -224,9 +249,9 @@ Now you can see the size matrix by typing **1** in the menu. You can see that th
   >>>>
 ```
 
-2.3.6) **Gene Menu**
+## **Gene Menu**
 
-Type **I** in the *main menu* to go to the gene menu. To get into the *gene menu* you will need to answer two questions. *What type of data you want to simulate (sanger or genomic)?* and *how many loci?*. We will simulate 200 UCE loci according to the downloaded data. Thus we answer *genomic* and *200*.
+Type **I** in the **main menu** to go to the gene menu. To get into the **gene menu** you will need to answer two questions. *What type of data you want to simulate (sanger or genomic)?* and *how many loci?*. We will simulate 200 UCE loci according to the downloaded data. Thus we answer **genomic** or **g** and **200**.
 
 ```
   Model Builder >>>>I
@@ -243,14 +268,14 @@ Type **I** in the *main menu* to go to the gene menu. To get into the *gene menu
   >>>>
 ```
 
-2.3.7) **Mutation rate prior**
+## **Mutation rate prior**
 
-**In the case of genomic data the mutation rate works as a hyperparameter**. The defaut uniform distribution above indicates the *min* and *max* values to sample an average and SD of all mutation rates. That is, the actual mutation rate for each of the 200 loci will be sampled from a normal distrubution with average and SD sampled from this uniform prior. In each simulation iteration a new average and SD are sampled and from these parameters the 200 mutation rates are sampled. This normal distribution is truncated at zero, so it does not realy have always a bell shape. You can set different distribution for the mutation rate. All distributions available in R are allowed, but this distribution is specified in the simulation function (*sim.msABC.sumstat*). We will see this further in the tutorial. Now go back to the *main menu* and hit **Q** to get out of the *Model Builder*.
+**In the case of genomic data the mutation rate works as a hyperparameter**. The defaut uniform distribution above indicates the *min* and *max* values to sample an average and SD of all mutation rates. That is, the actual mutation rate for each of the 200 loci will be sampled from a normal distrubution with average and SD sampled from this uniform prior. In each simulation iteration a new average and SD are sampled and from these parameters the 200 mutation rates are sampled. This normal distribution is truncated at zero, so it does not realy have always a bell shape. You can set different distribution for the mutation rate. All distributions available in R are allowed, but this distribution is specified in the simulation function (*sim.msABC.sumstat*). We will see this further in the tutorial. Now go back to the **main menu** and hit **Q** to get out of the **Model Builder**.
 
 
-2.3.8) **Generating a model from a template**
+## **Generating a model from a template**
 
-Our model was saved in the object **Is**. We can easely generate a nested model using a previous model as template. We are goign to use our **Is** model to generate a similar model but with gene flow. Let's call this model **IM**, isolaiton with migration. We will go directly to the *main menu*. We will then type **C** to include migration parameters, than type **y** or **yes**.
+Our model was saved in the object **Is**. We can easely generate a nested model using a previous model as template. We are goign to use our **Is** model to generate a similar model but with gene flow. Let's call this model **IM**, isolaiton with migration. We will go directly to the **main menu**. We will then type **C** to include migration parameters, than type **y** or **yes**.
 
 ```
   IM <- main.menu(Is)
@@ -301,9 +326,9 @@ Our model was saved in the object **Is**. We can easely generate a nested model 
   Model Builder >>>>
 ```
 
-2.3.9) **Migration prior menu**
+## **Migration prior menu**
 
-In option we can go into the *migration menu*. Migration is measured in *4Nm~ij~* where *m~ij~* is the fraction of individuals in population *i* made up of migrants from population *j*.
+In option we can go into the *migration menu*. Migration is measured in *4Nmij* where *mij* is the fraction of individuals in population *i* made up of migrants from population *j*.
 
 ```
   M > Migration prior distribution:        uniform
@@ -318,9 +343,9 @@ In option we can go into the *migration menu*. Migration is measured in *4Nm~ij~
 
 Let's go back to the main menu and then quit. The model is saved in the object **IM**.
   
-2.4) **Model Object**.  
+## **Model Object** 
 
-By typing the model name in the R console we can see its content. You don't have to know how to read the model object, but it might help you understand how the package works. The *loci* index show your loci with mutation rates. the *I* index show the population structure, the third column indicates the number of pops and the following columns indicate  the number of individuals for each population. The *flags* index show the parameters of your model with respective priors. The *conds* index show the condition matrices and the *tree* parameter show the topology of the model.
+By typing the model name in the R console we can see its contents. You don't have to know how to read the model object, but it might help you understand how the package works. The *loci* index show your loci with mutation rates. the *I* index show the population structure, the third column indicates the number of pops and the following columns indicate  the number of individuals for each population. The *flags* index show the parameters of your model with respective priors. The *conds* index show the condition matrices and the *tree* parameter show the topology of the model.
 
 ```
   > Is
@@ -362,9 +387,9 @@ By typing the model name in the R console we can see its content. You don't have
   [1] "Model"
 ```
 
-2.4.1) **Checking model parameters and manipulating prior values** 
+## **Checking model parameters and manipulating prior values** 
 
-There is an easier way to check the model parameters and priors. You can also update your prior without using the *main.menu* function. To see your priors use *get.prior.table*. This function generates a table with the model parameters and priors. You can then alter this table and use it to update the prior values of your model using *update.priors*.
+There is an easier way to check the model parameters and priors. You can also update your prior without using the *main.menu* function. To see your priors use *get.prior.table*. This function generates a table with the model parameters and priors. You can then alter this table and use it to update the prior values of your model using *update.priors*. Note that for the update.prior to work the parameters in the table and model object have to be the same.
 
 
 ```
@@ -386,7 +411,7 @@ There is an easier way to check the model parameters and priors. You can also up
     3      join1    1000    1000        runif
   
   
-  > Is2 <- update.priors(tab = tab, model = Is)
+  > Is2 <- PipeMaster:::update.priors(tab = Is.tab, model = Is)
   > get.prior.table(model=Is2)
   
        Parameter prior.1 prior.2 distribution
@@ -395,7 +420,7 @@ There is an easier way to check the model parameters and priors. You can also up
     3      join1    1000    1000        runif
 ```
 
-2.4.2) **Saving and reloading a model** 
+## **Saving and reloading a model** 
 
 You can save the model as a text file using *dput*. To read the model back to R use *dget*.
   
@@ -404,7 +429,7 @@ You can save the model as a text file using *dput*. To read the model back to R 
     Is <- dget("Is.txt")
 ```
 
-2.4.3) **Replicating the empirical data structure to the model**
+## **Replicating the empirical data structure to the model**
 
 To have the model ready for the simulation we need to replicate the data structure to the model. We need to setup the exact number of individuals per population and the length of each locus. To do this we use the **get.data.structure** function. This function needs: (i) an assignment file, a two column data frame with the name of the individuals and their respective population; and (ii) a model object where the structure will be replicated.
   We will download an assignment file from my dropbox.
@@ -424,7 +449,7 @@ To have the model ready for the simulation we need to replicate the data structu
     dput(IM, "IM.txt")
 ```
   
-2.5) **Summary statistics calculation**
+## **Summary statistics calculation**
 
 To calculate the summary statistics for the empirical data we will use the **obs.sumstat.ngs** function. This function also needs an assignment file and a model object. By default PipeMaster calculates all the available summary statistics, you select them *a posteriori*.
 
@@ -477,7 +502,7 @@ To calculate the summary statistics for the empirical data we will use the **obs
   [75] "s_average_pi_s_average_w"       "s_variance_pi_s_variance_w"
 ```
   
-There are **76** summary statistics for this data, these are averages and variances across loci, for each population and overall. We are going to use **grep** to select the stats we want to exclude.
+There are **76** summary statistics for this data, these are averages and variances across loci, for each population and overall. We are going to use **grep** to select the stats we want to exclude. Description of summary statistics in the [msABC manual](https://www.dropbox.com/s/m1mkmp0xtiv2a3x/manual.pdf?dl=0)
 
 
 ```
@@ -492,7 +517,6 @@ There are **76** summary statistics for this data, these are averages and varian
   obs <- t(data.frame(obs[,-cols]))
 ```
 Check the sumstats names again
-
 
 ```
   > colnames(obs)
@@ -522,103 +546,105 @@ Save the observed as a table using **write.table**.
   write.table(obs,"observed.txt", quote=F,col.names=T, row.names=F)
 ```
 
-2.6) **Simulating Data**
+## **Simulating Data**
 
 Now that we have two models, **Is** and **IM** we are going to simulate summary statistics. We will use the *sim.msABC.sumstat* to simulate genomic data. This function only works in linux and Mac. PipeMaster controls *msABC* to simulate the data. It simulates data in batches or blocks to avoid memmory overload in R and at the same time optimize the time spent in writing the simulations to file. To control the total number of simulations you have to control the size of the simulation block, the number of blocks to simulate and the number of cores used. The total number of simulations = nsim.blocks *x* block.size *x* ncores. You can play with this values to optimize the speed of the simulation process. A small block size will take less RAM but will require a more frequent manegenment of the slave nodes by the master node. This can be time consuming. A large block size may overload R, R can't handle a lot of memmory very well. It can also take up too much RAM, specially if you are running several cores at the same time. PipeMaster will output a time estimate at the console. This might help you optimize the parameters. From my experience a block.size of 1000 will be good for most cases. If you don't want to mess with this just leave at 1000, it should work fine.
 
 
 ```
-  sim.msABC.sumstat(Is, nsim.blocks = 1, use.alpha = F, output.name = "Is", append.sims = F, block.size =   500, ncores = 2)
+  sim.msABC.sumstat(Is, nsim.blocks = 1, use.alpha = F, output.name = "Is", append.sims = F,
+                    block.size =   500, ncores = 2)
 
-  sim.msABC.sumstat(IM, nsim.blocks = 1, use.alpha = F, output.name = "IM", append.sims = F, block.size =   500, ncores = 2)
+  sim.msABC.sumstat(IM, nsim.blocks = 1, use.alpha = F, output.name = "IM", append.sims = F,
+                    block.size =   500, ncores = 2)
 ```
 -------------------------------------------------------------------------------------------------------
 
-## **Secound part: visualizations and plotting functions**
+# **Secound part: visualizations and plotting functions**
 
 In this part of the tutorial we will going to go through some of the vialization functions of PipeMaster. We are going to use the notebook tab of Jupyter notebook to visualize the plots in an interactive way.
 
-Open a new notebook by going to *New* in the upper right corder of the main Jupyter Notebook tab. 
+* Open a new notebook by going to *New* in the upper right corder of the main Jupyter Notebook tab. 
 
-To run R in jupyter notebook we need to load rpy2
+* To run R in jupyter notebook we need to load rpy2
   
-```
-  %load_ext rpy2.ipython
-```
+  ```
+    %load_ext rpy2.ipython
+  ```
 
-From now on every chunk of R code you want to run should start with *%%R*
+* From now on every chunk of R code you want to run should start with *%%R*.
 
-Load PipeMaster, check the working directory and list the files.
-```
-  %%R
-  suppressMessages(library(PipeMaster))
-  suppressMessages(library(POPdemog))
-  list.files()
-```
-change working directory to PM_example and list files
+* Load PipeMaster, check the working directory and list the files.
+  ```
+    %%R
+    suppressMessages(library(PipeMaster))
+    suppressMessages(library(POPdemog))
+    list.files()
+  ```
+* change working directory to PM_example, if needed, and list files
 
-```
-  %%R
-  setwd("./PM_example")
-  list.files()
-```
+  ```
+    %%R
+    setwd("./PM_example")
+    list.files()
+  ```
 
-3.1)**Plotting a Model**
+## **Plotting a Model**
 
 There is now a new function in PipeMaster to plot your model, this function is a wrapper of the PlotMS function from the POPdemog r-package. I have not tested it extensivelly, if you find bugs please send me an email (marcelo.gehara@gmail.com). 
 
-```
-  %%R
-  Is <- dget("Is.txt")
-  IM <- dget("IM.txt")
+  ```
+    %%R
+    Is <- dget("Is.txt")
+    IM <- dget("IM.txt")
 
-  PlotModel(model=Is, use.alpha = F, average.of.priors=F)
-  PlotModel(model=Is, use.alpha = F, average.of.priors=T)
+    PlotModel(model=Is, use.alpha = F, average.of.priors=F)
+    PlotModel(model=Is, use.alpha = F, average.of.priors=T)
 
-  PlotModel(model=IM, use.alpha = F, average.of.priors=F)
-  PlotModel(model=IM, use.alpha = F, average.of.priors=T)
-```
-3.2)**Visualize prior distributions**
+    PlotModel(model=IM, use.alpha = F, average.of.priors=F)
+    PlotModel(model=IM, use.alpha = F, average.of.priors=T)
+  ```
+## **Visualize prior distributions**
 
 We can use the *plot.prior* function to visualize the prior distributions. 
   
-```
-  %%R
-  PipeMaster:::plot.priors(Is, nsamples = 1000)
-```
+  ```
+    %%R
+    PipeMaster:::plot.priors(Is, nsamples = 1000)
+  ```
 
-3.3)**Plotting simulations against empirical data**
+## **Plotting simulations against empirical data**
 
 Let's visualize the simulations. Read the simulations back into R. If your simulation file is very big (you have many simulations, like 5E5 or more) you should use the bigmemmory r-package to handle the data. We will also match the simulations sumstats to the observed so that we keep the same set of sumstats in the simulated. 
 
-```
-  %%R
+  ```
+    %%R
 
-  Is.sim <- read.table("SIMS_Is.txt", header=T)
-  IM.sim <- read.table("SIMS_IM.txt", header=T)
-  obs <- read.table("observed.txt", header=T)
+    Is.sim <- read.table("SIMS_Is.txt", header=T)
+    IM.sim <- read.table("SIMS_IM.txt", header=T)
+    obs <- read.table("observed.txt", header=T)
 
-  Is.sim <- Is.sim[,colnames(Is.sim) %in% colnames(obs)]
-  IM.sim <- IM.sim[,colnames(IM.sim) %in% colnames(obs)]
-```
+    Is.sim <- Is.sim[,colnames(Is.sim) %in% colnames(obs)]
+    IM.sim <- IM.sim[,colnames(IM.sim) %in% colnames(obs)]
+  ```
 
 Now we can plot the observed againt the simulated. This helps you evaluate your model and have a visual idea of how the simulations fit the empirical data. 
 
-```
-  %%R
-  PipeMaster:::plot.sim.obs(Is.sim, obs)
-```
+  ```
+    %%R
+    PipeMaster:::plot.sim.obs(Is.sim, obs)
+  ```
 
-3.4)**Plotting a PCA**
+## **Plotting a PCA**
 
 We can also plot a Principal Component Analysis of the simulations against the empirical data. This also helps evaluating the fit of your models. First we will combine the models in a single data frame and we will generate an index. 
 
-```
-  %%R
-  models <- rbind(Is.sim, IM.sim)
-  index <- c(rep("Is", nrow(Is.sim)), rep("IM", nrow(IM.sim)))
-  plotPCs(model = models, index = index, observed = obs, subsample = 1)
-```
+  ```
+    %%R
+    models <- rbind(Is.sim, IM.sim)
+    index <- c(rep("Is", nrow(Is.sim)), rep("IM", nrow(IM.sim)))
+    plotPCs(model = models, index = index, observed = obs, subsample = 1)
+  ```
 -----------------------------------------------------------------------------------------------------
 
 ## **Third part: approximate Bayesian computation (ABC) & supervized machine-learning (SML)**
@@ -627,24 +653,24 @@ In the last part of the tutorial we are going to perform the data analysis using
 
 ---
 
-**This part of the tutorial is limmited to a single case**, you should latter check the following matherials if you plann to perform any of these analyses:
+* **This part of the tutorial is limmited to a single case**, you should latter check the following matherials if you plann to perform any of these analyses:
 
-(i)The [**vignette**](https://cran.r-project.org/web/packages/abc/vignettes/abcvignette.pdf) of the *abc* is very informative and covers the entire package.
+* (i)The [**vignette**](https://cran.r-project.org/web/packages/abc/vignettes/abcvignette.pdf) of the *abc* is very informative and covers the entire package.
 
-(ii)*caret* is a very extensive package for machine-learning, there are hundreads of algorithms avalable with extensive [**online documentation**](http://topepo.github.io/caret/index.html).
+* (ii)*caret* is a very extensive package for machine-learning, there are hundreads of algorithms avalable with extensive [**online documentation**](http://topepo.github.io/caret/index.html).
 
 ---
 
 *abc* is already a dependency of *PipeMaster* but we need to load *caret*. To run *caret* in parallel we need to load a r-package that manages nodes to run loops in parallel using MPI. There are several r-packages for this, we are goig to use *doMC*.
 
 ``` 
-%%R
-   library(caret) # caret: used to perform the superevised machine-learning (SML)
+  %%R
+  library(caret) # caret: used to perform the superevised machine-learning (SML)
   
-   library(doMC, quiet=T) # doMC: necessary to run the SML in parallel
+  library(doMC) # doMC: necessary to run the SML in parallel
 ```
   
-4.1) Load the example data available in *PipeMaster*. This example data is based on [Gehara et al. *in review*](PipeMaster.pdf) which is the paper that describes the package. [**Here**](https://docs.google.com/spreadsheets/d/1FZonOF27VgGKiAgWQS56zZ4G5bbtz5t_-302LJQFlQA/edit?usp=sharing) you can access a spreed sheet with all model parameters and priors. 
+Load the example data available in *PipeMaster*. This example data is based on [Gehara et al. *in review*](PipeMaster.pdf) which is the paper that describes the package. [**Here**](https://docs.google.com/spreadsheets/d/1FZonOF27VgGKiAgWQS56zZ4G5bbtz5t_-302LJQFlQA/edit?usp=sharing) you can access a spreed sheet with all model parameters and priors. 
   
 ```
   %%R 
@@ -654,38 +680,43 @@ In the last part of the tutorial we are going to perform the data analysis using
   # models used in Gehara et al
   data("models", package="PipeMaster")
 ```
-4.2) There are 10 models. Let's plot one of these models. Remeber, you can use them as templates for your own analysis. You will just need to update the priors as above, and replicate your data structure to the model using the *get.data.structue* as explaned above. To see all the model objects type *ls()* in the R console.
+There are 10 models. Let's plot one of these models. Remeber, you can use them as templates for your own analysis. You will just need to update the priors as above, and replicate your data structure to the model using the *get.data.structue* as explaned above. To see all the model objects type *ls()* in the R console.
 
 ```
   %%R
   PlotModel(model=IsBot2, use.alpha=c(T,1), average.of.priors=T)
 ```
  
-4.3) Simulate data for 4 of the 10 models. We are not going to simulate all models since it would take too much time. I simulated all of these models for the frog *Dermatonotus muelleri* in the paper that describes the package.
-  
-```
-  sim.msABC.sumstat(Is, nsim.blocks = 1, use.alpha = F, output.name = "Is", append.sims = F, block.size = 500, ncores = 2)
-  
-  sim.msABC.sumstat(IM, nsim.blocks = 1, use.alpha = F, output.name = "IM", append.sims = F, block.size = 500, ncores = 2)
-  
-  sim.msABC.sumstat(IsBot2, nsim.blocks = 1, use.alpha = c(T,1), output.name = "IsBot2", append.sims = F, block.size = 500, ncores = 2)
-  
-  sim.msABC.sumstat(IMBot2, nsim.blocks = 1, use.alpha = c(T,1), output.name = "IMBot2", append.sims = F, block.size = 500, ncores = 2)
-```
-
-4.4) Now that the simulations are done we can read them back into R and select the summary statistics we are going to use.
+Simulate data for 4 of the 10 models. We are not going to simulate all models since it would take too much time. I simulated all of these models for the frog *Dermatonotus muelleri* in the paper that describes the package.
   
 ```
   %%R
-    Is.sim <- read.table("SIMS_Is.txt", header=T)
-    IM.sim <- read.table("SIMS_IM.txt", header=T)
-    IsBot2.sim <- read.table("SIMS_IsBot2.txt", header=T)
-    IMBot2.sim <- read.table("SIMS_IMBot2.txt", header=T)
+  sim.msABC.sumstat(Is, nsim.blocks = 2, use.alpha = F, output.name = "Is", append.sims = F,
+                   block.size = 100, ncores = 10)
+  
+  sim.msABC.sumstat(IM, nsim.blocks = 2, use.alpha = F, output.name = "IM", append.sims = F,                             block.size = 100, ncores = 10)
+  
+  sim.msABC.sumstat(IsBot2, nsim.blocks = 2, use.alpha = c(T,1), output.name = "IsBot2", 
+                   append.sims = F, block.size = 100, ncores = 10)
+  
+  sim.msABC.sumstat(IMBot2, nsim.blocks = 2, use.alpha = c(T,1), output.name = "IMBot2", 
+                   append.sims = F, block.size = 100, ncores = 10)
+```
+
+Now that the simulations are done we can read them back into R and select the summary statistics we are going to use.
+  
+```
+  %%R
+  Is.sim <- read.table("SIMS_Is.txt", header=T)
+  IM.sim <- read.table("SIMS_IM.txt", header=T)
+  IsBot2.sim <- read.table("SIMS_IsBot2.txt", header=T)
+  IMBot2.sim <- read.table("SIMS_IMBot2.txt", header=T)
 ```
   
 Select sumstats
   
 ```
+  %%R
   cols <- c(grep("thomson", names(observed)),
             grep("pairwise_fst", names(observed)),
             grep("Fay", names(observed)),
@@ -694,7 +725,7 @@ Select sumstats
             grep("_s_", names(observed)),
             grep("_ZnS", names(observed)))
   
-  observed <- observed[,-cols]
+  observed <- observed[-cols]
   
   colnames(observed)
   
@@ -712,25 +743,27 @@ Select sumstats
   [34] "s_variance_fixed_dif_1_2"
 ```
   
-4.5) Combine simulations in a single matrix matching the summary stats names in the observed and run a Principal Components Analyses to visualize model-fit
+Combine simulations in a single matrix matching the summary stats names in the observed and run a Principal Components Analyses to visualize model-fit
   
 ```
   %%R
-  models <- rbind(Is.sim[,colnames(Is.sim) %in% colnames(observed)],
-                  IM.sim[,colnames(IM.sim) %in% colnames(observed)],
-                  IsBot2.sim[,colnames(IsBot2.sim) %in% colnames(observed)],
-                  IMBot2.sim[,colnames(IMBot2.sim) %in% colnames(observed)])
+  models <- rbind(Is.sim[,colnames(Is.sim) %in% names(observed)],
+                  IM.sim[,colnames(IM.sim) %in% names(observed)],
+                  IsBot2.sim[,colnames(IsBot2.sim) %in% names(observed)],
+                  IMBot2.sim[,colnames(IMBot2.sim) %in% names(observed)])
   
  
   data <- c(rep("Is", nrow(Is.sim)),
            rep("IM", nrow(IM.sim)),
            rep("IsBot2", nrow(IsBot2.sim)),
-           rep("IMBot2", nrow(IMBot2.sim))
+           rep("IMBot2", nrow(IMBot2.sim)))
            
-  plotPCs(model, data)
+  plotPCs(model = models, index = data, observed = observed, subsample = 0.5)
 ```
    
-4.6) **Supervised machine-learning analysis for model classification**. We are going to train a neural network algorithm and than use it to classify our empirical data. In the paper that describes the package, [Gehara et al. *in review*](PipeMaster.pdf), I ran a simulation experiment to compare ABC rejection with SML with neural network and I found that the SML is much more efficient and accurate. 
+## **Supervised machine-learning analysis for model classification**. 
+
+We are going to train a neural network algorithm and than use it to classify our empirical data. In the paper that describes the package, [Gehara et al. *in review*](PipeMaster.pdf), I ran a simulation experiment to compare ABC rejection with SML with neural network and I found that the SML is much more efficient and accurate. 
 
 To train the algorithm we need to split the data into tranning and testing, usually 75% is used for tranning and 25% for testing. We can do that with *createDataPartition*. We also need to specify our predictors and our outcome. In our case the predictors are the summary statistics and the outcome is the model label or index. 
 
@@ -739,7 +772,7 @@ It can be very time consumming to set up the parameters of the neural network an
 ```
   %%R
   # set up number of cores for SML
-  registerDoMC(2)
+  registerDoMC(1)
   
   ## combine simulations and index
   models <- cbind(models,data)
@@ -756,7 +789,7 @@ It can be very time consumming to set up the parameters of the neural network an
   test  <- models[-splitIndex,]
   
   ## bootstraps and other controls
-  objControl <- trainControl(method='boot', number=10, returnResamp='final',
+  objControl <- trainControl(method='boot', number=1, returnResamp='final',
                              classProbs = TRUE)
   ## train the algoritm
   nnetModel_select <- train(train[,predictorsNames], train[,outcomeName],
@@ -780,8 +813,21 @@ It can be very time consumming to set up the parameters of the neural network an
   # write results to file
   write.table(c(pred,accu),"results.selection.txt")
 ```
+
+Visualize and write results to file
+
+```
+  %%R
+  # visualize results
+  t(c(pred,accu))
   
-4.7) **Approximate Bayesian computation with neural network for parameter estimate**. The *abc* performs a rejection step and then uses the retained data to train a neural network to estimate parameters.
+  # write results to file
+  write.table(c(pred,accu),"results.selection.txt")
+```
+
+## **Approximate Bayesian computation with neural network for parameter estimate**. 
+
+The *abc* performs a rejection step and then uses the retained data to train a neural network to estimate parameters.
   
 ```
   %%R
@@ -797,7 +843,7 @@ It can be very time consumming to set up the parameters of the neural network an
   post <- abc(target = observed,
               param = param,
               sumstat = sims,
-              sizenet = 30,
+              sizenet = 20,
               method = "neuralnet",
               MaxNWts = 5000,
               tol=0.1) 
@@ -812,23 +858,34 @@ Plot posterior distribution
 ```
   %%R
   # plot posterior probabilities
-  #plot(post, param = param)
+  plot(post, param = param)
 ```
 
-4.8) **Cross-validation**. It is important to perform a cross-validation to evaluate if we can estimate the parameters with confidence. The function *cv4abc* performs a leave-one-out experiment to evaluate the performance of the method. To correctly do this we have to use the same tolerace value and *method* with the same parameters as used above. 
+**Cross-validation** 
+
+It is important to perform a cross-validation to evaluate if we can estimate the parameters with confidence. The function *cv4abc* performs a leave-one-out experiment to evaluate the performance of the method. To correctly do this we have to use the same tolerace value and *method* with the same parameters as used above. 
 
 ```
+  %%R
   # cross-validation for parameter estimates
   cv <- cv4abc(param = param,
                 sumstat = sims,
-                nval = 10,
-                sizenet = 30,
+                nval = 20,
+                sizenet = 20,
                 method = "neuralnet",
                 MaxNWts = 5000,
                 tol = 0.1)
   
   plot(cv)
+  
 ```
+Check the error of the estimate
+
+```
+  %%R
+  summary(cv)
+```
+
 # FIM!
   
   
