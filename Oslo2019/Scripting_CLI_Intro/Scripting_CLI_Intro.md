@@ -98,12 +98,13 @@ $ cut -f 3-5 iris_data.tsv > petalData.txt
 `grep` searches input files for lines that match a specified search term or pattern
 ```bash
 ## search for the word whale in moby dick
-$ grep --color "whale" mobydick.txt
+$ grep "whale" mobydick.txt
 ## use the `--color` flag to highlight "whale" in the text.
-$ grep -v "whale" mobydick.txt
+$ grep --color "whale" mobydick.txt
 ## `v` inverts the search and fines lines without "whale"
-$ grep -c "whale" mobydick.txt
+$ grep -v "whale" mobydick.txt
 ## `-c` counts the number of appearances
+$ grep -c "whale" mobydick.txt
 ```
 
 ## Summarize data
