@@ -1,11 +1,11 @@
 # CAMI
 
-Welcome to Monday afternoon of Day 1 CompPhylo! Below is the schedule for the rest of the afternoon. We will begin with a background presentation on Community Assembly, then we will get familiar working in CAMI to ultimately perform community assembly model inference using empirical data from San Juan Island plant communities. Finally, if time permitting, there is an additional exercise using Amphibian data that poses more of a challenge.
+Welcome to Monday afternoon of Day 1 CompPhylo! Below is the schedule for the rest of the afternoon. We will begin with a background presentation on Community Assembly, then we will get familiar working in CAMI to ultimately perform community assembly model inference using empirical data from San Juan Island plant communities.
 
 
 | August 26, 2019 | CompPhylo workshop                           |
 | :-------------: | :------------------------------------------- |
-| **2:00 PM**     | [Introduction to CAMI](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_Introduction.pdf)
+| **2:00 PM**     | [Introduction to CAMI](https://compphylo.github.io/Oslo2019/CAMI_files/assets/CAMI_Presentation.pdf)
 | :-------------: | :------------------------------------------- |
 |                 | [CAMI intro tutorial](https://compphylo.github.io/Oslo2019/CAMI_files/CAMI_1.html)|
 | :-------------: | :------------------------------------------- |
