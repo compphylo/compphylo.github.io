@@ -5,23 +5,23 @@ output:
 ---
 # Simulation and analysis with PipeMaster
   
-  This is an R script showing how to simulate data, test model and estimate parameters using [*PipeMaster*](https://github.com/gehara/PipeMaster), *abc* and *caret* r-packages.
-  The data in this tutorial is the same as in Gehara et al *in review*, and represents 2177 UCE loci for the neotropical frog *Dermatonotus muelleri*. We will first work with a subset of this data (200 loci) in the first and secound section of this tutorial and then use the entire data in the third part. For more information about *Dermatonotus muelleri* see [Gehara et al. *in review*](PipeMaster.pdf) and [Oliveira et al. 2018](https://www.researchgate.net/profile/Adrian_Garda/publication/327624820_Phylogeography_of_Muller%27s_termite_frog_suggests_the_vicariant_role_of_the_Central_Brazilian_Plateau/links/5c40f99f92851c22a37d572c/Phylogeography-of-Mullers-termite-frog-suggests-the-vicariant-role-of-the-Central-Brazilian-Plateau.pdf)
+  This is an R tutorial showing how to simulate data, test models, and estimate parameters using [*PipeMaster*](https://github.com/gehara/PipeMaster), *abc* and *caret* r-packages.
+  The dataset in this tutorial is the same as in Gehara et al *in review*, and represents 2,177 UCE loci for the neotropical frog *Dermatonotus muelleri*. We will start working with a subset of the data (200 loci) in the first and second sections of this tutorial, and then use the entire dataset in the third part. For more information about *Dermatonotus muelleri* see [Gehara et al. *in review*](PipeMaster.pdf) and [Oliveira et al. 2018](https://www.researchgate.net/profile/Adrian_Garda/publication/327624820_Phylogeography_of_Muller%27s_termite_frog_suggests_the_vicariant_role_of_the_Central_Brazilian_Plateau/links/5c40f99f92851c22a37d572c/Phylogeography-of-Mullers-termite-frog-suggests-the-vicariant-role-of-the-Central-Brazilian-Plateau.pdf)
   
 # Overview
 
 * Instalation
 * First Part:  building a model, calculating sumstats and simulating data
-* Secound Part: visualizations and plotting functions
-* Third Part: data analysis, approximate Bayesian computation (ABC) & supervized machine-learning (SML)
+* Second Part: visualization and plotting functions
+* Third Part: data analysis, approximate Bayesian computation (ABC) & supervised machine-learning (SML)
 
 ------------------------------------------------------------------------------------------------------
   
 # **Instalation** 
-  PipeMaster is not available on cran, but you can use *devtools* to install it from github, or download and install the latest release from my [github](github.com/gehara/PipeMaster) repository.
+  PipeMaster can be installed from github using *devtools*, or you can download and install the latest release from my [github](github.com/gehara/PipeMaster) repository.
 
 * **Instalation with devtools** 
-Go to the R console install devtools and than PipeMaster:  
+Go to the R console, install devtools and then PipeMaster:  
   
   ```
   install.packages("devtools"")
@@ -30,7 +30,7 @@ Go to the R console install devtools and than PipeMaster:
   ```
 
 * **Instalation without devtools** 
-Install all dependencies, download *PipeMaster* and install the package from a local file. You can do all of this inside the R console. You may need to check for the latest version and change it in the code bellow <PipeMaster-0.2.1.tar.gz>.
+Install all dependencies, download *PipeMaster* and install the package from my github. You can do all of this inside the R console using the code below. You may need to check for the latest version and change it in the appropriate line <PipeMaster-0.2.1.tar.gz>.
 
   ```
 
@@ -47,7 +47,7 @@ Install all dependencies, download *PipeMaster* and install the package from a l
 
 ------------------------------------------------------------------------------------------------------
 
-# **CompPhylo workshop** start here! 
+# **CompPhylo workshop** starts here! 
 
 * Activate the ssh tunnel 
 
