@@ -92,7 +92,7 @@ We have prepared a custom built conda environment for use during this workshop
 that includes much of the software you'll need. Doing the install yourself is
 straightforward, but the process takes some time, so we just provide you the
 working environment. Directions for actually doing the conda install from 
-scratch are available on the [conda install]("Conda_Config.md") page.
+scratch are available on the [conda install](Conda_Config.md) page.
 
 ```bash
 # Switch to my read-only conda install (only need to do this once):
