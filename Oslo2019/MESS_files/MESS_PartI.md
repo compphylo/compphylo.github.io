@@ -44,10 +44,10 @@ wat
 ## Equilibrium theory of island biogeography and neutral theory
 [Background and a brief introduction to the MESS model.](https://docs.google.com/presentation/d/1dbQOZ17RliFyRBzyLdDDn3SWCmaWwXcVD2h1muyixv8/edit#slide=id.g35887b7c4d_0_159) 
 
+![png](images/Forward_Time_Neutral_Assembly.png)
+
 <a name="MESS-Overview"></a>
 ## Overview of MESS simulation and analysis workflow
-
-![png](images/Forward_Time_Neutral_Assembly.png)
 
 The basic steps of this process are as follows:
 
@@ -284,7 +284,7 @@ available.
 Simulation parameters and summary statistics are written to the `SIMOUT.txt`
 file. You can check the length of this file.
 ```bash
-$ wc -l wc -l default_MESS/SIMOUT.txt 
+$ wc -l default_MESS/SIMOUT.txt 
 11 default_MESS/SIMOUT.txt
 
 # Use `less` to look inside the file. Use `q` to quit less when you are done.
