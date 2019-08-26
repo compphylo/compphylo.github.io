@@ -45,7 +45,7 @@ If it is running you should see a line with `ssh -N -f -L`. If not, re-connect t
 ssh -N -f -L <my_port_num>:<compute_node>:<my_port_num> <username>@abel.uio.no>
 ```
 
-Navigate to `http://localhost:<my_port_#>` on a web broswer. If you don't know the web address, or it is not working for some reason. Back on the cluster, `cat` the `slurm-27933550.out` file (note the number will be different for you) and in here is also the exact link to use in the web browser. 
+Navigate to `http://localhost:<my_port_#>` on a web broswer. 
 
 If you're having issues with any of part of this, see the [troubleshooting documentation](https://compphylo.github.io/Oslo2019/Jupyter_Notebook_Setup.html).
 
@@ -209,7 +209,7 @@ Assembly.Data$params$comsim[1:50]
 sum(Assembly.Data$params$comsim=="neutral")
 ```
 
-The number of simulations per model will be different for everyone, but hopefully each model has been simulated roughly 1/3 of the time.
+The number of simulations per model will be different for everyone, but hopefully each model has been simulated roughly 1/3 of the time. It is important that each model is equally represented in the training dataset in order to avoid a bias training dataset and ultimately, forest.
 
 To verify the prior distributions, we can plot a histogram of all of the values used for the simulations for a given parameter and verify that it matches the prior distribution designated. Let's look at the `sig2` parameter, which we put a uniform prior on between 1.0 and 5.0.
 
@@ -273,7 +273,9 @@ ggplot(stats.by.model, aes(x=stat, fill=model)) +
 
 The `randomForest` package implements Breiman’s ensemble random forest algorithm for classification and regression (Breiman 2001). Ensemble-ing is a "type of supervised learning technique where multiple models are trained on a training dataset and their individual outputs are combined by some rule to derive the final output.” Essentially, training data are used to build many classification trees and the predictions from each tree are combined for a final inference. The "rule" that governs how outputs are combined is most commonly averaging (for numerical data) or votes (for categorical). In our case, the predictions are model identities. 
 
-For more information on the `randomForest` R package [go here](https://www.rdocumentation.org/packages/randomForest/versions/4.6-14/topics/randomForest).
+For more information on the `randomForest` R package and uses [go here](https://www.listendata.com/2014/11/random-forest-with-r.html#What-is-Random-Forest-).
+
+For an i
 
 ```{r, message=FALSE, eval=FALSE}
 %%R
@@ -343,4 +345,3 @@ Felsenstein, J. **1985**. Phylogenies and the Comparative Method. *Am. Nat.* 125
 Hansen, T.F. **1997**. Stabilizing Selection and the Comparative Analysis of Adaptation. *Evolution.* 51, 1341-1351. [link](https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1558-5646.1997.tb01457.x)
 
 Stadler, T. **2011**. Simulating trees with a fixed number of extant species. *Syst. Biol.*, 60, 676–684. [link](https://academic.oup.com/sysbio/article/60/5/676/1644435)
-
