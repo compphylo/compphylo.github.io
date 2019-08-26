@@ -18,7 +18,7 @@ output:
 ------------------------------------------------------------------------------------------------------
   
 # **Instalation** 
-  PipeMaster can be installed from github using *devtools*, or you can download and install the latest release from my [github](github.com/gehara/PipeMaster) repository.
+  PipeMaster can be installed from github using *devtools* (to get latest version with most recent updates), or you can download and install the latest release from my [github](github.com/gehara/PipeMaster) repository.
 
 * **Instalation with devtools** 
 Go to the R console, install devtools and then PipeMaster:  
@@ -26,11 +26,14 @@ Go to the R console, install devtools and then PipeMaster:
   ```
   install.packages("devtools"")
   devtools::install_github("gehara/PipeMaster")
+  ## install  POPdemog to be able to plot your models                
+  install.packages("https://github.com/YingZhou001/POPdemog/raw/master/POPdemog_1.0.3.tar.gz",
+                 repos=NULL)
   
   ```
 
 * **Instalation without devtools** 
-Install all dependencies, download *PipeMaster* and install the package from my github. You can do all of this inside the R console using the code below. You may need to check for the latest version and change it in the appropriate line <PipeMaster-0.2.1.tar.gz>.
+Install all dependencies, install *PipeMaster* my last release on github. You can do all of this inside the R console using the code below. You may need to check for the latest version and change it in the appropriate line <PipeMaster-0.2.1.tar.gz>.
 
   ```
 
@@ -39,7 +42,8 @@ Install all dependencies, download *PipeMaster* and install the package from my 
 
   install.packages("http://github.com/gehara/PipeMaster/archive/PipeMaster-0.2.1.tar.gz",
                  repos=NULL)
-                 
+  
+  ## install  POPdemog to be able to plot your models                
   install.packages("https://github.com/YingZhou001/POPdemog/raw/master/POPdemog_1.0.3.tar.gz",
                  repos=NULL)
 
@@ -659,7 +663,7 @@ In the last part of the tutorial we are going to perform the data analysis using
 
 ---
 
-* **This part of the tutorial is limmited to a single case**, you should latter check the following matherials if you plann to perform any of these analyses:
+* **This part of the tutorial is limmited to a single case**, you should latter check the following materials if you plann to perform any of these analyses:
 
 * (i)The [**vignette**](https://cran.r-project.org/web/packages/abc/vignettes/abcvignette.pdf) of the *abc* is very informative and covers the entire package.
 
@@ -892,6 +896,13 @@ Check the error of the estimate
 summary(cv)
 ```
 
+
+**Codemographics**
+
+Check the [hABC manual](https://github.com/gehara/PipeMaster/blob/master/hABC_manual.md) if you want to try a codemographic analysis with single-locus data
+
 # FIM!
+
+
   
   
