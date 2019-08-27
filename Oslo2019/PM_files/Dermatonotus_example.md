@@ -1,5 +1,6 @@
 ---
 output:
+  word_document: default
   pdf_document: default
   html_document: default
 ---
@@ -10,17 +11,17 @@ output:
   
 # Overview
 
-* Instalation
+* Installation
 * First Part:  building a model, calculating sumstats and simulating data
 * Second Part: visualization and plotting functions
 * Third Part: data analysis, approximate Bayesian computation (ABC) & supervised machine-learning (SML)
 
 ------------------------------------------------------------------------------------------------------
   
-# **Instalation** 
-  PipeMaster can be installed from github using *devtools* (to get latest version with most recent updates), or you can download and install the latest release from my [github](github.com/gehara/PipeMaster) repository.
+# **Installation** 
+  PipeMaster can be installed from github using *devtools* (to get the latest version with the most recent updates), or you can download and install the latest release from my [github](github.com/gehara/PipeMaster) repository.
 
-* **Instalation with devtools** 
+* **Installation with devtools** 
 Go to the R console, install devtools and then PipeMaster:  
   
   ```
@@ -32,8 +33,8 @@ Go to the R console, install devtools and then PipeMaster:
   
   ```
 
-* **Instalation without devtools** 
-Install all dependencies, install *PipeMaster* my last release on github. You can do all of this inside the R console using the code below. You may need to check for the latest version and change it in the appropriate line <PipeMaster-0.2.1.tar.gz>.
+* **Installation without devtools** 
+Install all dependencies, install *PipeMaster* latest release from my github. You can do all of this inside the R console using the code below. You may need to check for the latest version and change it in the appropriate line <PipeMaster-0.2.1.tar.gz>.
 
   ```
 
@@ -96,7 +97,7 @@ We will download some real data to use as an example. We are going to walk throu
     system("tar -zxvf fastas.tar.gz")
   ```
 
-* Run the code bellow to see how many files are present in the folder
+* Run the code below to see how many files are present in the folder
 
   ```
     length(list.files("./fastas"))
@@ -111,7 +112,7 @@ We will download some real data to use as an example. We are going to walk throu
 
 ## **Main Menu**
 
-We start by writing a 2 pop newick: *(1,2)*. This will sep up a 2 pop isolation model with constant population size, no migration. You can follow the description in the menu to add parameters and and priors to the model. The numbers on the right indicate the parameters of the model. This model has 2 population size parameters and 1 divergence parameter, or 1 junction in the coalescent direction. We are going to stick with a 3 parameter model for now. 
+We start by writing a 2 pop newick: *(1,2)*. This will sep up a 2 pop isolation model with constant population size, no migration. You can follow the description in the menu to add parameters and priors to the model. The numbers on the right indicate the parameters of the model. This model has 2 population size parameters and 1 divergence parameter, or 1 junction in the coalescent direction. We are going to stick with a 3 parameter model for now. 
 
 ```
   A > Number of populations to simulate      2
@@ -169,7 +170,7 @@ B > Back to main menu
 ```
 ## **Time Priors Menu**
 
-Type **G** in the **main menu** to go to **time priors**. In the **time prior** menu you can see all parameters relative to time. In this model we have a single parameter, *join1_2*, which represents the junction (or divergence in real life direction) of population 1 and 2. The defaut of PipeMaster is a uniform distribution with *min* and *max* of *500,000* and *1,500,000* generation. **Time is measured in generations**. If your organism has a generation time different than 1, you will need to convert the time from years to generations in order to set up your prior. For example if you want to setup a divergence between 100,000 and 1,000,000 years and your organims has a generation time of 4 years, you will need to divide the time by 4. Your min and max values will be 25,000 ans 250,000. Type **B** to go back to the main menu.
+Type **G** in the **main menu** to go to **time priors**. In the **time prior** menu you can see all parameters relative to time. In this model we have a single parameter, *join1_2*, which represents the junction (or divergence in real life direction) of population 1 and 2. The default of PipeMaster is a uniform distribution with *min* and *max* of *500,000* and *1,500,000* generations. **Time is measured in generations**. If your organism has a generation time different than 1, you will need to convert the time from years to generations in order to set up your prior. For example, if you want to setup a divergence between 100,000 and 1,000,000 years and your organism has a generation time of 4 years, you will need to divide the time by 4. Your min and max values will be 25,000 ans 250,000. Type **B** to go back to the main menu.
 
 ```
   P > Time prior distribution:     uniform
@@ -274,12 +275,12 @@ Type **I** in the **main menu** to go to the gene menu. To get into the **gene m
 
 ## **Mutation rate prior**
 
-**In the case of genomic data the mutation rate works as a hyperparameter**. The defaut uniform distribution above indicates the *min* and *max* values to sample an average and SD of all mutation rates. That is, the actual mutation rate for each of the 200 loci will be sampled from a normal distrubution with average and SD sampled from this uniform prior. In each simulation iteration a new average and SD are sampled and from these parameters the 200 mutation rates are sampled. This normal distribution is truncated at zero, so it does not realy have always a bell shape. You can set different distribution for the mutation rate. All distributions available in R are allowed, but this distribution is specified in the simulation function (*sim.msABC.sumstat*). We will see this further in the tutorial. Now go back to the **main menu** and hit **Q** to get out of the **Model Builder**.
+**In the case of genomic data the mutation rate works as a hyperparameter**. The defaut uniform distribution above indicates the *min* and *max* values to sample an average and SD of all mutation rates. That is, the actual mutation rate for each of the 200 loci will be sampled from a normal distribution with average and SD sampled from this uniform prior. In each simulation iteration a new average and SD are sampled and from these parameters the 200 mutation rates are sampled. This normal distribution is truncated at zero, so it doesn't not really always have a bell shape. You can set different distribution for the mutation rate. All distributions available in R are allowed, but this distribution is specified in the simulation function (*sim.msABC.sumstat*). We will see this further in the tutorial. Now go back to the **main menu** and hit **Q** to get out of the **Model Builder**.
 
 
 ## **Generating a model from a template**
 
-Our model was saved in the object **Is**. We can easely generate a nested model using a previous model as template. We are goign to use our **Is** model to generate a similar model but with gene flow. Let's call this model **IM**, isolaiton with migration. We will go directly to the **main menu**. We will then type **C** to include migration parameters, than type **y** or **yes**.
+Our model was saved in the object **Is**. We can easily generate another model using a previous model as template. We are going to use our **Is** model to generate a similar model but with gene flow. Let's call this model **IM**, isolation with migration. We will go directly to the **main menu**. We will then type **C** to include migration parameters, than type **y** or **yes**.
 
 ```
   IM <- main.menu(Is)
@@ -349,7 +350,7 @@ Let's go back to the main menu and then quit. The model is saved in the object *
   
 ## **Model Object** 
 
-By typing the model name in the R console we can see its contents. You don't have to know how to read the model object, but it might help you understand how the package works. The *loci* index show your loci with mutation rates. the *I* index show the population structure, the third column indicates the number of pops and the following columns indicate  the number of individuals for each population. The *flags* index show the parameters of your model with respective priors. The *conds* index show the condition matrices and the *tree* parameter show the topology of the model.
+By typing the model name in the R console we can see its contents. You don't have to know how to read the model object, but it might help you understand how the package works. The *loci* index shows your loci with mutation rates. the *I* index shows the population structure, the third column indicates the number of pops and the following columns indicate the number of individuals for each population. The *flags* index shows the parameters of your model with respective priors. The *conds* index shows the condition matrices and the *tree* parameter shows the topology of the model.
 
 ```
   > Is
@@ -393,7 +394,7 @@ By typing the model name in the R console we can see its contents. You don't hav
 
 ## **Checking model parameters and manipulating prior values** 
 
-There is an easier way to check the model parameters and priors. You can also update your prior without using the *main.menu* function. To see your priors use *get.prior.table*. This function generates a table with the model parameters and priors. You can then alter this table and use it to update the prior values of your model using *update.priors*. Note that for the update.prior to work the parameters in the table and model object have to be the same.
+There is an easier way to check the model parameters and priors. You can also update your prior without using the *main.menu* function. To see your priors use *get.prior.table*. This function generates a table with the model parameters and priors. You can then alter this table and use it to update the prior values of your model using *update.priors*. Note that for the update.prior to work, the parameters in the table and model object have to be the same.
 
 
 ```
@@ -506,7 +507,7 @@ To calculate the summary statistics for the empirical data we will use the **obs
   [75] "s_average_pi_s_average_w"       "s_variance_pi_s_variance_w"
 ```
   
-There are **76** summary statistics for this data, these are averages and variances across loci, for each population and overall. We are going to use **grep** to select the stats we want to exclude. Description of summary statistics in the [msABC manual](https://www.dropbox.com/s/m1mkmp0xtiv2a3x/manual.pdf?dl=0)
+There are **76** summary statistics for this data, these are averages and variances across loci, for each population and overall. We are going to use **grep** to select the stats we want to exclude. Descriptions of summary statistics are found in the [msABC manual](https://www.dropbox.com/s/m1mkmp0xtiv2a3x/manual.pdf?dl=0)
 
 
 ```
@@ -552,7 +553,7 @@ Save the observed as a table using **write.table**.
 
 ## **Simulating Data**
 
-Now that we have two models, **Is** and **IM** we are going to simulate summary statistics. We will use the *sim.msABC.sumstat* to simulate genomic data. This function only works in linux and Mac. PipeMaster controls *msABC* to simulate the data. It simulates data in batches or blocks to avoid memmory overload in R and at the same time optimize the time spent in writing the simulations to file. To control the total number of simulations you have to control the size of the simulation block, the number of blocks to simulate and the number of cores used. The total number of simulations = nsim.blocks *x* block.size *x* ncores. You can play with this values to optimize the speed of the simulation process. A small block size will take less RAM but will require a more frequent manegenment of the slave nodes by the master node. This can be time consuming. A large block size may overload R, R can't handle a lot of memmory very well. It can also take up too much RAM, specially if you are running several cores at the same time. PipeMaster will output a time estimate at the console. This might help you optimize the parameters. From my experience a block.size of 1000 will be good for most cases. If you don't want to mess with this just leave at 1000, it should work fine.
+Now that we have two models, **Is** and **IM** we are going to simulate summary statistics. We will use the *sim.msABC.sumstat* to simulate genomic data. This function only works in linux and Mac. PipeMaster controls *msABC* to simulate the data. It simulates data in batches or blocks to avoid memory overload in R and at the same time optimize the time spent in writing the simulations to file. To control the total number of simulations you have to control the size of the simulation block, the number of blocks to simulate, and the number of cores used. The total number of simulations = nsim.blocks *x* block.size *x* ncores. You can play with these values to optimize the speed of the simulation process. A small block size will take less RAM but will require a more frequent management of the slave nodes by the master node. This can be time consuming. A large block size may overload R, R can't handle a lot of memory very well. It can also take up too much RAM, specially if you are running several cores at the same time. PipeMaster will output a time estimate at the console. This might help you optimize the parameters. From my experience, a block.size of 1000 will be good for most cases. If you don't want to mess with this, just leave at 1000, it should work fine.
 
 
 ```
@@ -564,11 +565,11 @@ sim.msABC.sumstat(IM, nsim.blocks = 1, use.alpha = F, output.name = "IM", append
 ```
 -------------------------------------------------------------------------------------------------------
 
-# **Secound part: visualizations and plotting functions**
+# **Second part: visualizations and plotting functions**
 
-In this part of the tutorial we will going to go through some of the vialization functions of PipeMaster. We are going to use the notebook tab of Jupyter notebook to visualize the plots in an interactive way.
+In this part of the tutorial we will go through some of the visualization functions of PipeMaster. We are going to use the notebook tab of Jupyter notebook to visualize the plots in an interactive way.
 
-* Open a new notebook by going to *New* in the upper right corder of the main Jupyter Notebook tab. 
+* Open a new notebook by going to *New* in the upper right corner of the main Jupyter Notebook tab. 
 
 * To run R in jupyter notebook we need to load rpy2
   
@@ -594,7 +595,7 @@ In this part of the tutorial we will going to go through some of the vialization
 
 ## **Plotting a Model**
 
-There is now a new function in PipeMaster to plot your model, this function is a wrapper of the PlotMS function from the POPdemog r-package. I have not tested it extensivelly, if you find bugs please send me an email (marcelo.gehara@gmail.com). 
+There is now a new function in PipeMaster to plot your model. This function is a wrapper of the PlotMS function from the POPdemog r-package. I have not tested it extensively yet, if you find bugs please send me an email (marcelo.gehara@gmail.com). 
 
 ```
 %%R
@@ -624,7 +625,7 @@ PipeMaster:::plot.priors(Is, nsamples = 10000)
 
 ## **Plotting simulations against empirical data**
 
-Let's visualize the simulations. Read the simulations back into R. If your simulation file is very big (you have many simulations, like 5E5 or more) you should use the bigmemmory r-package to handle the data. We will also match the simulations sumstats to the observed so that we keep the same set of sumstats in the simulated. 
+Let's visualize the simulations. Read the simulations back into R. If your simulation file is very big (you have many simulations, like 5E5 or more) you should use the bigmemory r-package to handle the data. We will also match the simulations sumstats to the observed so that we keep the same set of sumstats in the simulated. 
 
 ```
 %%R
@@ -657,21 +658,21 @@ plotPCs(model = models, index = index, observed = obs, subsample = 1)
 ![Principal Components of simulated and observed data](pca.png)
 -----------------------------------------------------------------------------------------------------
 
-## **Third part: approximate Bayesian computation (ABC) & supervized machine-learning (SML)**
+## **Third part: approximate Bayesian computation (ABC) & supervised machine-learning (SML)**
 
 In the last part of the tutorial we are going to perform the data analysis using *PipeMaster*, *abc* and *caret* r-packages.
 
 ---
 
-* **This part of the tutorial is limmited to a single case**, you should latter check the following materials if you plann to perform any of these analyses:
+* **This part of the tutorial is limited to a single case**, you should latter check the following materials if you plan to perform any of these analyses:
 
 * (i)The [**vignette**](https://cran.r-project.org/web/packages/abc/vignettes/abcvignette.pdf) of the *abc* is very informative and covers the entire package.
 
-* (ii)*caret* is a very extensive package for machine-learning, there are hundreads of algorithms avalable with extensive [**online documentation**](http://topepo.github.io/caret/index.html).
+* (ii)*caret* is a very extensive package for machine-learning, there are hundreds of algorithms avalable with extensive [**online documentation**](http://topepo.github.io/caret/index.html).
 
 ---
 
-*abc* is already a dependency of *PipeMaster* but we need to load *caret*. To run *caret* in parallel we need to load a r-package that manages nodes to run loops in parallel using MPI. There are several r-packages for this, we are goig to use *doMC*.
+*abc* is already a dependency of *PipeMaster* but we need to load *caret*. To run *caret* in parallel we need to load a r-package that manages nodes to run loops in parallel using MPI. There are several r-packages for this, we are going to use *doMC*.
 
 ``` 
 %%R
@@ -680,7 +681,7 @@ library(caret) # caret: used to perform the superevised machine-learning (SML)
 library(doMC) # doMC: necessary to run the SML in parallel
 ```
   
-Load the example data available in *PipeMaster*. This example data is based on [Gehara et al. *in review*](PipeMaster.pdf) which is the paper that describes the package. [**Here**](https://docs.google.com/spreadsheets/d/1FZonOF27VgGKiAgWQS56zZ4G5bbtz5t_-302LJQFlQA/edit?usp=sharing) you can access a spreed sheet with all model parameters and priors. 
+Load the example data available in *PipeMaster*. This example data is based on [Gehara et al. *in review*](PipeMaster.pdf) which is the paper that describes the package. [**Here**](https://docs.google.com/spreadsheets/d/1FZonOF27VgGKiAgWQS56zZ4G5bbtz5t_-302LJQFlQA/edit?usp=sharing) you can access a spread sheet with all model parameters and priors. 
   
 ```
 %%R 
@@ -690,7 +691,7 @@ data("observed_Dermatonotus", package = "PipeMaster")
 # models used in Gehara et al
 data("models", package="PipeMaster")
 ```
-There are 10 models. Let's plot one of these models. Remeber, you can use them as templates for your own analysis. You will just need to update the priors as above, and replicate your data structure to the model using the *get.data.structue* as explaned above. To see all the model objects type *ls()* in the R console.
+There are 10 models. Let's plot one of these models. Remmeber, you can use them as templates for your own analysis. You will just need to update the priors as above, and replicate your data structure to the model using the *get.data.structue* as explaned above. To see all the model objects type *ls()* in the R console.
 
 ```
   %%R
@@ -773,11 +774,11 @@ Combine simulations in a single matrix matching the summary stats names in the o
    
 ## **Supervised machine-learning analysis for model classification**. 
 
-We are going to train a neural network algorithm and than use it to classify our empirical data. In the paper that describes the package, [Gehara et al. *in review*](PipeMaster.pdf), I ran a simulation experiment to compare ABC rejection with SML with neural network and I found that the SML is much more efficient and accurate. 
+We are going to train a neural network algorithm and then use it to classify our empirical data. In the paper that describes the package, [Gehara et al. *in review*](PipeMaster.pdf), I ran a simulation experiment to compare ABC rejection with SML with neural network and I found that the SML is much more efficient and accurate. 
 
-To train the algorithm we need to split the data into tranning and testing, usually 75% is used for tranning and 25% for testing. We can do that with *createDataPartition*. We also need to specify our predictors and our outcome. In our case the predictors are the summary statistics and the outcome is the model label or index. 
+To train the algorithm we need to split the data into training and testing, usually 75% is used for training and 25% for testing. We can do that with *createDataPartition*. We also need to specify our predictors and our outcome. In our case, the predictors are the summary statistics and the outcome is the model label or index. 
 
-It can be very time consumming to set up the parameters of the neural network and there is no objective way to decide which parameters values to use. To help deciding the parameter values *caret* runs the tranning multiple times with different parameters values to see which combination gets the highest accuracy in model selection. And it does this using different resampling methods. You can set up the number of replicates and the resampling method used in the *trainControl* function.
+It can be very time consuming to set up the parameters of the neural network, and there is no objective way to decide which parameters values to use. To help deciding the parameter values, *caret* runs the training multiple times with different parameters values to see which combination gets the highest accuracy in model selection. And it does this using different resampling methods. You can set up the number of replicates and the resampling method used in the *trainControl* function.
  
 ```
   %%R
@@ -837,7 +838,7 @@ write.table(c(pred,accu),"results.selection.txt")
 
 ## **Approximate Bayesian computation with neural network for parameter estimate**. 
 
-The *abc* performs a rejection step and then uses the retained data to train a neural network to estimate parameters.
+The *abc* performs a rejection step and then uses the retained data to train a neural network to estimate parameters
   
 ```
 %%R
