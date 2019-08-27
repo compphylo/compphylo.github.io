@@ -1,3 +1,5 @@
+#exercise3_MSFS.obs
+
 echo "zeta = sample(1:10, 1, replace = T) / 10
 tau1s = sample(10000:5000000, 1, replace = T)
 beta = round(exp(.95 * log(tau1s))):round(exp(1.05 * log(tau1s)))
@@ -55,7 +57,7 @@ tau1 0 1 1 1 0 2
 FREQ 1 0 0 OUTEXP
 " >exercise3.template.par
 
-for x in {1..1001}
+for x in {1..501}
 do
 
 R -s <exercise3.R >/dev/null 2>&1
@@ -88,9 +90,10 @@ for y in {1..10}
 do
 cat exercise3.draws | cut -d ' ' -f ${y} >exercise3.draw
 cat exercise3.template.par | sed -e "s/tau1/`cat exercise3.draw | awk 'NR == 1'`/g" -e "s/tau2/`cat exercise3.draw | awk 'NR == 2'`/g" -e "s/RESIZE0/`cat exercise3.draw | awk 'NR == 7'`/g" -e "s/RESIZE1/`cat exercise3.draw | awk 'NR == 8'`/g" -e "s/NPOP0/`cat exercise3.draw | awk 'NR == 9'`/g" -e "s/NPOP1/`cat exercise3.draw | awk 'NR == 10'`/g" -e "s/MIG1/`cat exercise3.draw | awk 'NR == 12'`/g" -e "s/MIG2/`cat exercise3.draw | awk 'NR == 13'`/g" -e "s/MIG3/`cat exercise3.draw | awk 'NR == 14'`/g" -e "s/MIG4/`cat exercise3.draw | awk 'NR == 15'`/g" >exercise3.par
-./fsc26 -i exercise3.par -n 1000 -m -c 1 --multiSFS >/dev/null 2>&1
+./fsc26_linux64/fsc26 -i exercise3.par -n 1000 -m -c 1 --multiSFS >/dev/null 2>&1
 cat exercise3/exercise3_MSFS.txt | awk 'NR == 3' >>exercise3.SFS.${y}
 done
 
-rm -r exercise3.R exercise3.template.par exercise3.draws exercise3.hyperdraws exercise3.draw exercise3.par exercise3 MRCAs.txt seed.txt
 done
+
+rm -r exercise3.R exercise3.template.par exercise3.draws exercise3.hyperdraws exercise3.draw exercise3.par exercise3 seed.txt

@@ -121,7 +121,7 @@ communityMatrix <- read.csv(file="CommunityDataMatrix.csv", sep=",", header=T, r
 
 ## check out how many species are in each community 
 ## the -1 just says to ignore the first column becuase we already know it is the "all" community
-colSums(communityMatrix[,-1])
+#colSums(communityMatrix[,-1])
 ```
 
 We see that there are some communities that have very few species, somtimes less than 20. We are going to use all communities with 20 or more species. 
@@ -277,6 +277,7 @@ hist(log10(regionalTraits), breaks=100)
 ```{r, echo=FALSE}
 hist(log10(regionalTraits), breaks=100)
 ```
+
 > Note that we don't just log-transform for statistical convienience, especially in the case of height. This is because the differences in height between the species on the ground and herbaceous level are less dramatic, but arguably just as important as the incredibly large differences in height that occurr because of the few very tall trees and shrubs in the community. If we do not log-transform we are not weighting the importance of the small height differences on the ground level where there are many more species. 
 
 Before we can simulate community assembly data, we need to see what model of trait evolution is most appropriate for our data, Brownian Motion (BM; Felsensten 1985) or Ornstein-Uhlenbeck (OU; Hansen 1997, Butler & King 2004). For this, we will fit both models of trait evolution to our phylogenetic and trait data using the `fitContinuous()` function in `geiger`. Then we will perform model selection using an information theoric approach, AIC. Briefly, AIC estimates the quality of each model, relative to each of the other models, while dealing with the trade-off between the goodness of fit of the model and the simplicity of the model. 
@@ -522,7 +523,7 @@ legend("topleft", legend = c("competition", "filtering", "neutral"), fill = c("#
 ## if desired, you can save the figure in your folder 
 pdf('SJModelPredictions_MaxHght_Barplot.pdf', width=5, height=4)
 ```
-```{r echp=FALSE}
+```{r echo=FALSE}
 ## use the predict() function from randomForest
 modelPredictions <- predict(RF.model, allSummaryStats, type="vote")
 
@@ -530,6 +531,10 @@ modelPredictions <- predict(RF.model, allSummaryStats, type="vote")
 barplot(t(modelPredictions), col=c("#005679", "#00B7C4", "#FF8800") , border="white", xlab="San Juan Communities", cex.names = 0.1)
 legend("topleft", legend = c("competition", "filtering", "neutral"), fill = c("#005679", "#00B7C4", "#FF8800"), cex=.8)
 ```
+
+Here we see that a majority of communities support the neutral model of assembly the most. However, there are several communities that show strong support for the filtering model, and other communities that show moderate support for competition. 
+
+Time and data permitting, we might dive into these results more and ask how the support for different models is related to other island metadata, likesize, area, and age of island. 
 
 ## 6. Parameter Estimation
 

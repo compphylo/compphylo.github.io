@@ -146,6 +146,7 @@ flags should be familiar from earlier:
 #SBATCH --account=nn9458k
 #SBATCH --time=144:00:00
 #SBATCH --cpus-per-task=11
+#SBATCH --ntasks-per-node=1
 #SBATCH --mem-per-cpu=1G
 
 source ~/.bashrc
