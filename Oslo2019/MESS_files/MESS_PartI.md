@@ -42,7 +42,7 @@ wat
 
 <a name="ETIB-NTIB-Intro"></a>
 ## Equilibrium theory of island biogeography and neutral theory
-[Background and a brief introduction to the MESS model.](https://docs.google.com/presentation/d/1dbQOZ17RliFyRBzyLdDDn3SWCmaWwXcVD2h1muyixv8/edit#slide=id.g35887b7c4d_0_159) 
+[Background and a brief introduction to the MESS model.](https://docs.google.com/presentation/d/1dbQOZ17RliFyRBzyLdDDn3SWCmaWwXcVD2h1muyixv8/edit?usp=sharing)
 
 ![png](images/Forward_Time_Neutral_Assembly.png)
 
