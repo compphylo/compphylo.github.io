@@ -666,9 +666,11 @@ In the last part of the tutorial we are going to perform the data analysis using
 
 * **This part of the tutorial is limited to a single case**, you should latter check the following materials if you plan to perform any of these analyses:
 
-* (i)The [**vignette**](https://cran.r-project.org/web/packages/abc/vignettes/abcvignette.pdf) of the *abc* is very informative and covers the entire package.
+* (i) The [**vignette**](https://cran.r-project.org/web/packages/abc/vignettes/abcvignette.pdf) of the *abc* is very informative and covers the entire package.
 
-* (ii)*caret* is a very extensive package for machine-learning, there are hundreds of algorithms avalable with extensive [**online documentation**](http://topepo.github.io/caret/index.html).
+* (ii) *caret* is a very extensive package for machine-learning, there are hundreds of algorithms avalable with extensive [**online documentation**](http://topepo.github.io/caret/index.html).
+
+* (iii) [Here](https://www.youtube.com/watch?v=aircAruvnKk) is a series of YouTube videos explanning Neural Networks in much ore detail, I took some of the material from these videos.
 
 ---
 
