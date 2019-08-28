@@ -670,7 +670,7 @@ In the last part of the tutorial we are going to perform the data analysis using
 
 * (ii) *caret* is a very extensive package for machine-learning, there are hundreds of algorithms avalable with extensive [**online documentation**](http://topepo.github.io/caret/index.html).
 
-* (iii) [Here](https://www.youtube.com/watch?v=aircAruvnKk) is a series of YouTube videos explanning Neural Networks in much ore detail, I took some of the material from these videos.
+* (iii) [Here](https://www.youtube.com/watch?v=aircAruvnKk) is a series of YouTube videos explaning Neural Networks in much more detail, I took some of the material from these videos. 
 
 ---
 
