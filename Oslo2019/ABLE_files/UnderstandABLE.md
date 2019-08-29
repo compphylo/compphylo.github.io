@@ -1,5 +1,4 @@
-## This is simply a listing page for the several README files contained in the ABLE Github repository
+## Please download to your local computer the following files (right click and "Save as"...)
 
-- [Folder containing the model configurations](config.md)
-- [Folder containing the Orangutan data](data.md)
-- [Folder containing miscellaneous scripts](scripts.md)
+- [The `ABLE` documentation](https://github.com/champost/ABLE/raw/master/doc/helpABLE.pdf)
+- [The `ms` documentation](https://github.com/compphylo/compphylo.github.io/raw/master/Oslo2019/ABLE_files/msdoc.pdf)
