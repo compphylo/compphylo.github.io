@@ -71,4 +71,6 @@ Times            | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
 
 ## CompPhylo Oslo 2019 Group Photo
 
+![CompPhyloGroup1](CompPhylo2019_team1.JPG)
+![CompPhyloGroup1](CompPhyloGroup2.JPG)
 Don't forget to get a nice group photo!
