@@ -1,11 +1,11 @@
 # Welcome to CompPhylo 2023 - Mexico City Edition
 
 ## Workshop Location and Date
-January 13, 2023 (10h-14h + break) 
-SSB Standalone Meeting (2023)
-UNIVERSUM Science Museum Theater, UNAM CU Campus
-Cto. Centro Cultural, C.U., Coyoacán
-04510 Ciudad de México
+January 13, 2023 (10h-14h + break)  
+SSB Standalone Meeting (2023)  
+UNIVERSUM Science Museum Theater, UNAM CU Campus  
+Cto. Centro Cultural, C.U., Coyoacán  
+04510 Ciudad de México  
 CDMX
 
 ## Workshop Synopsis/Goals
