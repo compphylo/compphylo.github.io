@@ -18,7 +18,7 @@ uplift of mountain ranges, reduction or expansion of suitable habitat due to
 changing precipitation regimes, etc.). Estimating the extent to which co-distributed
 species undergo similar evolutionary, demographic and distributional histories as
 a result of changes in shared abiotic conditions is the domain of comparative
-phylogeography (Arbogast & Kenagy, 2001;Gutiérrez-García & Vázquez-Domínguez, 2011;
+phylogeography (Arbogast & Kenagy, 2001; Gutiérrez-García & Vázquez-Domínguez, 2011;
 Edwards et al., 2022). Originally, statistical comparative phylogeographic methods
 emerged during the era of single-locus data (e.g.Hickerson et al., 2007) and soon
 expanded to account for multi-locus data on the order of handfuls to dozens of loci
@@ -29,7 +29,7 @@ Andrews et al., 2016), which can often encompass thousands to tens of thousands 
 independent loci.Accordingly, new comparative phylogeographic methods have been
 developed to perform inference on such RADSeq or even whole genome-scale datasets
 by utilizing either suites of summary statistics (Gehara et al., 2017) or aggregated
-(joint) site frequency spectra (Xue &Hickerson, 2017). In this proposed workshop we
+(joint) site frequency spectra (Xue & Hickerson, 2017). In this proposed workshop we
 will present one such method, Phylogeographic Temporal Analysis (PTA), which combines
 advances in the computational performance of large-scale (genome-wide) coalescent
 simulations (Kelleher et al., 2016; Kelleher & Lohse, 2020) with the power of machine
