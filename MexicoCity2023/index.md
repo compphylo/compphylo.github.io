@@ -59,7 +59,7 @@ no computational experience. Workshop attendees will need to bring a laptop comp
 ## Schedule/Workshop Structure
 
 * Background on comparative phylogeography. Why do we do this? How? What kinds of questions can we ask and answer? Examples from the literature. (1 hour)
-* Running simulations with the PTA comparative phylogeographic model and reviewingsome of the key model parameters and outputs. (1.5 hours)
+* Running simulations with the PTA comparative phylogeographic model and reviewing some of the key model parameters and outputs. (1.5 hours)
 * Machine learning inference using simulations and toy empirical data. (1.5 hours)
 
 ## CompPhylo Mexico City 2023 Group Photo
