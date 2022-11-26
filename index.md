@@ -17,7 +17,7 @@ exchanges between researchers, participants will have the opportunity to present
 their own work in the evenings.
 
 ## Upcoming events:
-* [CompPhylo2020-Leipzig](Leipzig2020/index.md)
+* [CompPhylo2023-MexicoCity](MexicoCity2023/index.md)
 
 ## Past Events:
 * [CompPhylo2019-Oslo](Oslo2019/index.md)
