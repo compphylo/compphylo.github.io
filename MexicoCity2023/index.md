@@ -2,7 +2,7 @@
 
 ## Workshop Location and Date
 January 13, 2023 (10h-14h + break)  
-SSB Standalone Meeting (2023)  
+[SSB Standalone Meeting (2023)](https://www.ib.unam.mx/ib/ssb2023/)  
 UNIVERSUM Science Museum Theater, UNAM CU Campus  
 Cto. Centro Cultural, C.U., Coyoacán  
 04510 Ciudad de México  
