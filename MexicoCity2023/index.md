@@ -3,9 +3,7 @@
 ## Workshop Location and Date
 January 13, 2023 (10h-14h + break)  
 [SSB Standalone Meeting (2023)](https://www.ib.unam.mx/ib/ssb2023/)  
-UNIVERSUM Science Museum Theater, UNAM CU Campus  
-Cto. Centro Cultural, C.U., Coyoacán  
-04510 Ciudad de México  
+TBD, UNAM CU Campus  
 CDMX
 
 ## Workshop Synopsis/Goals
@@ -58,9 +56,15 @@ no computational experience. Workshop attendees will need to bring a laptop comp
 
 ## Schedule/Workshop Structure
 
-* Background on comparative phylogeography. Why do we do this? How? What kinds of questions can we ask and answer? Examples from the literature. (1 hour)
-* Running simulations with the PTA comparative phylogeographic model and reviewing some of the key model parameters and outputs. (1.5 hours)
-* Machine learning inference using simulations and toy empirical data. (1.5 hours)
+* (Background on comparative phylogeography)[https://docs.google.com/presentation/d/1lHaMy4gizGOZbfQ8-zJqNZjLqOv0gZ5s/edit?usp=sharing&ouid=104169659317553534133&rtpof=true&sd=true] [1 hr]
+ * Why do we do this? How?
+ * What kinds of questions can we ask and answer?
+ * Examples from the literature.
+* (Running PTA Simulations)[PTA_Simulations.md] [1.5 hr]
+ * Running simulations with the PTA comparative phylogeographic model
+ * Reviewing some of the key model parameters and outputs. (1.5 hours)
+* (Hands-on w/ ML Inference)[PTA_Inference.md] [1.5 hr]
+ * Machine learning inference using simulations and toy empirical data.
 
 ## CompPhylo Mexico City 2023 Group Photo
 Don't forget to get a nice group photo!
