@@ -15,7 +15,15 @@
 > - Place prior ranges on model parameters.
 > - View and interpret simulation outputs.
 
-### Launch PTA in the cloud using Binder
+## Table of Contents
+* [Launch PTA](<#launch-pta-in-the-cloud>)
+* [Create a new params file](<#create-and-edit-a-new-params-file>)
+* [Understanding model parameters](<#introduction-to-key-model-parameters>)
+* [Setting prior ranges on parameters](<#set-prior-ranges-on-key-parameters>)
+* [Inspecting simulation results](<#inspecting-simulation-results>)
+
+### Launch PTA in the cloud
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/isaacovercast/PTA/master)
 
 ### Create and edit a new params file
 
@@ -23,10 +31,10 @@
 
  Ne, τ (Time of demographic change), ε (magnitude of change)
 
-### Set prior ranges on Ne, τ, and ε
+### Set prior ranges on key parameters
 
 
-### Inspecting simulations results
+### Inspecting simulation results
 
 
 
