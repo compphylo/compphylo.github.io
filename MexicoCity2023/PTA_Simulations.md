@@ -142,8 +142,7 @@ for now. Edit the following lines in the 'params-MG-Snakes.txt':
 > #### **NOTE:** The meaning of key model parameters
 > **Ne**          - Effective population size of the contemporary population\
 > **τ (tau)**     - Time of demographic change in years before present\
-> **ε (epsilon)** - Magnitude of size change backwards in time\
-                        ε<1 expansion; ε>1 contraction; ε=1 constant size\
+> **ε (epsilon)** - Magnitude of size change backwards in time (ε<1 expansion; ε>1 contraction; ε=1 constant size)\
 > **ζ (zeta)**    - The proportion of co-expanding taxa
 
 When it's finished, your file should look like this:
@@ -167,9 +166,18 @@ MG-Snakes            ## [0] [simulation_name]: The name of this simulation scena
 After you are done choose **File->Save Text** to save your changes. Now we are
 ready to run some simulations!
 
+> #### **Challenge: Run 10 simulations**
+> Using the `PTA -h` help message, see if you can figure out how to
+> run `10` simulations using the params file we just created. Take a few
+> minutes if you need, and try not to peek at the answer below. ;)
+
 ### Running PTA simulations
 
-### Inspecting simulation results
+![PTA Run First Simulations](img/PTA-RunFirstSims.png)
 
+### Inspecting simulation results
+* Remind me what units are t_s in again?
+* How can there not be an easier way to view CSV files on the CLI?
+* From `csvkit`. This seems needlessly complicated: `csvlook -d " " default_PTA/MG-Snakes-SIMOUT.csv | less -S`
 
 
