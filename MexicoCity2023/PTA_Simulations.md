@@ -119,6 +119,7 @@ data. In the text window change the following values:
 150                 ## [8] [length]: Length in bp of each independent genomic region to simulate
 0                   ## [11] [recoms_per_gen]: Recombination rate within independent regions scaled per base per generation
 ```
+> **Question:** Why might we be setting `recombs_per_gen` to 0 here?
 
 #### Things that we want to know: Parameters that determine the demographic histories to explore
 The **demographic history** is the unknown process that generated the patterns
@@ -135,17 +136,36 @@ for now. Edit the following lines in the 'params-MG-Snakes.txt':
 1e5-5e5              ## [5] [tau]: Time of demographic change
 0                    ## [7] [zeta]: Proportion of coexpanding taxa. Default will sample U~(0, 1)
 ```
-> **NOTE on scientific notation:** In the above `1e5` is a standard notational
-> shortcut to indicate `1*10^5` or 100,000.
+> **NOTE:** In the above `1e5` is a standard **scientific notation**
+> shortcut to indicate `1*10^5` or `100,000`.
 
 > #### **NOTE:** The meaning of key model parameters
-> **Ne**          - Effective population size of the contemporary population
-> **τ (tau)**     - Time of demographic change in years before present
-> **ε (epsilon)** - Magnitude of size change backwards in time
-                        ε<1 expansion; ε>1 contraction; ε=1 constant size
+> **Ne**          - Effective population size of the contemporary population\
+> **τ (tau)**     - Time of demographic change in years before present\
+> **ε (epsilon)** - Magnitude of size change backwards in time\
+                        ε<1 expansion; ε>1 contraction; ε=1 constant size\
 > **ζ (zeta)**    - The proportion of co-expanding taxa
 
+When it's finished, your file should look like this:
+```
+------- PTA params file (v.0.0.11)----------------------------------------------
+MG-Snakes            ## [0] [simulation_name]: The name of this simulation scenario
+./default_PTA        ## [1] [project_dir]: Where to save files
+21                   ## [2] [npops]: Number of populations undergoing co-demographic processes
+4                    ## [3] [nsamps]: Numbers of samples for each populations
+10000                ## [4] [N_e]: Effective population size of the contemporary population
+1e5-5e5              ## [5] [tau]: Time of demographic change
+10                   ## [6] [epsilon]: Magnitude of demographic change
+0                    ## [7] [zeta]: Proportion of coexpanding taxa. Default will sample U~(0, 1)
+150                  ## [8] [length]: Length in bp of each independent genomic region to simulate
+100                  ## [9] [num_replicates]: Number of genomic regions to simulate
+1                    ## [10] [generation_time]: Generation time in years
+0                    ## [11] [recoms_per_gen]: Recombination rate within independent regions scaled per base per generation
+1e-08                ## [12] [muts_per_gen]: Mutation rate scaled per base per generation
+```
 
+After you are done choose **File->Save Text** to save your changes. Now we are
+ready to run some simulations!
 
 ### Running PTA simulations
 
