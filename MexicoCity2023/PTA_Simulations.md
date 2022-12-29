@@ -104,24 +104,48 @@ Thinking further in this way we can break the parameters down into two
 categories: **things that we know** and **things that we want to know**. Let's
 start with 'things that we know.'
 
-#### Parameters that determine the shape and size of the data
-The shape and size of the data are things that we know coming into the analysis.
+#### Things that we know: Parameters that determine the shape and size of the data
+The **shape and size of the data** are things that we know coming into the
+analysis. By 'shape and size' we mean everything having to do with the data
+that you have in hand in coming to the analysis: number of populations, number
+of samples per population, length and number of RADSeq loci, and so on. We specify
+everything that we **know** about the data to constrain the model to generate
+simulated data that is as directly comparable to our observed data as possible.
 
-Now let's edit this file to more closely resemble the Arianna's Malagasy snake
+Now let's edit this file to more closely resemble Arianna's Malagasy snake
 data. In the text window change the following values:
 ```
 21                  ## [2] [npops]: Number of populations undergoing co-demographic processes
 150                 ## [8] [length]: Length in bp of each independent genomic region to simulate
 0                   ## [11] [recoms_per_gen]: Recombination rate within independent regions scaled per base per generation
-
 ```
 
-#### Parameters that determine the demographic histories to explore
+#### Things that we want to know: Parameters that determine the demographic histories to explore
+The **demographic history** is the unknown process that generated the patterns
+in the observed data. What we **do not know** parameters values that determined
+this process. In order to **infer** these parameters we must express our
+uncertainty about their values by placing **prior search ranges** on them.
+
+For the purpose of this brief tutorial we will focus on only inferring two key
+model parameters: the proportion of coexpanding taxa [ζ (zeta)] and the timing
+of co-expansion [τ (tau)]. In practice one might also explore several of the other
+parameters detailed below, but for computational efficiency we'll limit ourselves
+for now. Edit the following lines in the 'params-MG-Snakes.txt':
+```
+1e5-5e5              ## [5] [tau]: Time of demographic change
+0                    ## [7] [zeta]: Proportion of coexpanding taxa. Default will sample U~(0, 1)
+```
+> **NOTE on scientific notation:** In the above `1e5` is a standard notational
+> shortcut to indicate `1*10^5` or 100,000.
 
 > #### **NOTE:** The meaning of key model parameters
-> **Ne** - 
-> **τ** - Time of demographic change
-> **ε** - magnitude of change
+> **Ne**          - Effective population size of the contemporary population
+> **τ (tau)**     - Time of demographic change in years before present
+> **ε (epsilon)** - Magnitude of size change backwards in time
+                        ε<1 expansion; ε>1 contraction; ε=1 constant size
+> **ζ (zeta)**    - The proportion of co-expanding taxa
+
+
 
 ### Running PTA simulations
 
