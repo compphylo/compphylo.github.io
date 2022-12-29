@@ -44,10 +44,48 @@ installation process and operate in a homogeneous computing environment.
 >
 > That all being said, Binder is still really cool and useful. ;)
 
+After Binder launches you'll be presented with the JupyterLab interface,
+which consists of a 'file browser' and an 'app launcher'.
 ![JupyterLab Overview](img/JupyterLab-Overview.png)
 
+Start by launching a **Terminal** app, which will bring up a command line
+interface (CLI). Type `PTA` and push enter and you'll see the PTA "Help" message:
+
+![PTA Help](img/PTA-Help.png)
+
+This will show several optional arguments for running PTA, and at the bottom
+it gives the simplest command-line usage, which involves two steps:
+* Creating a 'params' file
+* Running simulations
+
+So, lets start by creating a params file!
 
 ### Create and edit a new params file
+
+All PTA simulations are controlled by a 'params' file which contains all the
+settings relevant to the the _biological_ processes. The logic of differentiating
+between parameters in the params file and CLI arguments is to separate the details
+that are relevant to the _biology_ (params) from the details that are relevant
+to the _execution of the simulations_ (CLI arguments). You can share a params file
+with somebody else and they can run simulations on their own computer using
+CLI arguments that are relevant to the resources available to them (e.g. number of
+CPU cores) and the simulations they generate will be _comparable_ to those you
+have generated on your own computer. The params file encapsulates all the
+biologically relevant details of the simulations. Let's make one now by running PTA
+with the `-n` flag and specifying a name for our params file (required).
+
+![PTA Create New Params File](img/PTA-NewParamsFile.png)
+
+> **On the importance of naming files:** Here we will use Arianna's Malagasy
+> snake system as inspiration, so we call our params file `MG-Snakes`. In your
+> own work you should use names for your params files that are meaningful for
+> your system. Also, as usual, spaces are forbidden in params files names.
+
+You can see the newly created file pops up in the file browser on the left side.
+Double-clicking on the new `params-MG-Snakes.txt` will pop open this file in a
+simple text editor interface.
+
+![PTA Edit Params File](img/PTA-EditingParamsFile.png)
 
 ### Introduction to key model parameters
 
