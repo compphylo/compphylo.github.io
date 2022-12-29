@@ -89,16 +89,25 @@ simple text editor interface.
 
 You can see there are (currently) 12 model parameters which describe various
 aspects of the demographic model and the size and shape of the data to simulate.
-It can seem a little daunting at first, but we don't have to understand these
-all right now, so lets just focus on `npops`, the number of 'populations' to
-simulate for our co-demographic analysis. By 'populations' here what we mean to
-indicate are the number of independent lineages in the analysis, not specifically
-'populations' _per se_. The number of `npops` could represent species or
-subspecies or true populations, the taxonomic level isn't so important as their
-independence as demographic units within the analysis.
+It can seem a little daunting at first, so lets start with something simple:
+`npops`, or the number of 'populations' to simulate for our co-demographic
+analysis. This is simple because typically we will *know* how many populations
+there are in our data, so we can just plug in that number for this parameter.
+
+> **NOTE:** By **'populations'** here what we mean to indicate are the number of
+> independent lineages in the analysis, not specifically 'populations' _per se_.
+> The number of `npops` could represent species or subspecies or true populations,
+> the taxonomic level isn't so important as their independence as demographic
+> units within the analysis.
+
+Thinking further in this way we can break the parameters down into two
+categories: **things that we know** and **things that we want to know**. Let's
+start with 'things that we know.'
 
 #### Parameters that determine the shape and size of the data
-Now let's edit this file to more closely resemble the Ariann's Malagasy snake
+The shape and size of the data are things that we know coming into the analysis.
+
+Now let's edit this file to more closely resemble the Arianna's Malagasy snake
 data. In the text window change the following values:
 ```
 21                  ## [2] [npops]: Number of populations undergoing co-demographic processes
