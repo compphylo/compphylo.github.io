@@ -116,6 +116,7 @@ Now let's edit this file to more closely resemble Arianna's Malagasy snake
 data. In the text window change the following values:
 ```
 21                  ## [2] [npops]: Number of populations undergoing co-demographic processes
+6                   ## [3] [nsamps]: Numbers of samples for each populations
 150                 ## [8] [length]: Length in bp of each independent genomic region to simulate
 0                   ## [11] [recoms_per_gen]: Recombination rate within independent regions scaled per base per generation
 ```
@@ -151,7 +152,7 @@ When it's finished, your file should look like this:
 MG-Snakes            ## [0] [simulation_name]: The name of this simulation scenario
 ./default_PTA        ## [1] [project_dir]: Where to save files
 21                   ## [2] [npops]: Number of populations undergoing co-demographic processes
-4                    ## [3] [nsamps]: Numbers of samples for each populations
+6                    ## [3] [nsamps]: Numbers of samples for each populations
 10000                ## [4] [N_e]: Effective population size of the contemporary population
 1e5-5e5              ## [5] [tau]: Time of demographic change
 10                   ## [6] [epsilon]: Magnitude of demographic change
@@ -211,10 +212,30 @@ workshop. Now open the SIMOUT file by typing: `tabview default_PTA/MG-Snakes-SIM
 
 ![tabview inspect SIMOUT](img/tabview-InspectSimout.png)
 
-> #### **NOTE: Interacting with tabview**
-> Navigation: Use the arrow keys
-> Quitting: Type `q`
+> **NOTE:** Navigate in `tabview` with the arrow keys and quit by typing `q`.
+
+Just like in almost every other case of simulation-based inference, the PTA output
+file is composed of **parameters** and **data**. The parameters come from the
+values we indicated in the params file, and the data is a summary of the genetic
+variation generated based on those params.
+
+Spend some time looking at the SIMOUT file. The **parameters** begin at `zeta` and
+end at `Ne_s_iqr`. Some of these you might recognize (ζ for instance), others are
+derived from values in the params file (`taus_mean` is the _average_ time of
+demographic change for all populations).
+
+The **data** begins at `pop0-[[5_1]]` and continues to the end of the line. All
+of these somewhat arcane columns record the **'bins'** of the multi-dimensional site
+frequency spectrum (mSFS), which is the focal summarization of the genetic data
+used by PTA.
+
+![tabview inspect SFS](img/tabview-InspectSFS.png)
 
 
-
+The goal of simulation based inference is to understand the mapping between the
+**parameters** and the **data**, in other words, how do particular parameter
+values influence patterns in the data. These days, with very complex and
+parameter-rich models, we could never hope to do this by eye or even with
+classical statistical models like linear regression. This is where **machine
+learning** comes in, and that will be the focus of our next lesson!
 
