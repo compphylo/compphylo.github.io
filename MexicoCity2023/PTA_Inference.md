@@ -44,6 +44,9 @@ PTA.plotting.plot_simulations_pca("example_data/MG-Snakes/MG-Snakes-SIMOUT.csv",
 > Think about why this might be. If you have more time try to find the parameter
 > that generates the best separation in the data. What is it?
 
+**Is it useful to show simulations that don't make sense?** Maybe I could show the bad
+simulations with bad Ne values to show that you need to be careful with parameters.
+
 ### ML classification (model selection)
 
 
