@@ -173,11 +173,39 @@ ready to run some simulations!
 
 ### Running PTA simulations
 
+If you had luck with the challenge you must have found the `-s` command-line
+argument to indicate the number of simulations to run. When running simulations
+PTA will give a nice progress bar to show you things are running:
+
 ![PTA Run First Simulations](img/PTA-RunFirstSims.png)
 
+> #### **NOTE: Running parallel simulations**
+> You might have noticed in running the simulations that PTA reports `Parallelization
+> disabled.` This gives you a hint that parallelization is possible! But we don't
+> need or want to use this on Binder because you only get 1 core anyway, so it
+> wouldn't improve things to run simulations in parallel. If you run PTA on your
+> on computer or HPC you can use the `-c` argument to indicate the **number of
+> CPU cores** to run on, and PTA will automatically split simulations across all
+> these cores. Magic.
+
+OK! So now we ran 10 PTA co-demographic simulations, now what? Well, now first
+lets take a look at the simulation output to get a better idea of what kind of
+data the model generates.
+
 ### Inspecting simulation results
-* Remind me what units are t_s in again?
-* How can there not be an easier way to view CSV files on the CLI?
-* From `csvkit`. This seems needlessly complicated: `csvlook -d " " default_PTA/MG-Snakes-SIMOUT.csv | less -S`
+
+All PTA outputs go in a directory which is specified by the `project_dir` param
+in the params file (which by default is `default_PTA`. The simulated output file
+shares its name with the params file, so it's easier to identify which
+simulations came from which params. Putting that all together the output file for
+the simulations we just ran will be: `default_PTA/MG-Snakes-SIMOUT.csv`.
+
+Let us inspect this file using '[tabview](https://github.com/TabViewer/tabview)',
+a simple csv file viewer which is not natively installed on linux, but which we
+have included in the binder install for the purpose of making this easier for the
+workshop. Now open the SIMOUT file with `tabview default_PTA/MG-Snakes-SIMOUT.csv`.
+
+![tabview inspect SIMOUT](img/tabview-InspectSimout.png)
+
 
 
