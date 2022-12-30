@@ -117,6 +117,7 @@ data. In the text window change the following values:
 ```
 21                  ## [2] [npops]: Number of populations undergoing co-demographic processes
 6                   ## [3] [nsamps]: Numbers of samples for each populations
+100000              ## [4] [N_e]: Effective population size of the contemporary population
 150                 ## [8] [length]: Length in bp of each independent genomic region to simulate
 0                   ## [11] [recoms_per_gen]: Recombination rate within independent regions scaled per base per generation
 ```
@@ -135,6 +136,7 @@ parameters detailed below, but for computational efficiency we'll limit ourselve
 for now. Edit the following lines in the 'params-MG-Snakes.txt':
 ```
 1e5-5e5              ## [5] [tau]: Time of demographic change
+0.1                  ## [6] [epsilon]: Magnitude of demographic change
 0                    ## [7] [zeta]: Proportion of coexpanding taxa. Default will sample U~(0, 1)
 ```
 > **NOTE:** In the above `1e5` is a standard **scientific notation**
@@ -153,9 +155,9 @@ MG-Snakes            ## [0] [simulation_name]: The name of this simulation scena
 ./default_PTA        ## [1] [project_dir]: Where to save files
 21                   ## [2] [npops]: Number of populations undergoing co-demographic processes
 6                    ## [3] [nsamps]: Numbers of samples for each populations
-10000                ## [4] [N_e]: Effective population size of the contemporary population
+100000               ## [4] [N_e]: Effective population size of the contemporary population
 1e5-5e5              ## [5] [tau]: Time of demographic change
-10                   ## [6] [epsilon]: Magnitude of demographic change
+0.1                  ## [6] [epsilon]: Magnitude of demographic change
 0                    ## [7] [zeta]: Proportion of coexpanding taxa. Default will sample U~(0, 1)
 150                  ## [8] [length]: Length in bp of each independent genomic region to simulate
 100                  ## [9] [num_replicates]: Number of genomic regions to simulate
@@ -226,7 +228,6 @@ frequency spectrum (mSFS), which is the focal summarization of the genetic data
 used by PTA.
 
 ![tabview inspect SFS](img/tabview-InspectSFS.png)
-
 
 The goal of simulation based inference is to understand the mapping between the
 **parameters** and the **data**, in other words, how do particular parameter
