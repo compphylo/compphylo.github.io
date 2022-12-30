@@ -179,7 +179,8 @@ PTA will give a nice progress bar to show you things are running:
 
 <details>
   <summary>Click here to see how to run simulations.</summary>
-<p>![PTA Run First Simulations](img/PTA-RunFirstSims.png)</p>
+
+![PTA Run First Simulations](img/PTA-RunFirstSims.png)
 </details>
 
 > #### **NOTE: Running parallel simulations**
