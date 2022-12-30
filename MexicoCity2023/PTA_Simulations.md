@@ -178,16 +178,7 @@ If you had luck with the challenge you must have found the `-s` command-line
 argument to indicate the number of simulations to run. When running simulations
 PTA will give a nice progress bar to show you things are running:
 
-<details>
-  <summary>Click here to see how to run simulations.</summary>
-
-`wat` do
-```
-watdo
-```
 ![PTA Run First Simulations](img/PTA-RunFirstSims.png)
-
-</details>
 
 > #### **NOTE: Running parallel simulations**
 > You might have noticed in running the simulations that PTA reports `Parallelization
