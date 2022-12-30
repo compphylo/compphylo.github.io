@@ -180,8 +180,9 @@ PTA will give a nice progress bar to show you things are running:
 
 <details>
   <summary>Click here to see how to run simulations.</summary>
-
-![PTA Run First Simulations](img/PTA-RunFirstSims.png)
+    <pre>
+        ![PTA Run First Simulations](img/PTA-RunFirstSims.png)
+    </pre>
 </details>
 
 > #### **NOTE: Running parallel simulations**
@@ -239,3 +240,5 @@ parameter-rich models, we could never hope to do this by eye or even with
 classical statistical models like linear regression. This is where **machine
 learning** comes in, and that will be the focus of our next lesson!
 
+For now let's take a quick break, and then come back to talk about [using
+PTA simulations for machine learning inference](PTA_Inference.md).
