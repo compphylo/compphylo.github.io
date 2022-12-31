@@ -237,4 +237,4 @@ classical statistical models like linear regression. This is where **machine
 learning** comes in, and that will be the focus of our next lesson!
 
 For now let's take a quick break, and then come back to talk about [using
-PTA simulations for machine learning inference](PTA_Inference.md).
+PTA simulations for machine learning inference](PTA_Inference).

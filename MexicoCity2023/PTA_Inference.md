@@ -17,20 +17,83 @@
 ### Accessing a jupyter notebook on the cloud
 
 Click the '+' sign to open the App Launcher again. This time under the "Notebook"
-heading double-click "Python 3 (ipykernel)" to launch a new jupyter notebook.
-### PTA API mode
+heading click "Python 3 (ipykernel)" to launch a new jupyter notebook.
 
-### Download pre-baked simulations and toy empirical data
-**NB:** Here we can play the game where we give them a simulated dataset with a known zeta and see if they can figure it out.
+![New Jupyter Notebook]((/img/Inference-NewNotebook.png)
 
-#### Sanity checking your simulations
+Jupyter notebooks allow to run code 'interactively' and to display figures
+inside a web-based interface. PTA is written in python and we will use the
+notebook interface to look at some plots and access the PTA 'inference'
+methods. We don't assume knowledge of python here, we will only be making
+a few calls to the PTA toolkit.
+
+Jupyter notebooks are organized into **cells** where you can write code and
+then run the code within each cell. You can make new cells with the '+' button
+in the notebook toolbar, and you can run cells with the 'play' button. We'll
+practice this quite a bit now.
+
+Now we're going to a little setup in the first notebook cell. Copy and paste
+this into the cell and then press the 'play' button. What do you think will
+happen here?
 
 ```
 %matplotlib inline
 import PTA
-PTA.plotting.plot_simulations_pca("example_data/MG-Snakes/MG-Snakes-SIMOUT.csv", target="t_s")
+
+simulation_file = "example_data/MG-Snakes/MG-Snakes-SIMOUT.csv"
+```
+Nothing happened? No, no, no! Lots happened, just nothing that we can see!
+* `%matplotlib inline` - This tells the notebook to actually show us figures we plot.
+* `import PTA` - Tell the notebook to load the PTA module so we can use it.
+* `simulation_file = "example_data/MG-Snakes/MG-Snakes-SIMOUT.csv"` - Make the
+variable `simulation_file` refer to a file in the filesystem.
+
+> #### **NOTE: Using pre-baked simulations**
+> You may have noticed that we aren't using the `default_PTA/MG-Snakes-SIMOUT.csv`
+> file that we just created. This is because simulation-based ML inference like
+> this requires a **lot of simulations** (far more than we have time for everyone
+> to generate themselves in this workshop). Instead we are using a much bigger,
+> pre-baked simulation file that we created in advance using exactly the same
+> parameters as we just used moments ago, so these simulations are directly
+> comparable to those you just ran, there's just way more of them! We have stored
+> this big simulation file _inside_ the [PTA github repository](https://github.com/isaacovercast/PTA/tree/master/example_data/MG-Snakes),
+> in the `example_data` directory, so that everyone can easily access it.
+
+### PTA API mode
+
+OK, now we have the pre-baked simulation data 'loaded', what are we going to do
+with it? First things first, it's good practice to check your simulations
+to make sure the "make sense", i.e. did the parameters we chose result in
+simulations with meaningfully diffent outputs?
+
+#### Sanity checking your simulations
+Checking whether your simulations 'make sense' is sometimes not so straightforward.
+Fortunately, PTA has a `plotting` module with some helper functions to make this
+super easy! **Create a new cell in your notebook, type the following code and run it.**
+
+> **NOTE:** `t_s` is the sampled time of co-demographic change. It is sampled from
+> the range that we specified in the `tau` parameter in the params file.
+
+```
+PTA.plotting.plot_simulations_pca(simulation_file, target="t_s")
 ```
 ![Inference Plot PCA](img/Inference-PlotPCA.png)
+
+> #### **NOTE: Fixing it when plots don't show**
+> You might see the first time you try to run a command to plot a figure that
+> nothing actually happens. This is because plotting is a little _goofy_ inside
+> jupyter notebooks (for reasons that are both too boring and too complicated to go
+> into). You can always fix this by simply **re-running the cell that includes
+> `%matplotlib inline`, and then running the cell with the plot code again.**
+
+In this plot we are using **Principal component analysis (PCA)** which is a
+standard dimension-reduction technique. Each point in the plot represents the
+data from one simulation and all the points are colored by their `t_s` value.
+You can see the points are arranging themselves in a gradient based on `t_s`,
+and this is a good indication that the simulations 'make sense.' Similar values
+of `t_s` will generate similar output data and different values of `t_s` will
+generate different output data. This is good, it is the kind of variation the ML
+inference will key in on.
 
 > #### **Challenge: Plot the PCA with different 'target' parameters**
 > Look back at the 'parameters' in the column header of the MG-Snakes-SIMOUT.csv
@@ -44,14 +107,21 @@ PTA.plotting.plot_simulations_pca("example_data/MG-Snakes/MG-Snakes-SIMOUT.csv",
 > Think about why this might be. If you have more time try to find the parameter
 > that generates the best separation in the data. What is it?
 
-**Is it useful to show simulations that don't make sense?** Maybe I could show the bad
-simulations with bad Ne values to show that you need to be careful with parameters.
+Lets quickly look at some simulations with **bad** parameters, so you can see
+what simulations look like that don't 'make sense'.
+
+![Inference Plot PCA Bad Sims](img/Inference-PlotPCA-BadSims.png)
+
+Notice here how there's no _coherence_ in the plot based on `t_s` values.
+Everything is kind of all over the place. This is an indication that there
+is not good information in the simulations to differentiate `t_s` values.
 
 ### ML classification (model selection)
 
 
 ### Interpreting ML classification results
 
+**NB:** Here we can play the game where we give them a simulated dataset with a known zeta and see if they can figure it out.
 ### ML regression (parameter estimation)
 
 
