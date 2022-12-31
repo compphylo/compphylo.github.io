@@ -116,15 +116,29 @@ Notice here how there's no _coherence_ in the plot based on `t_s` values.
 Everything is kind of all over the place. This is an indication that there
 is not good information in the simulations to differentiate `t_s` values.
 
+> #### **Question: Why would some parameters generate 'bad' simulations?**
+> To generate these bad simulations we used very small `Ne` values with
+> respect to the size of `tau`. Why would this generate simulations with no
+> information?
+
 ### ML classification (model selection)
 
+**How many populations co-expanded synchronously?** <- This is the motivating
+question for ML 'classification' (or 'model selection' as it's sometimes called).
+In ML classification we consider a categorical **target** (or 'response') variable
+and we attempt to **classify** which category our empirical data belongs to.
+In this case our categorical target variable is `zeta_e` (the _realized_ number
+of co-expanding populations).
 
 ### Interpreting ML classification results
 
 **NB:** Here we can play the game where we give them a simulated dataset with a known zeta and see if they can figure it out.
+
+
 ### ML regression (parameter estimation)
 
-
+**When did the co-expanding populations change in size?** <- This is the motivating
+question for ML 'regression' (or 'parameter estimation').
 
 ### Interpreting ML regression results
 
