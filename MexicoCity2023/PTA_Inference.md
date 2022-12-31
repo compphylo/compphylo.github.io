@@ -127,18 +127,35 @@ is not good information in the simulations to differentiate `t_s` values.
 question for ML 'classification' (or 'model selection' as it's sometimes called).
 In ML classification we consider a categorical **target** (or 'response') variable
 and we attempt to **classify** which category our empirical data belongs to.
-In this case our categorical target variable is `zeta_e` (the _realized_ number
+In this case our categorical target variable is `zeta_e` (the _effective_ number
 of co-expanding populations).
 
 ### Interpreting ML classification results
 
 **NB:** Here we can play the game where we give them a simulated dataset with a known zeta and see if they can figure it out.
 
+<!--
+# Writing zeta values from a df to a file with index values
+with open("zeta-values.txt", 'w') as outfile:
+    outfile.write("idx\tzeta_e\n")
+    outfile.write("\n".join(["{idx}\t{zeta}".format(idx=idx, zeta=zeta) for idx, zeta in enumerate(zetas.values)]))
+
+# Writing simulated msfs in proper format to a file with corresponding index
+for idx in range(len(msfss)):
+    msfs = pd.DataFrame(msfss.iloc[idx])
+    msfs.T.to_csv("sim-empirical-msfs/sim-empirical-msfs-{idx}.csv".format(idx=idx), index=False, sep=" ")
+-->
+
+> #### **NOTE: Evaluating classification uncertainty**
+> [ML Classification Confusion Matrix](Inference-ConfusionMatrix.png)
 
 ### ML regression (parameter estimation)
 
 **When did the co-expanding populations change in size?** <- This is the motivating
-question for ML 'regression' (or 'parameter estimation').
+question for ML 'regression' (or 'parameter estimation'). In ML regression we
+consider a continuous target variable (e.g. `t_s`) and attempt to **estimate**
+the value of this target variable that is most probable given the empirical data.
+
 
 ### Interpreting ML regression results
 
