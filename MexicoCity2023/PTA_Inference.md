@@ -19,7 +19,7 @@
 Click the '+' sign to open the App Launcher again. This time under the "Notebook"
 heading click "Python 3 (ipykernel)" to launch a new jupyter notebook.
 
-![New Jupyter Notebook]((/img/Inference-NewNotebook.png)
+![New Jupyter Notebook]((img/Inference-NewNotebook.png)
 
 Jupyter notebooks allow to run code 'interactively' and to display figures
 inside a web-based interface. PTA is written in python and we will use the
