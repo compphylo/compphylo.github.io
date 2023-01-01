@@ -192,7 +192,7 @@ this short course.
 > **Activity: Attempt to predict `zeta_e` values for mystery simulations**
 > Time allowing, you may wish to try to classify some simulated mSFS with
 > _unknown_ (to you) `zeta_e` values. There exists a directory called
-> `example_data/MG-Snakes/sim-empirical-msfs/` which contains 20 mystery
+> `example_data/MG-Snakes/sim-msfs/` which contains 20 mystery
 > mSFS simulated with random `zeta_e` values. Choose one of these and in
 > a new notebook cell try to re-run the classification procedure we just
 > completed. The **key** containing the true `zeta_e` values is in that
@@ -200,12 +200,24 @@ this short course.
 > a guess for your mSFS! How close did you get?
 
 <!--
-# Writing zeta values from a df to a file with index values
-with open("zeta-values.txt", 'w') as outfile:
-    outfile.write("idx\tzeta_e\n")
-    outfile.write("\n".join(["{idx}\t{zeta}".format(idx=idx, zeta=zeta) for idx, zeta in enumerate(zetas.values)]))
+# Read in the sim file and split it into focal params and msfss
+sims = pd.read_csv("default_PTA/MG-Snakes-SIMOUT.csv", sep=" ").iloc[:20, :]
+true_values = sims[["zeta_e", "t_s", "taus_mean"]]
+# Learned by experimentation
+msfs_idx = 23
+msfss = sims.iloc[:, msfs_idx:] 
+
+# Writing param values from a df to a file with index values
+with open("true-values.txt", 'w') as outfile:
+    outfile.write("idx\tzeta_e\tt_s\ttaus_mean\n")
+    outfile.write("\n".join(["{idx}\t{zeta_e}\t{t_s}\t{taus_mean}".format(idx=idx,
+                                                                          zeta_e=x.zeta_e,
+                                                                          t_s=x.t_s,
+                                                                          taus_mean=x.taus_mean) for idx, x in true_values.iterrows()]))
 
 # Writing simulated msfs in proper format to a file with corresponding index
+import os
+os.mkdir("sim-empirical-msfs")
 for idx in range(len(msfss)):
     msfs = pd.DataFrame(msfss.iloc[idx])
     msfs.T.to_csv("sim-empirical-msfs/sim-empirical-msfs-{idx}.csv".format(idx=idx), index=False, sep=" ")
@@ -251,6 +263,36 @@ rgr.predict()
 
 ### Interpreting ML regression results
 
+The `predict()` function returns point-estimate predictions for three key
+model parameters:
+* `t_s` - The time of synchronous demographic change.
+* `omega` - The index of dispersion (we won't talk about this right now).
+* `taus_mean` - The average time of demographic change for all other populations.
+
+Focusing on `t_s`, again you will probably see your estimate is slightly different
+than the one shown above. This is for the same reason as the differences in `zeta_`
+classification probabilities above, i.e. there is *stochasticity* within the
+ML learning process.
+
+This stochasticity implies that our point estimate should involve some **uncertainty**,
+again just like above in the classification process. The ML `predict()` function
+gives us an estimate, but how much uncertainty is there in this estimate? In a
+frequentist or Bayesian context we would be able to derive a 95% confidence interval
+(or HPD in the Bayesian case). With ML it's not so straightforward. We might perform
+**quantile regression** to get a sense of variability in the estimate, but that is
+beyond the scope of this brief workshop.
+
+> #### **NOTE: Evaluating regression uncertainty**
+> Again, we can evaluate uncertainty in our parameter estimates by using
+> **cross-validation** and then plotting the true vs predicted values to display the
+> results. You can see an example of this here:
+> [ML Regression Cross-validation](img/Inference-RegressionCV.png).
+> Think of this as like running `predict()` on simulations with known parameter
+> values over and over and over again, and looking at how 'good' the predictions
+> are in an aggregated sense. You can do this cross-validation in PTA, but we're
+> not going to do it right now for lack of time. Details are in the online documentation.
 
 ### Running PTA on your own data
+
+
 
