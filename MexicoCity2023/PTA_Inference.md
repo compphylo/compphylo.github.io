@@ -213,7 +213,7 @@ for idx in range(len(msfss)):
 > while others are classified with more uncertainty. We can actually
 > _systematically_ evaluate uncertainty per `zeta_e` value using **cross-validation**
 > and then plotting a **confusion matrix** to display the results. You can see an
-> example of this here: [ML Classification Confusion Matrix](Inference-ConfusionMatrix.png).
+> example of this here: [ML Classification Confusion Matrix](img/Inference-ConfusionMatrix.png).
 > PTA includes methods for performing this cross-validation and plotting confusion
 > matrices, but the exploration of this is beyond the scope of this short workshop.
 > Details may be found in the online documentation.
