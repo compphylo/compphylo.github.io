@@ -196,7 +196,7 @@ this short course.
 > mSFS simulated with random `zeta_e` values. Choose one of these and in
 > a new notebook cell try to re-run the classification procedure we just
 > completed. The **key** containing the true `zeta_e` values is in that
-> same directory in the file `zeta-values.txt`. Don't peek until you have
+> same directory in the file `true-values.txt`. Don't peek until you have
 > a guess for your mSFS! How close did you get?
 
 <!--
@@ -269,9 +269,11 @@ model parameters:
 * `omega` - The index of dispersion (we won't talk about this right now).
 * `taus_mean` - The average time of demographic change for all other populations.
 
-Focusing on `t_s`, again you will probably see your estimate is slightly different
-than the one shown above. This is for the same reason as the differences in `zeta_`
-classification probabilities above, i.e. there is *stochasticity* within the
+Focusing on `t_s`: first of all it looks **pretty good** considering the small number
+of simulations we are using and the fact that we didn't do any of the fancy 'tuning'
+to improve ML performance. Next, again you will probably see your estimate is slightly
+different than the one shown above. This is for the same reason as the differences in
+`zeta_` classification probabilities above, i.e. there is *stochasticity* within the
 ML learning process.
 
 This stochasticity implies that our point estimate should involve some **uncertainty**,
@@ -292,7 +294,20 @@ beyond the scope of this brief workshop.
 > are in an aggregated sense. You can do this cross-validation in PTA, but we're
 > not going to do it right now for lack of time. Details are in the online documentation.
 
+Looking at the regression cross-validation plots, the take-home message here
+is: parameter estimates are pretty good and seem pretty reliable **for the given
+set of parameters used to generate these specific simulations.** 
+
+> **Activity: Attempt to predict `t_s` values for mystery simulations**
+> Returning to the mystery simulations in `example_data/MG-Snakes/sim-msfs/`,
+> the `true-values.txt` file also records the _known_ `t_s` values for
+> each of the simulations. Choose one of these and in a new notebook cell try
+> to re-run the regression procedure we just Don't peek until you have
+> a guess for your mSFS! How close did you get?
+
 ### Running PTA on your own data
 
+Ok, now you have seen what we can do with PTA. The next obvious question is
+**"How do I run this on my own data?**
 
 
