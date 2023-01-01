@@ -231,10 +231,26 @@ question for ML 'regression' (or 'parameter estimation'). In ML regression we
 consider a continuous target variable (e.g. `t_s`) and attempt to **estimate**
 the value of this target variable that is most probable given the empirical data.
 
+**Note:** The simulated `t_s` value for the `sim-empirical-msfs-z_e-8.txt` was 0.398.
+
+```
+%%time
+rgr = PTA.inference.Regressor(msfs, simulation_file)
+rgr.predict()
+```
+
+> #### **NOTE: `%%time` jupyter notebook magics**
+> The first line of the last set of commands (`%%time`) is a **magic** command
+> inside jupyter notebooks which tells it to tell you how long it takes to run
+> the commands inside this cell. This 'magic' has to be the first line in the
+> cell and when you run the cell it'll time everything that happens within it
+> and report the resulting time after it finishes. Magic!
+
+![Inference Regression Results](img/Inference-RegressionResults.png)
+
 
 ### Interpreting ML regression results
 
-The simulated `t_s` value for the `sim-empirical-msfs-z_e-8.txt` was 0.398.
 
 ### Running PTA on your own data
 
