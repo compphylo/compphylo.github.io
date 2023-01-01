@@ -308,6 +308,25 @@ set of parameters used to generate these specific simulations.**
 ### Running PTA on your own data
 
 Ok, now you have seen what we can do with PTA. The next obvious question is
-**"How do I run this on my own data?**
+**"How do I run this on my own data?** Unforutnately it's a _little_ tricky
+at the moment.
 
+What data do you need:
+* SNP data in vcf format
+* A file assigning individuals in the vcf to 'populations'
 
+What you need to do:
+* Run [easySFS](https://github.com/isaacovercast/easySFS) to generate
+one SFS per population.
+* Import all these into PTA to generate an mSFS using `PTA.msfs.multiSFS`
+
+There's an [example jupyter notebook](https://github.com/isaacovercast/PTA) of
+how to do all this in the PTA github repositry. The simplest thing would be to
+copy this notebook and modify it for your own data.
+
+The most important thing to remember in switching to analysing real data is:
+**Everything always work better with simulations!** :) Remember this when you
+are working with real data, and keep your expectations reasonable. Real data
+certainly doesn't conform to the simple model of PTA, so this will compound
+the uncertainty in your ML inference. But this is the data and the model that
+we have, and we can only "give the data a break" and do the best we can. :)
