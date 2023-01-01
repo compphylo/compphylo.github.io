@@ -239,14 +239,14 @@ rgr = PTA.inference.Regressor(msfs, simulation_file)
 rgr.predict()
 ```
 
+![Inference Regression Results](img/Inference-RegressionResults.png)
+
 > #### **NOTE: jupyter notebook magics - `%%time`**
 > The first line of the last set of commands (`%%time`) is a **magic** command
 > inside jupyter notebooks which tells it to tell you how long it takes to run
 > the commands inside this cell. This 'magic' has to be the first line in the
 > cell and when you run the cell it'll time everything that happens within it
 > and report the resulting time after it finishes. Magic!
-
-![Inference Regression Results](img/Inference-RegressionResults.png)
 
 
 ### Interpreting ML regression results
