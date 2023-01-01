@@ -239,7 +239,7 @@ rgr = PTA.inference.Regressor(msfs, simulation_file)
 rgr.predict()
 ```
 
-> #### **NOTE: `%%time` jupyter notebook magics**
+> #### **NOTE: jupyter notebook magics - `%%time`**
 > The first line of the last set of commands (`%%time`) is a **magic** command
 > inside jupyter notebooks which tells it to tell you how long it takes to run
 > the commands inside this cell. This 'magic' has to be the first line in the
