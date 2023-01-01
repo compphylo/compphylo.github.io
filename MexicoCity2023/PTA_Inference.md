@@ -14,6 +14,12 @@
 > - Plot and interpret ML inference.
 > - Understand the steps to reproduce this analysis with your own data on your own computer.
 
+## Table of Contents
+* [PTA API mode for ML inference](<#pta-api-mode-in-a-jupyter-notebook>)
+* [ML Classification](<#ml-classification>)
+* [ML Regression](<#ml-regression>)
+* [Running PTA on your own data](<#running-pta-on-your-own-data>)
+
 ### Accessing a jupyter notebook on the cloud
 
 Click the '+' sign to open the App Launcher again. This time under the "Notebook"
@@ -59,7 +65,7 @@ variable `simulation_file` refer to a file in the filesystem.
 > this big simulation file _inside_ the [PTA github repository](https://github.com/isaacovercast/PTA/tree/master/example_data/MG-Snakes),
 > in the `example_data` directory, so that everyone can easily access it.
 
-### PTA API mode
+### PTA API mode in a jupyter notebook
 
 OK, now we have the pre-baked simulation data 'loaded', what are we going to do
 with it? First things first, it's good practice to check your simulations
@@ -121,7 +127,7 @@ is not good information in the simulations to differentiate `t_s` values.
 > respect to the size of `tau`. Why would this generate simulations with no
 > information?
 
-### ML classification (model selection)
+### ML classification
 
 **How many populations co-expanded synchronously?** <- This is the motivating
 question for ML 'classification' (or 'model selection' as it's sometimes called).
@@ -218,7 +224,7 @@ for idx in range(len(msfss)):
 > matrices, but the exploration of this is beyond the scope of this short workshop.
 > Details may be found in the online documentation.
 
-### ML regression (parameter estimation)
+### ML regression
 
 **When did the co-expanding populations change in size?** <- This is the motivating
 question for ML 'regression' (or 'parameter estimation'). In ML regression we
@@ -230,5 +236,5 @@ the value of this target variable that is most probable given the empirical data
 
 The simulated `t_s` value for the `sim-empirical-msfs-z_e-8.txt` was 0.398.
 
-### Next steps: How do run this on your *own* data
+### Running PTA on your own data
 
