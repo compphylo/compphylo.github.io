@@ -130,9 +130,68 @@ and we attempt to **classify** which category our empirical data belongs to.
 In this case our categorical target variable is `zeta_e` (the _effective_ number
 of co-expanding populations).
 
+PTA includes an `inference` module that takes care of a bunch of the ML bookkeeping
+and simplifies ML inference from simulations and empirical data. For this
+exercise we'll use a simulated mSFS with a known `zeta_e` value of 8, and we'll use
+the pre-baked simulation file that we already loaded in previously. In a new
+notebook cell type the following commands and run it:
+
+```
+msfs = "example_data/MG-Snakes/sim-empirical-msfs-z_e-8.txt"
+cla = PTA.inference.Classifier(msfs, simulation_file)
+cla.predict()
+```
+
+It will think for a while and then print results to the screen. The results are a
+vector of classification probabilities for each of the possible `zeta_e` values.
+Larger values indicate higher prediction probability. Still, it's a little tricky
+to evaluate by eye.
+
+```
+(          zeta_e
+ estimate       7,
+          0    1    2     3     4     5     6     7     8     9   ...    12  \
+ zeta_e  0.0  0.0  0.0  0.02  0.02  0.03  0.07  0.16  0.07  0.14  ...  0.03   
+ 
+           13    14    15    16   17    18    19    20    21  
+ zeta_e  0.04  0.01  0.04  0.04  0.0  0.08  0.07  0.03  0.02  
+```
+
+> #### **Question: Why are these results different from yours?**
+> In all likelihood the results you see here are different from those you
+> will get in your own analysis. Why might this be?
+
 ### Interpreting ML classification results
 
-**NB:** Here we can play the game where we give them a simulated dataset with a known zeta and see if they can figure it out.
+The vector of classification probabilities can be difficult to eyeball,
+particularly when there are so many `zeta_e` values (the results get
+truncated). We provide a solution for visualizing classification results
+with the `plot()` function of `PTA.Classifier`. Open a new cell and run
+the plot command: `cla.plot()`
+
+![Inference Classifier Results](img/Inference-ClassifierResults.png)
+
+Now it's a little easier to see there are peaks in prediction probability
+at 7 and 9 with most of the _weight_ of the prediction probability
+centered around 8. Standard practice in these kinds of things is to
+take the **mode** of the distribution as the point estimate. Using this
+method we would say of these results, **the most probable `zeta_e` for this
+mSFS is 7.**
+
+Typically one would want to be more careful in drawing conclusions from this
+result, taking into account **prediction uncertainty** for example. This is
+something to think about, but not something we can get into detail about in
+this short course.
+
+> **Activity: Attempt to predict `zeta_e` values for mystery simulations**
+> Time allowing, you may wish to try to classify some simulated mSFS with
+> _unknown_ (to you) `zeta_e` values. There exists a directory called
+> `example_data/MG-Snakes/sim-empirical-msfs/` which contains 20 mystery
+> mSFS simulated with random `zeta_e` values. Choose one of these and in
+> a new notebook cell try to re-run the classification procedure we just
+> completed. The **key** containing the true `zeta_e` values is in that
+> same directory in the file `zeta-values.txt`. Don't peek until you have
+> a guess for your mSFS! How close did you get?
 
 <!--
 # Writing zeta values from a df to a file with index values
@@ -147,7 +206,17 @@ for idx in range(len(msfss)):
 -->
 
 > #### **NOTE: Evaluating classification uncertainty**
-> [ML Classification Confusion Matrix](Inference-ConfusionMatrix.png)
+> Collectively you may have found that some values of `zeta_e` are 'easier'
+> to classify accurately than others. This is because there is inherent **uncertainty**
+> in the classification process, and this uncertainty is not uniform across `zeta_e`
+> values. In other words, some `zeta_e` values are classified more accurately
+> while others are classified with more uncertainty. We can actually
+> _systematically_ evaluate uncertainty per `zeta_e` value using **cross-validation**
+> and then plotting a **confusion matrix** to display the results. You can see an
+> example of this here: [ML Classification Confusion Matrix](Inference-ConfusionMatrix.png).
+> PTA includes methods for performing this cross-validation and plotting confusion
+> matrices, but the exploration of this is beyond the scope of this short workshop.
+> Details may be found in the online documentation.
 
 ### ML regression (parameter estimation)
 
@@ -158,6 +227,8 @@ the value of this target variable that is most probable given the empirical data
 
 
 ### Interpreting ML regression results
+
+The simulated `t_s` value for the `sim-empirical-msfs-z_e-8.txt` was 0.398.
 
 ### Next steps: How do run this on your *own* data
 
