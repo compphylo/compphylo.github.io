@@ -4,7 +4,7 @@
 > ### **Questions:**
 >
 > - How do I run PTA simulations?
-> - What parameters can I cange and how do I change them?
+> - What parameters can I change and how do I change them?
 > - What do the simulations results look like?
 > 
 > ### **Learning objectives:**
