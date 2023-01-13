@@ -56,7 +56,7 @@ no computational experience. Workshop attendees will need to bring a laptop comp
 
 ## Schedule/Workshop Structure
 
-* [Background on comparative phylogeography](https://docs.google.com/presentation/d/1lHaMy4gizGOZbfQ8-zJqNZjLqOv0gZ5s/edit?usp=sharing&ouid=104169659317553534133&rtpof=true&sd=true) **[1 hr]**
+* [Background on comparative phylogeography](https://docs.google.com/presentation/d/1OY2Rvom6PWhvxjgQbiff5WIfrRZ_zM29rT5eUgfdxbI) **[1 hr]**
   * Why do we do this? How?
   * What kinds of questions can we ask and answer?
   * Examples from the literature.
