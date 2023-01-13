@@ -67,4 +67,6 @@ no computational experience. Workshop attendees will need to bring a laptop comp
   * Machine learning inference using simulations and toy empirical data.
 
 ## CompPhylo Mexico City 2023 Group Photo
-Don't forget to get a nice group photo!
+
+![RADCamp-2023-UNAM-1](img/RADCamp-2023-UNAM-1.jpg)
+![RADCamp-2023-UNAM-2](img/RADCamp-2023-UNAM-2.jpg)
