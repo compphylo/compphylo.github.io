@@ -19,6 +19,7 @@ their own work in the evenings.
 ## Upcoming events:
 
 ## Past Events:
+* [Process-based modeling and statistical inference-2023-Albuquerque](https://role-model.github.io/process-models-workshop/)
 * [CompPhylo2023-MexicoCity](MexicoCity2023/index.md)
 * [CompPhylo2019-Oslo](Oslo2019/index.md)
 
